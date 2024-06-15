@@ -6,8 +6,28 @@
     "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "simple-import-sort", "import"],
   "rules": {
-    "no-unused-vars": "error"
+    "no-unused-vars": "error",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          // React related packages come first, then other external packages
+          ["^react", "^@?\\w"],
+          // Next.js packages
+          ["^next"],
+          // Internal packages
+          ["^@app/"],
+          ["^@src"],
+          // Relative imports
+          ["^\\."],
+          // Side effect imports
+          ["^\\u0000"],
+          // Style imports
+          ["module.scss"]
+        ]
+      }
+    ]
   }
 }
