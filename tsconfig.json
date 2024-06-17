@@ -2,6 +2,8 @@
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -17,8 +19,9 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@app/*": ["./src/*"]
+      "@app/*": ["./src/app/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
