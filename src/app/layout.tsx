@@ -1,4 +1,4 @@
-import { Theme, ThemeProps } from '@radix-ui/themes';
+import { Box, Theme, ThemeProps } from '@radix-ui/themes';
 
 import type { Metadata } from 'next';
 import { Allura, Roboto_Mono } from 'next/font/google';
@@ -46,13 +46,14 @@ function RootLayout({
 
       <body>
         <Theme {...themeConfig}>
-          <div
+          <Box
             className={`${roboto_mono.variable} ${allura.variable}`}
             style={roboto_mono.style}
+            minHeight="100vh"
+            position="relative"
           >
-            <p>Root Layout</p>
             {children}
-          </div>
+          </Box>
         </Theme>
       </body>
     </html>

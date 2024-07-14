@@ -1,31 +1,25 @@
 'use client';
 
-import { useEffect } from 'react';
-import { HamburgerMenuIcon } from '@radix-ui/react-icons';
-import { Button, Flex, Text } from '@radix-ui/themes';
+import { Flex, Heading } from '@radix-ui/themes';
 
-import { makeCategoriesReqWithErrCatch } from '@app/api/fetchData';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
+import MenuButton from './components/menuButton';
 import styles from './header.module.css';
-import type { HeaderProps } from './types';
+import { getPageNameByPath } from './utils/getPageNameByPath';
 
-export const Header: React.FC<HeaderProps> = ({ children }) => {
-  useEffect(() => {
-    const res = async function () {
-      const r = await makeCategoriesReqWithErrCatch();
-      console.log('res', r);
-    };
-    res();
-  }, []);
+export const Header = () => {
+  const path = usePathname();
+
   return (
     <header>
-      <Flex>
-        <Text className={`${styles['child-text']} 'allura-font'`}>
-          {children}
-        </Text>
-        <Button className="menu-button">
-          <HamburgerMenuIcon />
-        </Button>
+      <Flex className={styles.header}>
+        <Heading as="h1" className={`${styles['text']} 'allura-font'`}>
+          <Link href="/">{getPageNameByPath(path)}</Link>
+        </Heading>
+
+        <MenuButton />
       </Flex>
     </header>
   );

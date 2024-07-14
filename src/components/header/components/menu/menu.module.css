@@ -1,0 +1,35 @@
+.menu {
+  position: fixed;
+  top: 50px;
+  right: -200px;
+  height: 100vh;
+  width: 200px;
+  background-color: var(--color-primary);
+  padding: 10px;
+  border: 1px solid #ccc;
+  transition: right 0.3s ease-in-out;
+  z-index: 100;
+}
+
+.menu nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu nav ul li {
+  margin: 10px 0;
+}
+
+.menu nav ul li a {
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+}
+
+.menu nav ul li a:hover {
+  border-bottom: 0.1px solid #fff;
+}
+
+.open {
+  right: 0;
+}

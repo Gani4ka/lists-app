@@ -1,10 +1,13 @@
-import { Button, Flex } from '@radix-ui/themes';
+import { Flex } from '@radix-ui/themes';
 
-export const Footer: React.FC = () => {
+import AddButton from './components/addButton';
+import styles from './footer.module.css';
+
+export const Footer = () => {
   return (
     <footer>
-      <Flex>
-        <Button>+</Button>
+      <Flex className={styles.footer}>
+        <AddButton />
       </Flex>
     </footer>
   );
