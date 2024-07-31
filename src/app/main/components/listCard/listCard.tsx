@@ -8,12 +8,12 @@ import { setRandomIconColor } from '@app/utils/setRandomIconColor';
 import styles from './listCard.module.css';
 import type { ListCardProps } from './listCard.types';
 
-const ListCard = ({ list }: ListCardProps) => {
+const ListCard = ({ list, children }: ListCardProps) => {
   const [ref, width] = useElementWidth();
   return (
     <Flex
       ref={ref}
-      key={list.id}
+      key={list._id}
       className={styles.listItem}
       justify={'center'}
       align={'center'}
@@ -22,12 +22,11 @@ const ListCard = ({ list }: ListCardProps) => {
       style={{
         backgroundColor: setRandomIconColor(),
         height: width,
+        minWidth: '100px',
         minHeight: '100px',
       }}
     >
-      <Text style={{ flexBasis: '100%', textAlign: 'center' }}>
-        {list.category.icon}
-      </Text>
+      <Text style={{ flexBasis: '100%', textAlign: 'center' }}>{children}</Text>
       <Heading as={'h3'} className={styles.heading}>
         {list.title}
       </Heading>

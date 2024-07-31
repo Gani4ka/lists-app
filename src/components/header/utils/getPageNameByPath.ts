@@ -6,13 +6,18 @@ export function getPageNameByPath(path: string) {
       return PAGES_NAMES.home;
     case PATHS.categories:
       return PAGES_NAMES.categories;
-    case PATHS.category:
+    case PATHS.category: {
       return PAGES_NAMES.category;
+    }
     case PATHS.about:
       return PAGES_NAMES.about;
     case PATHS.contact:
       return PAGES_NAMES.contact;
-    default:
+    default: {
+      const categoryPageRegexp = /category\//;
+      const matchCategoryPage = path.match(categoryPageRegexp);
+      if (matchCategoryPage) return PAGES_NAMES.category;
       return PAGES_NAMES.home;
+    }
   }
 }

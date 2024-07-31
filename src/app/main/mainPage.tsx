@@ -1,21 +1,25 @@
+import { Suspense } from 'react';
+import type { IconType } from 'react-icons';
 import { Box, Flex, Grid } from '@radix-ui/themes';
 
-// import {
-//   getCategories,
-//   getSubcategories,
-//   makeCategoriesReqWithErrCatch,
-// } from '@app/api/fetchData';
-import { mockListsList } from './_mock_';
+import { getAllSubcategories, getCategories } from '@app/api/fetchData';
+import Loader from '@app/components/loader';
+import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
+
 import ListCard from './components/listCard';
 import styles from './mainPage.module.css';
+import { getCategoryIcon } from './utils';
 
 export default async function MainPage() {
-  // const data = await getSubcategories();
+  const subcategoriesResponse = await getAllSubcategories();
+  const categoriesResponse = await getCategories();
 
-  // const data2 = await getCategories();
-  // console.log('da', data2);
-  // const r = await makeCategoriesReqWithErrCatch();
-  // console.log('data', r);
+  const categories = categoriesResponse?.categories;
+  const subcategories = subcategoriesResponse?.subcategories;
+
+  const icons = (await import('react-icons/fc')) as unknown as {
+    [key: string]: IconType;
+  };
 
   return (
     <main className={styles.main}>
@@ -23,11 +27,21 @@ export default async function MainPage() {
         <Flex mb={'4'} justify={'end'} className={styles.filter}>
           Sort by
         </Flex>
-        <Grid columns="3" gap="3" rows="repeat(auto, auto)" width="auto">
-          {mockListsList.map((list) => (
-            <ListCard key={list.id} list={list} />
-          ))}
-        </Grid>
+        <Suspense fallback={<Loader />}>
+          <Grid columns="3" gap="3" rows="repeat(auto, auto)" width="auto">
+            {subcategories &&
+              categories &&
+              subcategories.map((list) => {
+                const icon = getCategoryIcon(list.categoryId, categories);
+                const Icon = icons[icon] || icons[DEFAULT_CATEGORY_ICON];
+                return (
+                  <ListCard key={list._id} list={list}>
+                    <Icon />
+                  </ListCard>
+                );
+              })}
+          </Grid>
+        </Suspense>
       </Box>
     </main>
   );
