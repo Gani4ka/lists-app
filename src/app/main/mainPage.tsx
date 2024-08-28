@@ -2,7 +2,8 @@ import { Suspense } from 'react';
 import type { IconType } from 'react-icons';
 import { Box, Flex, Grid } from '@radix-ui/themes';
 
-import { getAllSubcategories, getCategories } from '@app/api/fetchData';
+import { getCategories } from '@app/api/categories';
+import { getAllSubcategories } from '@app/api/subcategory';
 import Loader from '@app/components/loader';
 import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
 

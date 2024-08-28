@@ -2,8 +2,10 @@ import { PAGES_NAMES, PATHS } from '@app/constants/pages';
 
 export function getPageNameByPath(path: string) {
   switch (path) {
-    case (PATHS.home, PATHS.list):
+    case PATHS.home:
       return PAGES_NAMES.home;
+    case PATHS.list:
+      return PAGES_NAMES.list;
     case PATHS.categories:
       return PAGES_NAMES.categories;
     case PATHS.category: {

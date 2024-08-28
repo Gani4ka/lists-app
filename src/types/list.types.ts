@@ -4,14 +4,24 @@ export interface CategoryType {
   icon: string;
 }
 
+export type CategoryCreateType = Omit<CategoryType, '_id'>;
+
 export interface List {
-  _id: string;
+  _id?: string;
   title: string;
   category: CategoryType;
 }
 
 export interface SubcategoriesType {
-  _id: string;
+  _id?: string;
   title: string;
   categoryId: string;
+}
+
+export interface ItemType {
+  _id: string;
+  title: string;
+  subcategoryId: string;
+  description?: string;
+  isDone?: boolean;
 }

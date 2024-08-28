@@ -4,5 +4,8 @@ export function getCategoryByTitle(
   title: string,
   categories: CategoryType[] | undefined
 ) {
+  if (title?.includes('-')) {
+    title = title.replace(/-/g, ' ');
+  }
   return categories?.find((category) => category.title === title);
 }

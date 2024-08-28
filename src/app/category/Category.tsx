@@ -1,8 +1,7 @@
 import type { IconType } from 'react-icons';
 import { Flex } from '@radix-ui/themes';
 
-import { getCategories } from '@app/api/fetchData';
-import Loader from '@app/components/loader';
+import { getCategories } from '@app/api/categories';
 import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
 
 import CategoryCard from './components';
@@ -14,6 +13,7 @@ const Category = async ({ params }: CategoryProps) => {
   const categories = categoriesResponse?.categories;
 
   const categoryName = params.slug;
+
   const currentCategory = getCategoryByTitle(categoryName, categories);
 
   const icons = (await import('react-icons/fc')) as unknown as {
@@ -25,13 +25,9 @@ const Category = async ({ params }: CategoryProps) => {
 
   return (
     <Flex direction={'column'} align={'center'}>
-      {currentCategory ? (
-        <CategoryCard category={currentCategory}>
-          <Icon />
-        </CategoryCard>
-      ) : (
-        <Loader />
-      )}
+      <CategoryCard category={currentCategory}>
+        <Icon />
+      </CategoryCard>
     </Flex>
   );
 };
