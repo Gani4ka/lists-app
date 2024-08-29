@@ -1,0 +1,6 @@
+.textfield {
+  border-bottom: 2px solid var(--color-primary);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
