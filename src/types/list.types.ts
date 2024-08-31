@@ -25,3 +25,9 @@ export interface ItemType {
   description?: string;
   isDone?: boolean;
 }
+export interface User {
+  _id?: string;
+  username: string;
+  email: string;
+  password: string;
+}
