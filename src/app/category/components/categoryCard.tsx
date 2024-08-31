@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 
 import { createCategory, updateCategory } from '@app/api/category';
 import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
+import { setRandomIconColor } from '@app/utils/setRandomIconColor';
 
 import { CategoryIcon } from './categoryIcon';
 import type { CategoryCardProps } from './types';
@@ -27,11 +28,13 @@ const CategoryCard = ({ category, children }: CategoryCardProps) => {
           _id: category._id,
           title: newTitle,
           icon: newIcon || DEFAULT_CATEGORY_ICON,
+          color: category.color || setRandomIconColor(),
         });
       } else {
         await createCategory({
           title: newTitle || '',
           icon: newIcon || DEFAULT_CATEGORY_ICON,
+          color: setRandomIconColor(),
         });
       }
       alert('Category updated');

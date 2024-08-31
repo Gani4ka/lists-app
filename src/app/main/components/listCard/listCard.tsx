@@ -5,12 +5,11 @@ import { Flex, Heading, Text } from '@radix-ui/themes';
 import Link from 'next/link';
 
 import { useElementWidth } from '@app/hooks/useElementWidth';
-import { setRandomIconColor } from '@app/utils/setRandomIconColor';
 
 import styles from './listCard.module.css';
 import type { ListCardProps } from './listCard.types';
 
-const ListCard = ({ list, children }: ListCardProps) => {
+const ListCard = ({ list, children, color }: ListCardProps) => {
   const formattedTitle = list.title.replace(/\s+/g, '_');
 
   const [ref, width] = useElementWidth();
@@ -25,7 +24,7 @@ const ListCard = ({ list, children }: ListCardProps) => {
         p={'1'}
         wrap={'wrap'}
         style={{
-          backgroundColor: setRandomIconColor(),
+          backgroundColor: color,
           height: width,
           minWidth: '100px',
           minHeight: '100px',

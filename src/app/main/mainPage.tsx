@@ -9,7 +9,7 @@ import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
 
 import ListCard from './components/listCard';
 import styles from './mainPage.module.css';
-import { getCategoryIcon } from './utils';
+import { getCategoriesColor, getCategoryIcon } from './utils';
 
 export default async function MainPage() {
   const subcategoriesResponse = await getAllSubcategories();
@@ -35,8 +35,9 @@ export default async function MainPage() {
               subcategories.map((list) => {
                 const icon = getCategoryIcon(list.categoryId, categories);
                 const Icon = icons[icon] || icons[DEFAULT_CATEGORY_ICON];
+                const color = getCategoriesColor(list.categoryId, categories);
                 return (
-                  <ListCard key={list._id} list={list}>
+                  <ListCard key={list._id} list={list} color={color}>
                     <Icon />
                   </ListCard>
                 );
