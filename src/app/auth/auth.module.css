@@ -1,0 +1,6 @@
+.link span {
+  text-decoration: underline;
+}
+.link span:hover {
+  cursor: pointer;
+}
