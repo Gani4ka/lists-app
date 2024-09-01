@@ -35,3 +35,7 @@ export interface AuthUser {
   user: User;
   token: string;
 }
+
+export interface AuthError {
+  message: string;
+}
