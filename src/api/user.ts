@@ -2,28 +2,34 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-import { AuthUser, User } from '@app/types/list.types';
+import { AuthUser } from '@app/types/list.types';
 
 export const setCookies = (name: string, data: string) => {
   cookies().set(name, data);
 };
-export async function signupUser(user: User) {
+export async function signupUser(formData: FormData) {
   try {
-    const signUpRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}signup`, {
+    const userData = {
+      email: formData.get('email') as string,
+      password: formData.get('password') as string,
+      username: formData.get('username') as string,
+    };
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(userData),
     });
-
-    return signUpRes;
   } catch (err) {
     console.log('error', err);
   }
 }
-export async function signinUser(email: string, password: string) {
+export async function signinUser(formData: FormData) {
   try {
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
     const signInRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}login`, {
       method: 'POST',
       headers: {
@@ -45,7 +51,7 @@ export async function signinUser(email: string, password: string) {
   } catch (err) {
     console.log('login error:', err);
   } finally {
-    redirect('/categories');
+    redirect('/');
   }
 }
 
