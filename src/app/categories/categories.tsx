@@ -8,7 +8,6 @@ import { CategoryCard } from './components/categoryCard';
 const Categories = async () => {
   const categoriesResponse = await getCategories();
   const categories = categoriesResponse?.categories;
-
   return (
     <div>
       <Suspense fallback={<Loader />}>
