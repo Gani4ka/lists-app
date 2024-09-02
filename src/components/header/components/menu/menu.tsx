@@ -67,7 +67,6 @@ const Menu = ({ isOpen, hasUser }: MenuProps) => {
           <li>
             <Link style={{ color: 'white' }} onClick={() => logout()}>
               Logout
-              {/* <BaseLink href={PATHS.logout}>{PAGES_NAMES.logout}</BaseLink> */}
             </Link>
           </li>
         </ul>

@@ -1,13 +1,15 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
-import * as Label from '@radix-ui/react-label';
-import { Button } from '@radix-ui/themes';
+import { useFormState } from 'react-dom';
 
 import { signupUser } from '@app/api/user';
 import { AuthError } from '@app/types/list.types';
 
-import styles from '../auth.module.css';
+import AuthLink from '../components/AuthLink';
+import Email from '../components/Email';
+import Password from '../components/Password';
+import SubmitButton from '../components/SubmitButton';
+import Username from '../components/Username';
 const initialState: AuthError = {
   message: '',
 };
@@ -22,67 +24,18 @@ export default function SignUp() {
     }
   }, [state]);
 
-  const content = (
-    <form action={formAction} onSubmit={() => setErrorMessage('')}>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          margin: '1rem 0',
-        }}
-      >
-        <Label.Root className="LabelRoot" htmlFor="username">
-          Username
-        </Label.Root>
-        <input className="Input" type="text" id="username" name="username" />
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          margin: '1rem 0',
-        }}
-      >
-        <Label.Root className="LabelRoot" htmlFor="email">
-          Email
-        </Label.Root>
-        <input className="Input" type="email" id="email" name="email" />
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          margin: '1rem 0',
-        }}
-      >
-        <Label.Root className="LabelRoot" htmlFor="password">
-          Password
-        </Label.Root>
-        <input
-          className="Input"
-          type="password"
-          id="password"
-          name="password"
-        />
-      </div>
-      <SubmitButton />
-      <a className={styles.link} href="/auth/login">
-        Already have an account? <span>Login</span> then
-      </a>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-    </form>
-  );
-
-  return content;
-}
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
   return (
-    <div>
-      <Button disabled={pending} type="submit">
-        Sign Up
-      </Button>
-    </div>
+    <form action={formAction} onSubmit={() => setErrorMessage('')}>
+      <Username />
+      <Email />
+      <Password />
+      <SubmitButton btnText={'SignUp'} />
+      <AuthLink
+        text={'Already have an account?'}
+        linkText={'Login'}
+        errorMessage={errorMessage}
+        link={'/auth/login'}
+      />
+    </form>
   );
 }

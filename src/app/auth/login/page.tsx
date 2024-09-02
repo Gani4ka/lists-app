@@ -1,11 +1,11 @@
+import { Flex } from '@radix-ui/themes';
+
 import Login from './Login';
 
 export default async function Page() {
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-    >
-      <Login />;
-    </div>
+    <Flex direction={'column'} align={'center'}>
+      <Login />
+    </Flex>
   );
 }

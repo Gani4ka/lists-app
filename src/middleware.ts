@@ -8,5 +8,13 @@ export async function middleware(request: NextRequest) {
   }
 }
 export const config = {
-  matcher: ['/categories', '/category', '/list', '/about', '/'],
+  matcher: [
+    '/categories',
+    '/category',
+    '/category/:slug*',
+    '/list',
+    '/list/:slug*',
+    '/about',
+    '/',
+  ],
 };

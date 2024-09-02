@@ -16,6 +16,6 @@ export enum PATHS {
   'list' = '/list',
   'about' = '/about',
   'contact' = '/contact',
-  'auth' = 'auth',
+  'auth' = '/auth/login',
   'logout' = 'logout',
 }

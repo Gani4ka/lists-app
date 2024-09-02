@@ -13,7 +13,6 @@ export async function signupUser(prevState: AuthError, formData: FormData) {
     password: formData.get('password') as string,
     username: formData.get('username') as string,
   };
-  console.log('sign up');
 
   const signUpRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}signup`, {
     method: 'POST',
@@ -33,7 +32,6 @@ export async function signupUser(prevState: AuthError, formData: FormData) {
 export async function signinUser(prevState: AuthError, formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
-  console.log('sign in');
   const signInRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}login`, {
     method: 'POST',
     headers: {
@@ -45,21 +43,17 @@ export async function signinUser(prevState: AuthError, formData: FormData) {
   if (signInRes.ok) {
     const json = await signInRes.json();
     const authUser = { user: json.user, token: json.token } as AuthUser;
-    console.log('authUser:', authUser);
+    //save token and user's data to use it for each api call
     setCookies('auth-user', authUser.user.username);
     setCookies('token', authUser.token);
     redirect('/');
   } else {
-    setCookies('auth-user', '');
-    setCookies('token', '');
     const err = await signInRes.json();
-    console.log('else', err);
     return { message: err.error };
   }
 }
 
 export const logout = () => {
-  console.log('loging out');
   cookies().delete('auth-user');
   cookies().delete('token');
   redirect('/auth');
