@@ -10,7 +10,7 @@ import { getPageNameByPath } from './utils/getPageNameByPath';
 type Props = {
   hasUser: boolean;
 };
-const Header = ({ hasUser }: Props) => {
+const AuthHeader = ({ hasUser }: Props) => {
   const path = usePathname();
 
   return (
@@ -24,4 +24,4 @@ const Header = ({ hasUser }: Props) => {
     </header>
   );
 };
-export default Header;
+export default AuthHeader;

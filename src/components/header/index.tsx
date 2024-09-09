@@ -1,10 +1,10 @@
 import { cookies } from 'next/headers';
 
-import Header from './header';
+import AuthHeader from './auth-header';
 
-export default function Page() {
+export default function Header() {
   const user = cookies().get('auth-user');
   const hasUser = user && user.value ? true : false;
 
-  return <Header hasUser={hasUser} />;
+  return <AuthHeader hasUser={hasUser} />;
 }
