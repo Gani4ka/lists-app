@@ -5,6 +5,8 @@ export enum PAGES_NAMES {
   list = 'List',
   about = 'About',
   contact = 'Contact',
+  auth = 'Login',
+  logout = 'Logout',
 }
 
 export enum PATHS {
@@ -14,4 +16,6 @@ export enum PATHS {
   'list' = '/list',
   'about' = '/about',
   'contact' = '/contact',
+  'auth' = '/auth/login',
+  'logout' = 'logout',
 }
