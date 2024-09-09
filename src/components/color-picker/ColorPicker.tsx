@@ -39,7 +39,7 @@ const ColorPicker = ({ color, setColor }: Props) => {
         onChangeComplete={handleColorChange}
         colors={pickerColors}
       />
-      <p>{color}</p>
+      <p>Your color:{color}</p>
     </Flex>
   );
 };
