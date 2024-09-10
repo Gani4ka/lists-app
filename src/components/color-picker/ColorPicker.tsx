@@ -1,32 +1,10 @@
-'use client';
-import React from 'react';
 import { CirclePicker, ColorResult } from 'react-color';
 import { Flex } from '@radix-ui/themes';
-const pickerColors = [
-  '#f44336',
-  '#e91e63',
-  '#9c27b0',
-  '#673ab7',
-  '#3f51b5',
-  '#2196f3',
-  '#03a9f4',
-  '#00bcd4',
-  '#009688',
-  '#4caf50',
-  '#8bc34a',
-  '#cddc39',
-  '#ffeb3b',
-  '#ffc107',
-  '#ff9800',
-  '#ff5722',
-  '#795548',
-  '#607d8b',
-];
-type Props = {
-  setColor: (color: string) => void;
-  color: string;
-};
-const ColorPicker = ({ color, setColor }: Props) => {
+
+import { pickerColors } from '@app/constants/pickerColors';
+import { ColorPickerType } from '@app/types/colorPicker.types';
+
+const ColorPicker = ({ color, setColor }: ColorPickerType) => {
   const handleColorChange = (color: ColorResult) => {
     setColor(color.hex);
   };
