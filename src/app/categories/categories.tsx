@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { Flex } from '@radix-ui/themes';
 
 import { getCategories } from '@app/api/categories';
 import Loader from '@app/components/loader';
@@ -10,14 +11,14 @@ const Categories = async () => {
   const categories = categoriesResponse?.categories;
 
   return (
-    <div>
+    <Flex direction={'column'} align={'center'}>
       <Suspense fallback={<Loader />}>
         {categories &&
           categories.map((category) => (
             <CategoryCard key={category._id} category={category} />
           ))}
       </Suspense>
-    </div>
+    </Flex>
   );
 };
 

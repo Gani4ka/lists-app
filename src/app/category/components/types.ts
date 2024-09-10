@@ -7,4 +7,6 @@ export interface CategoryCardProps {
 
 export interface CategoryIconProps {
   children: React.ReactNode;
+  onClick: () => void;
+  color: string;
 }

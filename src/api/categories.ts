@@ -16,7 +16,11 @@ export async function getCategories(): Promise<
         },
         cache: 'no-store',
       });
-      return res.json();
+      console.log('res', res);
+
+      const result = await res.json();
+      console.log('result', result);
+      return result;
     } else {
       throw new Error('Token is not found/valid. Try loging in again');
     }

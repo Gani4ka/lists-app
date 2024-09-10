@@ -10,15 +10,15 @@ import ColorPicker from '@app/components/color-picker/ColorPicker';
 import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
 import { setRandomIconColor } from '@app/utils/setRandomIconColor';
 
-import styles from './category.module.css';
-import { CategoryIcon } from './categoryIcon';
-import type { CategoryCardProps } from './types';
+import styles from '../../category/components/category.module.css';
 
-const CategoryCard = ({ category, children }: CategoryCardProps) => {
+const AddEditCategory = () => {
+  const category = { title: 'Hello', icon: '', color: '#fff', _id: '1' };
   const [newTitle, setNewTitle] = useState<string>(category?.title ?? '');
-  const [newIcon, setNewIcon] = useState(category?.icon);
+  const [newIcon] = useState(category?.icon);
   const router = useRouter();
   const [color, setColor] = useState(category?.color ?? setRandomIconColor());
+
   const handleCancel = () => {
     router.back();
   };
@@ -46,24 +46,24 @@ const CategoryCard = ({ category, children }: CategoryCardProps) => {
     }
   };
 
-  function editIcon() {
-    //TODO - add icon picker
-    setNewIcon(category?.icon);
-  }
+  // function editIcon() {
+  //   //TODO - add icon picker
+  //   setNewIcon(category?.icon);
+  // }
 
   return (
     <Flex
-      className="category-card"
       direction={'column'}
       gap={'1rem'}
       align={'center'}
+      style={{ width: '50%' }}
     >
       <Heading as="h6">
         {category ? 'Update category' : 'Create category'}
       </Heading>
-      <CategoryIcon onClick={editIcon} color={color}>
+      {/* <CategoryIcon onClick={editIcon} color={color}>
         {children}
-      </CategoryIcon>
+      </CategoryIcon> */}
       <ColorPicker setColor={setColor} color={color} />
 
       <Text wrap={'wrap'} style={{ maxWidth: '14rem' }}>
@@ -73,7 +73,7 @@ const CategoryCard = ({ category, children }: CategoryCardProps) => {
         className="edit-section"
         direction={'column'}
         gap={'1rem'}
-        style={{ width: '100%' }}
+        style={{ width: '50%' }}
       >
         <input
           type="text"
@@ -84,16 +84,19 @@ const CategoryCard = ({ category, children }: CategoryCardProps) => {
           multiple={true}
         />
         <Flex className="buttons" justify={'between'}>
-          <Button onClick={handleCancel} className={styles['category-button']}>
-            Cancel
-          </Button>
           <Button onClick={handleSave} className={styles['category-button']}>
             Save
+          </Button>
+          <Button
+            onClick={handleCancel}
+            className={styles['category-button']}
+            color="blue"
+          >
+            Cancel
           </Button>
         </Flex>
       </Flex>
     </Flex>
   );
 };
-
-export default CategoryCard;
+export default AddEditCategory;

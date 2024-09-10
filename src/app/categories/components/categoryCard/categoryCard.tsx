@@ -1,6 +1,6 @@
 import type { IconType } from 'react-icons';
 import { FaPencilAlt, FaPlus } from 'react-icons/fa';
-import { Button, Flex } from '@radix-ui/themes';
+import { Button, Flex, Text } from '@radix-ui/themes';
 
 import { headers } from 'next/headers';
 import Link from 'next/link';
@@ -30,21 +30,22 @@ export const CategoryCard = async (props: CategoryCardProps) => {
       align="center"
       justify="between"
       wrap="nowrap"
+      style={{ width: '50%', marginTop: '2rem' }}
     >
-      <Flex
-        className="category-card"
-        align="center"
-        justify="between"
-        wrap="nowrap"
-      >
-        <Link href={url} className={classes.link}>
-          <div>
-            <Icon />
-          </div>
-          <div>{title}</div>
-        </Link>
-      </Flex>
-      <Flex>
+      <Link href={`/categories/${category._id}`} className={classes.link}>
+        <Flex
+          direction={'row'}
+          justify={'between'}
+          align={'center'}
+          style={{ width: '100%' }}
+          gap={'1rem'}
+        >
+          <Icon />
+          <Text>{title}</Text>
+        </Flex>
+      </Link>
+
+      <Flex gap={'1rem'} align={'center'}>
         <Button>
           <FaPlus />
         </Button>

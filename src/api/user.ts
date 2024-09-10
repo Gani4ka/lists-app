@@ -7,6 +7,16 @@ import { AuthError, AuthUser } from '@app/types/list.types';
 export const setCookies = (name: string, data: string) => {
   cookies().set(name, data);
 };
+
+export const getUserToken = (): string => {
+  const token = cookies().get('token');
+  if (token && token.value) {
+    return token.value;
+  } else {
+    throw new Error('Token is not found/valid. Try loging in again');
+  }
+};
+
 export async function signupUser(prevState: AuthError, formData: FormData) {
   const userData = {
     email: formData.get('email') as string,
