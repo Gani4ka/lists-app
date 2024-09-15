@@ -9,8 +9,7 @@ import type { CategoryProps } from './types';
 import { getCategoryByTitle } from './utils';
 
 const Category = async ({ params }: CategoryProps) => {
-  const categoriesResponse = await getCategories();
-  const categories = categoriesResponse?.categories;
+  const categories = await getCategories();
 
   const categoryName = params.slug;
 

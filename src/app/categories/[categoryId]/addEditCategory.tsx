@@ -1,23 +1,28 @@
 'use client';
 
 import { useState } from 'react';
+// import { IconType } from 'react-icons';
+// import * as icons from 'react-icons';
 import { Button, Flex, Heading, Text } from '@radix-ui/themes';
 
 import { useRouter } from 'next/navigation';
 
 import { createCategory, updateCategory } from '@app/api/category';
+// import { CategoryIcon } from '@app/app/category/components/categoryIcon';
 import ColorPicker from '@app/components/color-picker/ColorPicker';
 import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
 import { setRandomIconColor } from '@app/utils/setRandomIconColor';
 
 import styles from '../../category/components/category.module.css';
+import { CategoryCardProps } from '../components/categoryCard/types';
 
-const AddEditCategory = () => {
-  const category = { title: 'Hello', icon: '', color: '#fff', _id: '1' };
+const AddEditCategory = ({ category }: CategoryCardProps) => {
   const [newTitle, setNewTitle] = useState<string>(category?.title ?? '');
   const [newIcon] = useState(category?.icon);
   const router = useRouter();
   const [color, setColor] = useState(category?.color ?? setRandomIconColor());
+  // const Icon =
+  //   (category && icons[category.icon]) || icons[DEFAULT_CATEGORY_ICON];
 
   const handleCancel = () => {
     router.back();
@@ -25,6 +30,7 @@ const AddEditCategory = () => {
 
   const handleSave = async () => {
     try {
+      let message = '';
       if (category && newTitle) {
         await updateCategory({
           _id: category._id,
@@ -32,17 +38,20 @@ const AddEditCategory = () => {
           icon: newIcon || DEFAULT_CATEGORY_ICON,
           color: color || setRandomIconColor(),
         });
+        message = 'Category updated';
       } else {
         await createCategory({
           title: newTitle || '',
           icon: newIcon || DEFAULT_CATEGORY_ICON,
           color: color ?? setRandomIconColor(),
         });
+        message = 'Category created';
       }
-      alert('Category updated');
+      alert(message);
       handleCancel();
     } catch (error) {
-      alert('Error updating category');
+      console.error('Error updating/creating category', error);
+      alert('Error updating/creating category');
     }
   };
 
@@ -62,7 +71,7 @@ const AddEditCategory = () => {
         {category ? 'Update category' : 'Create category'}
       </Heading>
       {/* <CategoryIcon onClick={editIcon} color={color}>
-        {children}
+        <Icon />
       </CategoryIcon> */}
       <ColorPicker setColor={setColor} color={color} />
 
