@@ -8,7 +8,7 @@ export const setCookies = (name: string, data: string) => {
   cookies().set(name, data);
 };
 
-export const getUserToken = (): string => {
+export const getUserToken = async (): Promise<string> => {
   const token = cookies().get('token');
   if (token && token.value) {
     return token.value;

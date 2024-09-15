@@ -1,13 +1,15 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
+
 import type { CategoryCreateType, CategoryType } from '@app/types/list.types';
 
 import { getUserToken } from './user';
 
 export async function createCategory(data: CategoryCreateType) {
   try {
-    const token = getUserToken();
-    if (token && token) {
+    const token = await getUserToken();
+    if (token) {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}categories`, {
         method: 'POST',
         headers: {
@@ -16,7 +18,9 @@ export async function createCategory(data: CategoryCreateType) {
         },
         body: JSON.stringify(data),
       });
-      return await res.json();
+      const result = await res.json();
+      await reloadCategories();
+      return result;
     }
   } catch (e) {
     console.log('error', e);
@@ -25,7 +29,7 @@ export async function createCategory(data: CategoryCreateType) {
 
 export async function updateCategory(data: CategoryType) {
   try {
-    const token = getUserToken();
+    const token = await getUserToken();
     if (token) {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}categories/${data._id}`,
@@ -38,7 +42,9 @@ export async function updateCategory(data: CategoryType) {
           body: JSON.stringify(data),
         }
       );
-      return await res.json();
+      const result = await res.json();
+      await reloadCategories();
+      return result;
     }
   } catch (e) {
     console.log('error', e);
@@ -47,7 +53,7 @@ export async function updateCategory(data: CategoryType) {
 
 export async function deleteCategory(id: string) {
   try {
-    const token = getUserToken();
+    const token = await getUserToken();
     if (token) {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}categories/${id}`,
@@ -59,9 +65,14 @@ export async function deleteCategory(id: string) {
           },
         }
       );
-      return await res.json();
+      const result = await res.json();
+      await reloadCategories();
+      return result;
     }
   } catch (e) {
     console.log('error', e);
   }
 }
+const reloadCategories = async () => {
+  revalidateTag('categories');
+};

@@ -18,7 +18,7 @@ const AddButton = () => {
         router.push('/list');
         break;
       case PATHS.categories:
-        router.push('/category');
+        router.push('/categories/new');
         break;
       case PATHS.category:
         alert('Adding new category');

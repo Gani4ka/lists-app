@@ -31,8 +31,9 @@ const AddEditCategory = ({ category }: AddEditProps) => {
   const handleSave = async () => {
     try {
       let message = '';
+      let requestResult = null;
       if (category && newTitle) {
-        await updateCategory({
+        requestResult = await updateCategory({
           _id: category._id,
           title: newTitle,
           icon: newIcon || DEFAULT_CATEGORY_ICON,
@@ -40,12 +41,15 @@ const AddEditCategory = ({ category }: AddEditProps) => {
         });
         message = 'Category updated';
       } else {
-        await createCategory({
+        requestResult = await createCategory({
           title: newTitle || '',
           icon: newIcon || DEFAULT_CATEGORY_ICON,
           color: color ?? setRandomIconColor(),
         });
         message = 'Category created';
+      }
+      if (requestResult && requestResult.error) {
+        message = requestResult.error;
       }
       alert(message);
       handleCancel();
