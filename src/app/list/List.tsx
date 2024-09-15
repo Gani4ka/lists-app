@@ -6,9 +6,7 @@ import type { ListProps } from './types';
 import { getData } from './utils/getData';
 
 const List = async ({ params }: ListProps) => {
-  const currentList = params.slug || '';
-
-  const [listName, listId] = currentList.split('-');
+  const listId = params.id;
 
   const list = await getData('subcategory', listId);
   const listOfItems = await getData('subcategoryItems', listId);
@@ -27,7 +25,7 @@ const List = async ({ params }: ListProps) => {
     <Flex direction={'column'} align={'center'}>
       <ListForm
         listOfItems={listOfItems}
-        listTitle={listName}
+        listTitle={list?.title}
         listId={listId}
         listCategoryId={list?.categoryId}
         categories={categories}

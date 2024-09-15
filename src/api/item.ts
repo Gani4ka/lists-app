@@ -32,7 +32,7 @@ export async function getSubcategoryItems(
 export async function createItem(
   subCategoryId: string,
   data: ItemType
-): Promise<{ item: ItemType } | undefined> {
+): Promise<{ subcategoryItem: ItemType } | undefined> {
   try {
     const token = cookies().get('token');
     if (token && token.value) {
@@ -58,7 +58,7 @@ export async function createItem(
 export async function updateItem(
   subCategoryId: string,
   data: ItemType
-): Promise<{ item: ItemType } | undefined> {
+): Promise<{ subcategoryItem: ItemType } | undefined> {
   try {
     const token = cookies().get('token');
     if (token && token.value) {
@@ -109,7 +109,7 @@ export async function updateItemMany(
 
 export async function deleteItem(
   itemId: string
-): Promise<{ item: ItemType } | undefined> {
+): Promise<{ subcategoryItem: ItemType } | undefined> {
   try {
     const token = cookies().get('token');
     if (token && token.value) {

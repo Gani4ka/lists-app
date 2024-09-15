@@ -8,7 +8,7 @@ import { CreateItem } from './components/createItem';
 import type { ItemsFormProps } from './types';
 
 export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
-  const [items, setItems] = useState(listOfItems);
+  const [items, setItems] = useState(listOfItems || []);
 
   function handleTitleChange(index: number, newTitle: string) {
     const updatedItems = [...(items || [])];
@@ -25,8 +25,13 @@ export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
 
   async function handleDelete(e: MouseEvent<HTMLButtonElement>, id: string) {
     e.preventDefault();
-    await deleteItem(id);
-    setItems((items) => items?.filter((item) => item._id !== id));
+    const response = await deleteItem(id);
+
+    response?.subcategoryItem &&
+      setItems((items) => {
+        const itemsRest = items?.filter((item) => item._id !== id);
+        return itemsRest;
+      });
   }
 
   async function handleSave(e: React.FormEvent<HTMLFormElement>) {
@@ -73,7 +78,7 @@ export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
           </Button>
         )}
 
-        <CreateItem subcategoryId={listId} />
+        <CreateItem subcategoryId={listId} setItems={setItems} />
       </Form.Root>
     </Flex>
   );

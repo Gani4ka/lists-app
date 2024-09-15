@@ -1,4 +1,13 @@
 .heading {
   font-size: 14px;
   text-align: center;
+  line-height: 1.2;
+  line-clamp: 3;
+  max-height: calc(1.2 * 3);
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }

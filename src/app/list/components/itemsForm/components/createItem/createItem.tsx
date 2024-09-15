@@ -9,7 +9,7 @@ import type { ItemType } from '@app/types/list.types';
 
 import type { CreateItemProps } from './types';
 
-export const CreateItem = ({ subcategoryId }: CreateItemProps) => {
+export const CreateItem = ({ subcategoryId, setItems }: CreateItemProps) => {
   const [title, setTitle] = useState('');
 
   async function handleAdd(e: MouseEvent<HTMLButtonElement>) {
@@ -20,7 +20,13 @@ export const CreateItem = ({ subcategoryId }: CreateItemProps) => {
       _id: '',
     };
 
-    await createItem(subcategoryId, item);
+    const response = await createItem(subcategoryId, item);
+
+    response?.subcategoryItem &&
+      setItems((items: ItemType[]) => {
+        return [...items, response.subcategoryItem];
+      });
+    setTitle('');
   }
 
   return (
