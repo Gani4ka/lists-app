@@ -1,7 +1,7 @@
 import { getCategoryById } from '@app/api/categories';
 
+import AddEditCategory from '../components/AddEditCategory';
 import { CategoryParamProp } from '../components/categoryCard/types';
-import AddEditCategory from './AddEditCategory';
 
 export default async function CategoryPage({
   params,
