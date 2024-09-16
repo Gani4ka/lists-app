@@ -1,6 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { IconType } from 'react-icons';
+import { FaBasketShopping, FaBook, FaListCheck } from 'react-icons/fa6';
+import { PiAirplaneTiltFill } from 'react-icons/pi';
 // import { IconType } from 'react-icons';
 // import * as icons from 'react-icons';
 import { Button, Flex, Heading, Text } from '@radix-ui/themes';
@@ -13,16 +16,33 @@ import ColorPicker from '@app/components/color-picker/ColorPicker';
 import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
 import { setRandomIconColor } from '@app/utils/setRandomIconColor';
 
-import styles from '../category.module.css';
+import { CategoryIconItem } from '../types';
+import classes from './categoryCard/classes.module.css';
 import { AddEditProps } from './categoryCard/types';
 
+export const categoryIcons: CategoryIconItem[] = [
+  { id: 1, name: 'shopping', icon: FaBasketShopping },
+  { id: 2, name: 'book', icon: FaBook },
+  { id: 3, name: 'list', icon: FaListCheck },
+  { id: 4, name: 'travel', icon: PiAirplaneTiltFill },
+];
 const AddEditCategory = ({ category }: AddEditProps) => {
-  const [newTitle, setNewTitle] = useState<string>(category?.title ?? '');
-  const [newIcon] = useState(category?.icon);
+  const [categoryTitle, setCategoryTitle] = useState<string>('');
+  const [categoryIcon, setCategoryIcon] = useState<CategoryIconItem>();
+  const [categoryColor, setCategoryColor] = useState<string>('');
   const router = useRouter();
-  const [color, setColor] = useState(category?.color ?? setRandomIconColor());
-  // const Icon =
-  //   (category && icons[category.icon]) || icons[DEFAULT_CATEGORY_ICON];
+
+  useEffect(() => {
+    if (category) {
+      setCategoryTitle(category.title);
+      const selectedIcon =
+        categoryIcons.find(
+          (icon: CategoryIconItem) => icon.name === category.icon
+        ) ?? categoryIcons[2];
+      setCategoryIcon(selectedIcon);
+      setCategoryColor(category.color ?? setRandomIconColor());
+    }
+  }, [category]);
 
   const handleCancel = () => {
     router.back();
@@ -32,19 +52,19 @@ const AddEditCategory = ({ category }: AddEditProps) => {
     try {
       let message = '';
       let requestResult = null;
-      if (category && newTitle) {
+      if (category && categoryTitle) {
         requestResult = await updateCategory({
           _id: category._id,
-          title: newTitle,
-          icon: newIcon || DEFAULT_CATEGORY_ICON,
-          color: color || setRandomIconColor(),
+          title: categoryTitle,
+          icon: categoryIcon?.name || DEFAULT_CATEGORY_ICON,
+          color: categoryColor || setRandomIconColor(),
         });
         message = 'Category updated';
       } else {
         requestResult = await createCategory({
-          title: newTitle || '',
-          icon: newIcon || DEFAULT_CATEGORY_ICON,
-          color: color ?? setRandomIconColor(),
+          title: categoryTitle || '',
+          icon: categoryIcon?.name || DEFAULT_CATEGORY_ICON,
+          color: categoryColor ?? setRandomIconColor(),
         });
         message = 'Category created';
       }
@@ -61,7 +81,7 @@ const AddEditCategory = ({ category }: AddEditProps) => {
 
   // function editIcon() {
   //   //TODO - add icon picker
-  //   setNewIcon(category?.icon);
+  //   // setNewIcon(category?.icon);
   // }
 
   return (
@@ -69,40 +89,36 @@ const AddEditCategory = ({ category }: AddEditProps) => {
       direction={'column'}
       gap={'1rem'}
       align={'center'}
-      style={{ width: '50%' }}
+      className={classes.category}
     >
-      <Heading as="h6">
+      <Heading as="h6" className={classes.header}>
         {category ? 'Update category' : 'Create category'}
       </Heading>
-      {/* <CategoryIcon onClick={editIcon} color={color}>
-        <Icon />
-      </CategoryIcon> */}
-      <ColorPicker setColor={setColor} color={color} />
 
-      <Text wrap={'wrap'} style={{ maxWidth: '14rem' }}>
-        {newTitle}
+      {/* <CategoryIcon onClick={editIcon} color={categoryColor}>
+        {categoryIcon}
+      </CategoryIcon> */}
+      <ColorPicker setColor={setCategoryColor} color={categoryColor} />
+      <Text wrap={'wrap'} className={classes.text}>
+        {categoryTitle}
       </Text>
-      <Flex
-        className="edit-section"
-        direction={'column'}
-        gap={'1rem'}
-        style={{ width: '50%' }}
-      >
+      <Flex className={classes['flex-input']} direction={'column'} gap={'1rem'}>
         <input
           type="text"
-          value={newTitle || category?.title}
+          value={categoryTitle || category?.title}
           placeholder={category?.title || 'Category title'}
-          onChange={(e) => setNewTitle(e.target.value)}
-          style={{ height: '2rem' }}
+          onChange={(e) => setCategoryTitle(e.target.value)}
+          className={classes.input}
           multiple={true}
         />
-        <Flex className="buttons" justify={'between'}>
-          <Button onClick={handleSave} className={styles['category-button']}>
+
+        <Flex gap={'2rem'} className={classes.buttons}>
+          <Button onClick={handleSave} className={classes['category-button']}>
             Save
           </Button>
           <Button
             onClick={handleCancel}
-            className={styles['category-button']}
+            className={classes['category-button']}
             color="blue"
           >
             Cancel

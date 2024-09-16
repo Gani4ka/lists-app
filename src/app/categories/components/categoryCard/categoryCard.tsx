@@ -19,11 +19,10 @@ export const CategoryCard = async (props: CategoryCardProps) => {
   const url = `/categories/${category._id}`;
   return (
     <Flex
-      className="category-card"
+      className={classes['main-container']}
       align="center"
       justify="between"
       wrap="nowrap"
-      style={{ width: '50%', marginTop: '2rem' }}
     >
       <Link href={url} className={classes.link}>
         <Flex
