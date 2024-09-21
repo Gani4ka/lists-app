@@ -17,7 +17,7 @@ export async function getAllSubcategories(): Promise<
           {
             method: 'GET',
             headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+              Authorization: `Bearer ${token.value}`,
               'Content-Type': 'application/json',
             },
             next: { tags: ['subcategory'] },
@@ -42,7 +42,7 @@ export async function getSubcategory(
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+            Authorization: `Bearer ${token.value}`,
             'Content-Type': 'application/json',
           },
           next: { tags: ['subcategory'] },

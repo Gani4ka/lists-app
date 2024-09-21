@@ -1,3 +1,5 @@
+'use client';
+
 import { MouseEvent, useState } from 'react';
 import * as Form from '@radix-ui/react-form';
 import { Button, Checkbox, Flex } from '@radix-ui/themes';

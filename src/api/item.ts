@@ -16,7 +16,7 @@ export async function getSubcategoryItems(
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+            Authorization: `Bearer ${token.value}`,
             'Content-Type': 'application/json',
           },
           next: { tags: ['items'] },
@@ -41,7 +41,7 @@ export async function createItem(
         {
           method: 'POST',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+            Authorization: `Bearer ${token.value}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
@@ -67,7 +67,7 @@ export async function updateItem(
         {
           method: 'PUT',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+            Authorization: `Bearer ${token.value}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
@@ -93,7 +93,7 @@ export async function updateItemMany(
         {
           method: 'PUT',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+            Authorization: `Bearer ${token.value}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
@@ -118,7 +118,7 @@ export async function deleteItem(
         {
           method: 'DELETE',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+            Authorization: `Bearer ${token.value}`,
             'Content-Type': 'application/json',
           },
         }

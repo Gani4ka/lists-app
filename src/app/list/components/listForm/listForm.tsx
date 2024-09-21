@@ -12,12 +12,12 @@ import {
 } from '@app/api/subcategory';
 import type { SubcategoriesType } from '@app/types/list.types';
 
-import { ItemsForm } from '../itemsForm';
+// import { ItemsForm } from '../itemsForm';
 import classes from './styles.module.css';
 import type { ListFormProps } from './types';
 
 export const ListForm = ({
-  listOfItems,
+  // listOfItems,
   listTitle,
   listId,
   listCategoryId: initialListCategoryId,
@@ -109,8 +109,6 @@ export const ListForm = ({
           Save
         </Button>
       </Form.Root>
-
-      {listId && <ItemsForm listOfItems={listOfItems} listId={listId} />}
     </Flex>
   );
 };
