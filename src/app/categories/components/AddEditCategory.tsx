@@ -1,17 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { IconType } from 'react-icons';
 import { FaBasketShopping, FaBook, FaListCheck } from 'react-icons/fa6';
 import { PiAirplaneTiltFill } from 'react-icons/pi';
-// import { IconType } from 'react-icons';
-// import * as icons from 'react-icons';
 import { Button, Flex, Heading, Text } from '@radix-ui/themes';
 
 import { useRouter } from 'next/navigation';
 
 import { createCategory, updateCategory } from '@app/api/category';
-// import { CategoryIcon } from '@app/app/category/components/categoryIcon';
 import ColorPicker from '@app/components/color-picker/ColorPicker';
 import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
 import { setRandomIconColor } from '@app/utils/setRandomIconColor';
@@ -21,16 +17,20 @@ import classes from './categoryCard/classes.module.css';
 import { AddEditProps } from './categoryCard/types';
 
 export const categoryIcons: CategoryIconItem[] = [
-  { id: 1, name: 'shopping', icon: FaBasketShopping },
-  { id: 2, name: 'book', icon: FaBook },
-  { id: 3, name: 'list', icon: FaListCheck },
-  { id: 4, name: 'travel', icon: PiAirplaneTiltFill },
+  { id: 1, name: 'shopping', Icon: FaBasketShopping },
+  { id: 2, name: 'book', Icon: FaBook },
+  { id: 3, name: 'list', Icon: FaListCheck },
+  { id: 4, name: 'travel', Icon: PiAirplaneTiltFill },
 ];
+
 const AddEditCategory = ({ category }: AddEditProps) => {
   const [categoryTitle, setCategoryTitle] = useState<string>('');
   const [categoryIcon, setCategoryIcon] = useState<CategoryIconItem>();
   const [categoryColor, setCategoryColor] = useState<string>('');
+
   const router = useRouter();
+
+  let Icon = null;
 
   useEffect(() => {
     if (category) {
@@ -83,6 +83,9 @@ const AddEditCategory = ({ category }: AddEditProps) => {
   //   //TODO - add icon picker
   //   // setNewIcon(category?.icon);
   // }
+  if (categoryIcon?.Icon) {
+    Icon = categoryIcon.Icon;
+  }
 
   return (
     <Flex
@@ -95,9 +98,7 @@ const AddEditCategory = ({ category }: AddEditProps) => {
         {category ? 'Update category' : 'Create category'}
       </Heading>
 
-      {/* <CategoryIcon onClick={editIcon} color={categoryColor}>
-        {categoryIcon}
-      </CategoryIcon> */}
+      {Icon && <Icon size={40} color={categoryColor ?? 'red'} />}
       <ColorPicker setColor={setCategoryColor} color={categoryColor} />
       <Text wrap={'wrap'} className={classes.text}>
         {categoryTitle}

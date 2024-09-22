@@ -1,3 +1,4 @@
+'use server';
 import { getCategoryById } from '@app/api/categories';
 
 import AddEditCategory from '../components/AddEditCategory';
@@ -9,6 +10,7 @@ export default async function CategoryPage({
   params: { categoryId: CategoryParamProp };
 }) {
   const { categoryId } = params;
+
   if (categoryId) {
     const category = await getCategoryById(categoryId);
     if (category) return <AddEditCategory category={category} />;

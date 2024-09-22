@@ -15,5 +15,5 @@ export interface CategoryIconProps {
 export interface CategoryIconItem {
   id: number;
   name: string;
-  icon: IconType;
+  Icon: IconType;
 }
