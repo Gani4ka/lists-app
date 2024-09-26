@@ -32,7 +32,7 @@ export async function getSubcategoryItems(
 export async function createItem(
   subCategoryId: string,
   data: ItemType
-): Promise<{ subcategoryItem: ItemType } | undefined> {
+): Promise<{ subcategoryItem: ItemType } | { error: string }> {
   try {
     const token = cookies().get('token');
     if (token && token.value) {
@@ -47,12 +47,21 @@ export async function createItem(
           body: JSON.stringify(data),
         }
       );
-      revalidateTag('items');
-      return await res.json();
+
+      const response = await res.json();
+
+      if (res.ok) {
+        revalidateTag('items');
+        return response;
+      } else {
+        return { error: response.error };
+      }
     }
   } catch (e) {
-    console.log('error', e);
+    console.error('error', e);
+    return { error: String(e) };
   }
+  return { error: 'Error creating item' };
 }
 
 export async function updateItem(

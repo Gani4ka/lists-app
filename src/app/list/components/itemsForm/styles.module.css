@@ -1,0 +1,31 @@
+.items-form-wrapper {
+  --list-title-height: 166px; /* set new */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-height: calc(100vh - var(--header-height) - var(--list-title-height));
+  overflow-y: scroll;
+}
+
+.items-form-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.items-form-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 0;
+  border: 1px solid transparent;
+  background-clip: padding-box; /* Avoid scrollbar thumb overlapping the border */
+}
+
+.items-form-wrapper::-webkit-scrollbar-track {
+  background-color: #9cba8a;
+  border-radius: 0;
+}
+
+/* For Firefox */
+.items-form-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color);
+}

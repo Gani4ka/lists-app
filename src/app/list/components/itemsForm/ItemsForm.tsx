@@ -1,12 +1,14 @@
 'use client';
 
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
 import * as Form from '@radix-ui/react-form';
-import { Button, Checkbox, Flex } from '@radix-ui/themes';
+import { Button, Flex } from '@radix-ui/themes';
 
 import { deleteItem, updateItemMany } from '@app/api/item';
 
 import { CreateItem } from './components/createItem';
+import { Item } from './components/item';
+import classes from './styles.module.css';
 import type { ItemsFormProps } from './types';
 
 export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
@@ -25,11 +27,10 @@ export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
     setItems(updatedItems);
   }
 
-  async function handleDelete(e: MouseEvent<HTMLButtonElement>, id: string) {
-    e.preventDefault();
+  async function handleDelete(id: string) {
     const response = await deleteItem(id);
 
-    response?.subcategoryItem &&
+    response &&
       setItems((items) => {
         const itemsRest = items?.filter((item) => item._id !== id);
         return itemsRest;
@@ -42,46 +43,33 @@ export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
   }
 
   return (
-    <Flex direction="column" align="center" gap="2">
-      <h2>item List</h2>
-      <Form.Root onSubmit={(e) => handleSave(e)}>
+    <Flex width={'100%'}>
+      <Form.Root
+        onSubmit={(e) => handleSave(e)}
+        className={classes['items-form-wrapper']}
+      >
         {!!items?.length &&
           items.map((item, index) => (
-            <Flex key={item._id || index} align="center" gap="2" width="100%">
-              <Checkbox
-                checked={item.isDone}
-                onCheckedChange={() =>
-                  handleToggleDone(item._id!, !item.isDone)
-                }
-                id={`checkbox-${index}`}
-              />
-              <Form.Field name={`title-${index}`}>
-                <Form.Control asChild>
-                  <input
-                    value={item.title}
-                    onChange={(e) => handleTitleChange(index, e.target.value)}
-                    placeholder="Enter title"
-                    style={{ flex: 1, marginRight: '10px' }}
-                  />
-                </Form.Control>
-              </Form.Field>
-              <Button
-                onClick={(e) => handleDelete(e, item._id)}
-                variant="ghost"
-                color="red"
-              >
-                Delete
-              </Button>
-            </Flex>
+            <Item
+              key={item._id}
+              item={item}
+              index={index}
+              handleToggleDone={handleToggleDone}
+              handleTitleChange={handleTitleChange}
+              handleDelete={handleDelete}
+            />
           ))}
         {!!items?.length && (
-          <Button variant="solid" style={{ marginTop: 10 }} type="submit">
+          <Button
+            variant="solid"
+            style={{ marginTop: 10, width: '150px' }}
+            type="submit"
+          >
             Save
           </Button>
         )}
-
-        <CreateItem subcategoryId={listId} setItems={setItems} />
       </Form.Root>
+      <CreateItem subcategoryId={listId} setItems={setItems} />
     </Flex>
   );
 };

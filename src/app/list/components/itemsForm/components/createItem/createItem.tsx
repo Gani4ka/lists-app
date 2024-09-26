@@ -1,19 +1,34 @@
 'use client';
 
-import { MouseEvent, useState } from 'react';
+import {
+  KeyboardEvent as ReactKeyboardEvent,
+  MouseEvent,
+  useState,
+} from 'react';
 import * as Form from '@radix-ui/react-form';
-import { Button, Flex } from '@radix-ui/themes';
 
 import { createItem } from '@app/api/item';
+import AddButton from '@app/components/addButton';
 import type { ItemType } from '@app/types/list.types';
 
+import { MAX_ITEM_LENGTH, MIN_ITEM_LENGTH } from './constants';
+import classes from './styles.module.css';
 import type { CreateItemProps } from './types';
+import { checkIsValidValue } from './utils/checkIsValidValue';
 
 export const CreateItem = ({ subcategoryId, setItems }: CreateItemProps) => {
   const [title, setTitle] = useState('');
+  const [errors, setErrors] = useState({ isMin: false, isMax: false });
 
-  async function handleAdd(e: MouseEvent<HTMLButtonElement>) {
+  async function handleAdd(e: MouseEvent | ReactKeyboardEvent) {
+    if (!title) return;
+
     e.preventDefault();
+
+    const { isMin, isMax } = checkIsValidValue(title);
+    setErrors({ isMin, isMax });
+    if (isMin || isMax) return;
+
     const item: ItemType = {
       title,
       subcategoryId,
@@ -23,28 +38,46 @@ export const CreateItem = ({ subcategoryId, setItems }: CreateItemProps) => {
 
     const response = await createItem(subcategoryId, item);
 
-    response?.subcategoryItem &&
+    const isError = !response || 'error' in response;
+
+    if (isError) alert(response?.error || 'Error creating item');
+    else {
       setItems((items: ItemType[]) => {
         return [...items, response.subcategoryItem];
       });
-    setTitle('');
+      setTitle('');
+    }
   }
 
   return (
-    <Flex align="center" gap="2" width="100%">
-      <Form.Field name="create-item">
+    <Form.Root>
+      <Form.Field
+        name="create-item"
+        className={classes['create-input-wrapper']}
+      >
+        <Form.Message
+          match="tooShort"
+          forceMatch={!!title.length && errors.isMin}
+        >{`At list ${MIN_ITEM_LENGTH} characters`}</Form.Message>
+        <Form.Message
+          match="tooLong"
+          forceMatch={!!title.length && errors.isMax}
+        >{`Max length is ${MAX_ITEM_LENGTH} characters`}</Form.Message>
         <Form.Control asChild>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Enter title"
-            style={{ flex: 1, marginRight: '10px' }}
+            placeholder="Enter item"
+            className={classes['create-input']}
+            onKeyDown={(e) => e.key === 'Enter' && handleAdd(e)}
+            type="text"
+            minLength={MIN_ITEM_LENGTH}
+            maxLength={MAX_ITEM_LENGTH}
           />
         </Form.Control>
       </Form.Field>
-      <Button onClick={(e) => handleAdd(e)} variant="ghost" color="red">
-        Save
-      </Button>
-    </Flex>
+
+      <AddButton clickHandler={handleAdd} />
+    </Form.Root>
   );
 };

@@ -23,7 +23,7 @@ const List = async ({ params }: ListProps) => {
   //     icons[DEFAULT_CATEGORY_ICON];
 
   return (
-    <Flex direction={'column'} align={'center'}>
+    <Flex direction={'column'} align={'center'} pl="2" pr="2">
       <ListForm
         listOfItems={listOfItems}
         listTitle={list?.title}

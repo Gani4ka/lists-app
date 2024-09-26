@@ -1,18 +1,18 @@
 'use client';
 
+import type { MouseEvent } from 'react';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import { Button } from '@radix-ui/themes';
 import clsx from 'clsx';
 
-import { deleteCategory } from '@app/api/category';
-
 import classes from './styles.module.css';
 import type { DeleteButtonProps } from './types';
 
-export const DeleteButton = ({ category }: DeleteButtonProps) => {
-  const handleDelete = async () => {
-    await deleteCategory(category._id);
+export const DeleteButton = ({ item, cb }: DeleteButtonProps) => {
+  const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    await cb(item?._id);
   };
 
   return (
@@ -26,7 +26,7 @@ export const DeleteButton = ({ category }: DeleteButtonProps) => {
         <AlertDialog.Overlay className={classes.alertDialogOverlay} />
         <AlertDialog.Content className={classes.alertDialogContent}>
           <AlertDialog.Description className={classes.alertDialogDescription}>
-            Delete category <strong>{category.title}</strong>?
+            Delete <strong>{item?.title}</strong>?
           </AlertDialog.Description>
           <div
             style={{
@@ -42,10 +42,10 @@ export const DeleteButton = ({ category }: DeleteButtonProps) => {
             </AlertDialog.Cancel>
             <AlertDialog.Action asChild>
               <button
-                onClick={handleDelete}
+                onClick={(e) => handleDelete(e)}
                 className={clsx(classes.button, classes.approve)}
               >
-                Yes, delete account
+                Yes, delete it
               </button>
             </AlertDialog.Action>
           </div>

@@ -5,6 +5,7 @@ import { Allura, Roboto_Mono } from 'next/font/google';
 import Head from 'next/head';
 
 import { Favicon } from '@app/components/favicon';
+import { Footer } from '@app/components/footer';
 import type { LayoutProps } from '@app/types/layout.types';
 
 import '@radix-ui/themes/styles.css';
@@ -50,6 +51,7 @@ function RootLayout({ children }: LayoutProps) {
             position="relative"
           >
             {children}
+            <Footer />
           </Box>
         </Theme>
       </body>

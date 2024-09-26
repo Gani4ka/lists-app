@@ -1,0 +1,10 @@
+.item-wrapper {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.item-input {
+  border: none;
+  outline: none;
+  border-bottom: 2px solid var(--color-primary);
+}
