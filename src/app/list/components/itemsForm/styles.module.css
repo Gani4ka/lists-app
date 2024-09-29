@@ -1,9 +1,10 @@
 .items-form-wrapper {
-  --list-title-height: 166px; /* set new */
+  --list-title-height: 166px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  padding: 0 10px;
   max-height: calc(100vh - var(--header-height) - var(--list-title-height));
   overflow-y: scroll;
 }

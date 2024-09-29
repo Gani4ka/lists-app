@@ -1,10 +1,30 @@
 .item-wrapper {
   justify-content: space-between;
   width: 100%;
+  gap: 12px;
+  margin-bottom: 4px;
 }
 
 .item-input {
   border: none;
   outline: none;
   border-bottom: 2px solid var(--color-primary);
+  width: 100%;
+  padding: 0 5px;
+  height: 100%;
+  font-family: var(--font-allura);
+  font-size: 22px;
+}
+
+.item-input-wrapper {
+  flex-basis: 100%;
+}
+
+.checkbox {
+  height: 100%;
+
+  &::before {
+    width: 24px;
+    height: 24px;
+  }
 }

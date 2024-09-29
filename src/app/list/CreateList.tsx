@@ -1,8 +1,7 @@
 // import type { IconType } from 'react-icons';
 import { Flex } from '@radix-ui/themes';
 
-import { ItemsForm } from './components/itemsForm';
-import { ListForm } from './components/listForm/listForm';
+import { CreateListForm } from './components/createListForm/createListForm';
 import type { ListProps } from './types';
 import { getData } from './utils/getData';
 
@@ -24,14 +23,13 @@ const List = async ({ params }: ListProps) => {
 
   return (
     <Flex direction={'column'} align={'center'} pl="2" pr="2">
-      <ListForm
+      <CreateListForm
         listOfItems={listOfItems}
         listTitle={list?.title}
         listId={listId}
         listCategoryId={list?.categoryId}
         categories={categories}
       />
-      {listId && <ItemsForm listOfItems={listOfItems} listId={listId} />}
     </Flex>
   );
 };

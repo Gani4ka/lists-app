@@ -18,7 +18,7 @@ export const DeleteButton = ({ item, cb }: DeleteButtonProps) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <Button>
+        <Button style={{ width: '24px', height: '24px', padding: '2px' }}>
           <RiDeleteBinLine />
         </Button>
       </AlertDialog.Trigger>
