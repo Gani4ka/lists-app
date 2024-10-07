@@ -24,7 +24,7 @@ export const CategoryCard = async (props: CategoryCardProps) => {
       justify="between"
       wrap="nowrap"
     >
-      <Link href={url} className={classes.link}>
+      <Link href={url} className={classes.title}>
         <Flex
           direction={'row'}
           justify={'between'}
@@ -37,7 +37,7 @@ export const CategoryCard = async (props: CategoryCardProps) => {
         </Flex>
       </Link>
 
-      <Flex gap={'1rem'} align={'center'}>
+      <Flex gap={'1rem'} align={'center'} className={classes.buttons}>
         <Button>
           <FaPlus />
         </Button>
