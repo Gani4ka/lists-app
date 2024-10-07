@@ -1,6 +1,5 @@
 .container {
-  background-color: green;
-  border: 5px solid #bed7dc;
+  border: 2px solid #bed7dc;
 }
 .icon {
   cursor: pointer;
@@ -17,6 +16,5 @@
   border: 3px solid #bed7dc;
 }
 .grid {
-  background-color: salmon;
   width: 100%;
 }

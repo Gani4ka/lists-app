@@ -1,48 +1,13 @@
 'use client';
 import React from 'react';
-import { IconType } from 'react-icons';
-import {
-  FaApple,
-  FaBook,
-  FaCat,
-  FaCoffee,
-  FaGoogleDrive,
-  FaList,
-  FaPersonBooth,
-  FaPhone,
-  FaRegCalendar,
-  FaRegPaperPlane,
-  FaShoppingBasket,
-} from 'react-icons/fa';
-import { MdOutlineSportsMartialArts } from 'react-icons/md';
 import { Flex, Grid, Text } from '@radix-ui/themes';
 
+import { categoryIcons } from '@app/app/constants';
+
 import styles from './classes.module.css';
-interface CategoryIcon {
-  id: number;
-  name: string;
-  Icon: IconType;
-}
-const icons: CategoryIcon[] = [
-  { id: 1, name: 'coffee', Icon: FaCoffee },
-  { id: 2, name: 'apple', Icon: FaApple },
-  { id: 3, name: 'book', Icon: FaBook }, //reading
-  { id: 4, name: 'list', Icon: FaList },
-  { id: 5, name: 'shopping', Icon: FaShoppingBasket },
-  { id: 6, name: 'sport', Icon: MdOutlineSportsMartialArts },
-  { id: 7, name: 'calender', Icon: FaRegCalendar },
-  { id: 8, name: 'drive', Icon: FaGoogleDrive },
-  { id: 9, name: 'person', Icon: FaPersonBooth }, //reading
-  { id: 10, name: 'phone', Icon: FaPhone },
-  { id: 11, name: 'plane', Icon: FaRegPaperPlane },
-  { id: 12, name: 'cat', Icon: FaCat },
-];
-//shopping list, wishlist, books to read, travel list, things to do,
-type Props = {
-  onSelectIcon: (icon: string) => void;
-  selectedIcon: string;
-};
-const IconPicker = ({ selectedIcon, onSelectIcon }: Props) => {
+import { IconPickerType } from './types';
+
+const IconPicker = ({ selectedIcon, onSelectIcon }: IconPickerType) => {
   return (
     <Flex
       direction={'column'}
@@ -51,9 +16,9 @@ const IconPicker = ({ selectedIcon, onSelectIcon }: Props) => {
       align={'center'}
       className={styles.container}
     >
-      <Text align={'center'}>Choose category</Text>
-      <Grid columns={'3'} rows={'4'} className={styles.grid}>
-        {icons.map(({ name, Icon: IconComponent }) => (
+      <Text align={'center'}>Choose category icon</Text>
+      <Grid columns={'4'} rows={'5'} className={styles.grid}>
+        {categoryIcons.map(({ name, Icon: IconComponent }) => (
           <Flex
             key={name}
             onClick={() => onSelectIcon(name)}
@@ -68,7 +33,7 @@ const IconPicker = ({ selectedIcon, onSelectIcon }: Props) => {
         ))}
       </Grid>
       <Text align={'center'} style={{ marginTop: '2rem' }}>
-        {selectedIcon ?? ''}
+        - {selectedIcon ?? ''} -
       </Text>
     </Flex>
   );
