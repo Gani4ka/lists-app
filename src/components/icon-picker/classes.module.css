@@ -1,5 +1,6 @@
 .container {
   border: 2px solid #bed7dc;
+  align-self: center;
 }
 .icon {
   cursor: pointer;
