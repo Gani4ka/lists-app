@@ -9,7 +9,6 @@ export default function Contact() {
   return (
     <Flex direction={'column'} gap={'2rem 0'}>
       <IconPicker selectedIcon={selectedIcon} onSelectIcon={setIcon} />
-      <p>{selectedIcon}</p>
     </Flex>
   );
 }
