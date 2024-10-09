@@ -12,7 +12,7 @@ const IconPicker = ({ selectedIcon, onSelectIcon }: IconPickerType) => {
     <Flex
       direction={'column'}
       gap={'20px'}
-      width={'20%'}
+      width={'320px'}
       align={'center'}
       className={styles.container}
     >

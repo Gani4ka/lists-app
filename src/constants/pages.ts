@@ -5,13 +5,17 @@ export enum PAGES_NAMES {
   list = 'List',
   about = 'About',
   contact = 'Contact',
+  auth = 'Login',
+  logout = 'Logout',
 }
 
 export enum PATHS {
   'home' = '/',
   'categories' = '/categories',
-  'category' = '/category',
+  'category' = '/categories/new',
   'list' = '/list',
   'about' = '/about',
   'contact' = '/contact',
+  'auth' = '/auth/login',
+  'logout' = 'logout',
 }

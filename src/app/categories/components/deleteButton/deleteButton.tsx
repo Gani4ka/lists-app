@@ -45,7 +45,7 @@ export const DeleteButton = ({ category }: DeleteButtonProps) => {
                 onClick={handleDelete}
                 className={clsx(classes.button, classes.approve)}
               >
-                Yes, delete account
+                Yes, delete {category.title}
               </button>
             </AlertDialog.Action>
           </div>

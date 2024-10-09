@@ -1,0 +1,20 @@
+.appTitle {
+  margin: 20px 0;
+}
+.link span {
+  text-decoration: underline;
+}
+.link span:hover {
+  cursor: pointer;
+}
+.button {
+  width: 100%;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+.input {
+  padding: 5px 0;
+}
+.inputDiv {
+  margin: 20px 0;
+}

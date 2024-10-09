@@ -26,3 +26,17 @@ export interface ItemType {
   description?: string;
   isDone?: boolean;
 }
+export interface User {
+  _id?: string;
+  username: string;
+  email: string;
+  password: string;
+}
+export interface AuthUser {
+  user: User;
+  token: string;
+}
+
+export interface AuthError {
+  message: string;
+}

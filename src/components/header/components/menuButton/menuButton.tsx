@@ -4,7 +4,10 @@ import { Button } from '@radix-ui/themes';
 
 import Menu from '../menu';
 
-const MenuButton = () => {
+type Props = {
+  hasUser: boolean;
+};
+const MenuButton = ({ hasUser }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -15,7 +18,7 @@ const MenuButton = () => {
       <Button className="menu-button" onClick={toggleMenu} ml="auto">
         <HamburgerMenuIcon />
       </Button>
-      <Menu isOpen={isOpen} />
+      <Menu isOpen={isOpen} hasUser={hasUser} />
     </>
   );
 };

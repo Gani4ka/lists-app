@@ -2,7 +2,7 @@ import { MouseEvent, useState } from 'react';
 import * as Form from '@radix-ui/react-form';
 import { Button, Checkbox, Flex } from '@radix-ui/themes';
 
-import { deleteItem, updateItem } from '@app/api/item';
+import { deleteItem, updateItemMany } from '@app/api/item';
 
 import { CreateItem } from './components/createItem';
 import type { ItemsFormProps } from './types';
@@ -31,11 +31,7 @@ export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
 
   async function handleSave(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    items?.forEach(async (item) => {
-      if (item._id) {
-        await updateItem(item._id, item);
-      }
-    });
+    items && (await updateItemMany(listId, items));
   }
 
   return (

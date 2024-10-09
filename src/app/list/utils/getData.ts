@@ -44,8 +44,7 @@ export async function getData<
       return listOfItems;
     }
     case 'categories': {
-      const categoriesResponse = await getCategories();
-      const categories = categoriesResponse?.categories;
+      const categories = await getCategories();
 
       return categories;
     }
