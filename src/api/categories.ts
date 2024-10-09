@@ -1,17 +1,18 @@
 'use server';
-import { cookies } from 'next/headers';
 
 import { CategoryParamProp } from '@app/app/categories/components/categoryCard/types';
 import type { CategoryType } from '@app/types/list.types';
 
+import { getUserToken } from './user';
+
 export async function getCategories(): Promise<CategoryType[] | undefined> {
   try {
-    const token = cookies().get('token');
-    if (token && token.value) {
+    const token = await getUserToken();
+    if (token) {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}categories`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${token.value}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         cache: 'no-store',
@@ -30,14 +31,14 @@ export async function getCategoryById(
   categoryId: CategoryParamProp
 ): Promise<CategoryType | undefined> {
   try {
-    const token = cookies().get('token');
-    if (token && token.value) {
+    const token = await getUserToken();
+    if (token) {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}categories/${categoryId}`,
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${token.value}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
           cache: 'no-store',

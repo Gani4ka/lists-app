@@ -1,30 +1,29 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { cookies } from 'next/headers';
 
 import type { SubcategoriesType } from '@app/types/list.types';
+
+import { getUserToken } from './user';
 
 export async function getAllSubcategories(): Promise<
   { subcategories: SubcategoriesType[] } | undefined
 > {
   try {
-    const token = cookies().get('token');
-    if (token && token.value) {
-      if (token) {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}all-subcategories`,
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-              'Content-Type': 'application/json',
-            },
-            next: { tags: ['subcategory'] },
-          }
-        );
-        return await res.json();
-      }
+    const token = await getUserToken();
+    if (token) {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}all-subcategories`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          next: { tags: ['subcategory'] },
+        }
+      );
+      return await res.json();
     }
   } catch (e) {
     console.log('error', e);
@@ -35,14 +34,14 @@ export async function getSubcategory(
   id: string
 ): Promise<{ subcategory: SubcategoriesType } | undefined> {
   try {
-    const token = cookies().get('token');
-    if (token && token.value) {
+    const token = await getUserToken();
+    if (token) {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}subcategories/${id}`,
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
           next: { tags: ['subcategory'] },
@@ -60,14 +59,14 @@ export async function createSubcategory(
   data: SubcategoriesType
 ): Promise<{ subcategoryItem: SubcategoriesType } | undefined> {
   try {
-    const token = cookies().get('token');
-    if (token && token.value) {
+    const token = await getUserToken();
+    if (token) {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}subcategories/${categoryId}`,
         {
           method: 'POST',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
@@ -87,14 +86,14 @@ export async function updateSubcategory(
   data: SubcategoriesType
 ): Promise<{ subcategoryItem: SubcategoriesType } | undefined> {
   try {
-    const token = cookies().get('token');
-    if (token && token.value) {
+    const token = await getUserToken();
+    if (token) {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}subcategories/${categoryId}`,
         {
           method: 'PUT',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
@@ -111,12 +110,12 @@ export async function updateSubcategory(
 
 export async function deleteSubcategory(id: string): Promise<void> {
   try {
-    const token = cookies().get('token');
-    if (token && token.value) {
+    const token = await getUserToken();
+    if (token) {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}subcategories/${id}`, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
