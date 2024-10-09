@@ -25,6 +25,9 @@ export const DeleteButton = ({ item, cb }: DeleteButtonProps) => {
       <AlertDialog.Portal>
         <AlertDialog.Overlay className={classes.alertDialogOverlay} />
         <AlertDialog.Content className={classes.alertDialogContent}>
+          <AlertDialog.Title style={{ visibility: 'hidden', height: '1px' }}>
+            Are you sure about deleting it?
+          </AlertDialog.Title>
           <AlertDialog.Description className={classes.alertDialogDescription}>
             Delete <strong>{item?.title}</strong>?
           </AlertDialog.Description>

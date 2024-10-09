@@ -1,9 +1,9 @@
 // import type { IconType } from 'react-icons';
 import { Flex } from '@radix-ui/themes';
 
-import { CreateListForm } from './components/createListForm/createListForm';
-import type { ListProps } from './types';
-import { getData } from './utils/getData';
+import type { ListProps } from '../../types';
+import { getData } from '../../utils/getData';
+import { CreateListForm } from './createListForm';
 
 const List = async ({ params }: ListProps) => {
   const listId = params.id;

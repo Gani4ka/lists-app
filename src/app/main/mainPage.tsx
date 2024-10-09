@@ -4,8 +4,10 @@ import { Box, Flex, Grid } from '@radix-ui/themes';
 
 import { getCategories } from '@app/api/categories';
 import { getAllSubcategories } from '@app/api/subcategory';
+import AddButton from '@app/components/addButton';
 import Loader from '@app/components/loader';
 import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
+import { PATHS } from '@app/constants/pages';
 
 import ListCard from './components/listCard';
 import styles from './mainPage.module.css';
@@ -45,6 +47,7 @@ export default async function MainPage() {
           </Grid>
         </Suspense>
       </Box>
+      <AddButton linkTo={PATHS.list} />
     </main>
   );
 }

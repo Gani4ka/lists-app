@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import * as Form from '@radix-ui/react-form';
-import { Button, Flex } from '@radix-ui/themes';
+import { Flex } from '@radix-ui/themes';
 
-import { deleteItem, updateItemMany } from '@app/api/item';
+import { deleteItem } from '@app/api/item';
 
 import { CreateItem } from './components/createItem';
 import { Item } from './components/item';
@@ -37,17 +37,9 @@ export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
       });
   }
 
-  async function handleSave(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    items && (await updateItemMany(listId, items));
-  }
-
   return (
     <Flex width={'100%'}>
-      <Form.Root
-        onSubmit={(e) => handleSave(e)}
-        className={classes['items-form-wrapper']}
-      >
+      <Form.Root className={classes['items-form-wrapper']}>
         {!!items?.length &&
           items.map((item, index) => (
             <Item
@@ -59,15 +51,6 @@ export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
               handleDelete={handleDelete}
             />
           ))}
-        {!!items?.length && (
-          <Button
-            variant="solid"
-            style={{ marginTop: 10, width: '150px' }}
-            type="submit"
-          >
-            Save
-          </Button>
-        )}
       </Form.Root>
       <CreateItem subcategoryId={listId} setItems={setItems} />
     </Flex>

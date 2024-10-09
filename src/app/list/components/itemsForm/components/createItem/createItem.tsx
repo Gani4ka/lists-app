@@ -11,10 +11,10 @@ import { createItem } from '@app/api/item';
 import AddButton from '@app/components/addButton';
 import type { ItemType } from '@app/types/list.types';
 
-import { MAX_ITEM_LENGTH, MIN_ITEM_LENGTH } from './constants';
+import { MAX_FIELD_LENGTH, MIN_FIELD_LENGTH } from '../../../../constants';
+import { checkIsValidValue } from '../../../../utils/checkIsValidValue';
 import classes from './styles.module.css';
 import type { CreateItemProps } from './types';
-import { checkIsValidValue } from './utils/checkIsValidValue';
 
 export const CreateItem = ({ subcategoryId, setItems }: CreateItemProps) => {
   const [title, setTitle] = useState('');
@@ -58,11 +58,11 @@ export const CreateItem = ({ subcategoryId, setItems }: CreateItemProps) => {
         <Form.Message
           match="tooShort"
           forceMatch={!!title.length && errors.isMin}
-        >{`At list ${MIN_ITEM_LENGTH} characters`}</Form.Message>
+        >{`At list ${MIN_FIELD_LENGTH} characters`}</Form.Message>
         <Form.Message
           match="tooLong"
           forceMatch={!!title.length && errors.isMax}
-        >{`Max length is ${MAX_ITEM_LENGTH} characters`}</Form.Message>
+        >{`Max length is ${MAX_FIELD_LENGTH} characters`}</Form.Message>
         <Form.Control asChild>
           <input
             value={title}
@@ -71,8 +71,8 @@ export const CreateItem = ({ subcategoryId, setItems }: CreateItemProps) => {
             className={classes['create-input']}
             onKeyDown={(e) => e.key === 'Enter' && handleAdd(e)}
             type="text"
-            minLength={MIN_ITEM_LENGTH}
-            maxLength={MAX_ITEM_LENGTH}
+            minLength={MIN_FIELD_LENGTH}
+            maxLength={MAX_FIELD_LENGTH}
           />
         </Form.Control>
       </Form.Field>

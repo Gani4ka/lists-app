@@ -11,20 +11,18 @@ export async function getAllSubcategories(): Promise<
   try {
     const token = cookies().get('token');
     if (token && token.value) {
-      if (token) {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}all-subcategories`,
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${token.value}`,
-              'Content-Type': 'application/json',
-            },
-            next: { tags: ['subcategory'] },
-          }
-        );
-        return await res.json();
-      }
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}all-subcategories`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token.value}`,
+            'Content-Type': 'application/json',
+          },
+          next: { tags: ['subcategory'] },
+        }
+      );
+      return await res.json();
     }
   } catch (e) {
     console.log('error', e);
@@ -67,7 +65,7 @@ export async function createSubcategory(
         {
           method: 'POST',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+            Authorization: `Bearer ${token.value}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
@@ -94,7 +92,7 @@ export async function updateSubcategory(
         {
           method: 'PUT',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+            Authorization: `Bearer ${token.value}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
@@ -116,7 +114,7 @@ export async function deleteSubcategory(id: string): Promise<void> {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}subcategories/${id}`, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+          Authorization: `Bearer ${token.value}`,
           'Content-Type': 'application/json',
         },
       });

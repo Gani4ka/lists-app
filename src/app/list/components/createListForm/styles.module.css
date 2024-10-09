@@ -1,6 +1,104 @@
 .textfield {
   border-bottom: 2px solid var(--color-primary);
+  outline: none;
   border-top: none;
   border-left: none;
   border-right: none;
+  padding: 0 4px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.validation-message {
+  position: absolute;
+  bottom: 45px;
+  left: 4px;
+}
+
+.select-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  line-height: 1;
+  height: 35px;
+  gap: 15px;
+  background-color: white;
+  border: none;
+  box-shadow: 0 0 3px 1px var(--color-primary);
+  outline: none;
+  width: 100%;
+}
+
+.select-trigger:focus {
+  box-shadow: 0 0 3px 1px var(--color-primary);
+}
+
+.select-icon {
+  color: var(--color-primary);
+}
+
+.select-content {
+  width: 100%;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 0 3px 1px var(--color-primary);
+}
+
+.select-viewport {
+  padding: 5px;
+}
+
+.select-item {
+  font-size: 13px;
+  line-height: 1;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  height: 25px;
+  padding: 0 35px 0 25px;
+  position: relative;
+  user-select: none;
+}
+.select-item[data-disabled] {
+  color: grey;
+  pointer-events: none;
+}
+.select-item[data-highlighted] {
+  outline: none;
+  background-color: blue;
+  color: greenyellow;
+}
+
+.select-label {
+  padding: 0 25px;
+  font-size: 12px;
+  line-height: 25px;
+  color: var(--color-primary);
+}
+
+.select-item-indicator {
+  position: absolute;
+  left: 0;
+  width: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.select-scroll-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  background-color: white;
+  color: var(--color-primary);
+  cursor: default;
+}
+
+.button {
+  width: 100%;
 }
