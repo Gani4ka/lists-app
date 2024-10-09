@@ -6,8 +6,6 @@ export function getPageNameByPath(path: string) {
       return PAGES_NAMES.home;
     case PATHS.list:
       return PAGES_NAMES.list;
-    case PATHS.categories:
-      return PAGES_NAMES.categories;
     case PATHS.category: {
       return PAGES_NAMES.category;
     }

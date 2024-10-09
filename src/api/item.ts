@@ -1,22 +1,23 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { cookies } from 'next/headers';
 
 import type { ItemType } from '@app/types/list.types';
+
+import { getUserToken } from './user';
 
 export async function getSubcategoryItems(
   id: string
 ): Promise<{ subcategoryItems: ItemType[] } | undefined> {
   try {
-    const token = cookies().get('token');
-    if (token && token.value) {
+    const token = await getUserToken();
+    if (token) {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/subcategory/${id}`,
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${token.value}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
           next: { tags: ['items'] },
@@ -34,14 +35,14 @@ export async function createItem(
   data: ItemType
 ): Promise<{ subcategoryItem: ItemType } | { error: string }> {
   try {
-    const token = cookies().get('token');
-    if (token && token.value) {
+    const token = await getUserToken();
+    if (token) {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/${subCategoryId}`,
         {
           method: 'POST',
           headers: {
-            Authorization: `Bearer ${token.value}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
@@ -69,14 +70,14 @@ export async function updateItem(
   data: ItemType
 ): Promise<{ subcategoryItem: ItemType } | undefined> {
   try {
-    const token = cookies().get('token');
-    if (token && token.value) {
+    const token = await getUserToken();
+    if (token) {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/${subCategoryId}`,
         {
           method: 'PUT',
           headers: {
-            Authorization: `Bearer ${token.value}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
@@ -95,14 +96,14 @@ export async function updateItemMany(
   data: ItemType[]
 ): Promise<{ items: ItemType[] } | undefined> {
   try {
-    const token = cookies().get('token');
-    if (token && token.value) {
+    const token = await getUserToken();
+    if (token) {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/all-subcategory-items/${subCategoryId}`,
         {
           method: 'PUT',
           headers: {
-            Authorization: `Bearer ${token.value}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
@@ -120,14 +121,14 @@ export async function deleteItem(
   itemId: string
 ): Promise<{ subcategoryItem: ItemType } | undefined> {
   try {
-    const token = cookies().get('token');
-    if (token && token.value) {
+    const token = await getUserToken();
+    if (token) {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/${itemId}`,
         {
           method: 'DELETE',
           headers: {
-            Authorization: `Bearer ${token.value}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
         }

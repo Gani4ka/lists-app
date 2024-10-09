@@ -48,7 +48,7 @@ export const DeleteButton = ({ item, cb }: DeleteButtonProps) => {
                 onClick={(e) => handleDelete(e)}
                 className={clsx(classes.button, classes.approve)}
               >
-                Yes, delete it
+                Yes, delete {item.title}
               </button>
             </AlertDialog.Action>
           </div>

@@ -15,9 +15,8 @@ import { getCategoriesColor, getCategoryIcon } from './utils';
 
 export default async function MainPage() {
   const subcategoriesResponse = await getAllSubcategories();
-  const categoriesResponse = await getCategories();
+  const categories = await getCategories();
 
-  const categories = categoriesResponse?.categories;
   const subcategories = subcategoriesResponse?.subcategories;
 
   const icons = (await import('react-icons/fc')) as unknown as {

@@ -11,13 +11,12 @@ const ColorPicker = ({ color, setColor }: ColorPickerType) => {
 
   return (
     <Flex direction={'column'} gap={'2rem'} align={'center'}>
-      <label>Choose your color:</label>
+      <label>Choose category color:</label>
       <CirclePicker
         color={color}
         onChangeComplete={handleColorChange}
         colors={pickerColors}
       />
-      <p>Your color:{color}</p>
     </Flex>
   );
 };
