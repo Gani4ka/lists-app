@@ -1,10 +1,12 @@
 import { Flex, Text } from '@radix-ui/themes';
 
-import { setRandomIconColor } from '@app/utils/setRandomIconColor';
-
 import type { CategoryIconProps } from './types';
 
-export const CategoryIcon = ({ children }: CategoryIconProps) => {
+export const CategoryIcon = ({
+  children,
+  onClick,
+  color,
+}: CategoryIconProps) => {
   return (
     <Flex
       justify={'center'}
@@ -13,8 +15,9 @@ export const CategoryIcon = ({ children }: CategoryIconProps) => {
       height={'150px'}
       width={'150px'}
       style={{
-        backgroundColor: setRandomIconColor(),
+        backgroundColor: color,
       }}
+      onClick={onClick}
     >
       <Text style={{ flexBasis: '100%', textAlign: 'center' }}>{children}</Text>
     </Flex>
