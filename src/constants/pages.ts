@@ -12,7 +12,7 @@ export enum PAGES_NAMES {
 export enum PATHS {
   'home' = '/',
   'categories' = '/categories',
-  'category' = '/category',
+  'category' = '/categories/new',
   'list' = '/list',
   'about' = '/about',
   'contact' = '/contact',
