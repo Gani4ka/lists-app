@@ -1,5 +1,6 @@
 import { getCategories } from '@app/api/categories';
-import { getSubcategory, getSubcategoryItems } from '@app/api/subcategory';
+import { getSubcategoryItems } from '@app/api/item';
+import { getSubcategory } from '@app/api/subcategory';
 import type {
   CategoryType,
   ItemType,

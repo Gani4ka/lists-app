@@ -1,5 +1,5 @@
 export interface ListProps {
   params: {
-    slug?: string;
+    id: string;
   };
 }

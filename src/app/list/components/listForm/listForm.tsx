@@ -58,7 +58,6 @@ export const ListForm = ({
 
   return (
     <Flex direction={'column'} align={'center'}>
-      <p>LIST items</p>
       <Form.Root onSubmit={(e) => handleListFormSubmit(e)}>
         <Form.Field name="title">
           <div
