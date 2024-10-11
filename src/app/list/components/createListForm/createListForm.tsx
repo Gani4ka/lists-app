@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  KeyboardEvent as ReactKeyboardEvent,
-  useEffect,
-  useState,
-} from 'react';
+import { KeyboardEvent as ReactKeyboardEvent, useState } from 'react';
 import * as Form from '@radix-ui/react-form';
 import { ChevronUpIcon } from '@radix-ui/react-icons';
 import * as Select from '@radix-ui/react-select';
@@ -70,10 +66,6 @@ export const CreateListForm = ({
       }
     }
   }
-
-  useEffect(() => {
-    ('');
-  }, [errors]);
 
   return (
     <>
