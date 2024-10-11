@@ -57,7 +57,7 @@ export async function getSubcategory(
 export async function createSubcategory(
   categoryId: string,
   data: SubcategoriesType
-): Promise<{ subcategoryItem: SubcategoriesType } | undefined> {
+): Promise<{ subcategory: SubcategoriesType } | undefined> {
   try {
     const token = await getUserToken();
     if (token) {

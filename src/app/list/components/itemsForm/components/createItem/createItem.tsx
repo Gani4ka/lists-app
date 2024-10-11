@@ -38,7 +38,10 @@ export const CreateItem = ({ subcategoryId, setItems }: CreateItemProps) => {
 
     const response = await createItem(subcategoryId, item);
 
-    const isError = !response || 'error' in response;
+    const isError =
+      !response ||
+      ('error' in response && !!response.error) ||
+      !('subcategoryItem' in response);
 
     if (isError) alert(response?.error || 'Error creating item');
     else {

@@ -1,1 +1,1 @@
-export { default } from './components/createListForm/CreateList';
+export { default } from './components/CreateList';

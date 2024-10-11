@@ -36,33 +36,31 @@ export async function createItem(
 ): Promise<{ subcategoryItem: ItemType } | { error: string }> {
   try {
     const token = await getUserToken();
-    if (token) {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/${subCategoryId}`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      const response = await res.json();
-
-      if (res.ok) {
-        revalidateTag('items');
-        return response;
-      } else {
-        return { error: response.error };
-      }
+    if (!token) {
+      throw new Error('Not authorized');
     }
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/${subCategoryId}`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    const response = await res.json();
+
+    if (res.ok) revalidateTag('items');
+
+    return response;
   } catch (e) {
     console.error('error', e);
     return { error: String(e) };
   }
-  return { error: 'Error creating item' };
 }
 
 export async function updateItem(
