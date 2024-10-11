@@ -5,6 +5,8 @@ import { Allura, Roboto_Mono } from 'next/font/google';
 import Head from 'next/head';
 
 import { Favicon } from '@app/components/favicon';
+import { Footer } from '@app/components/footer';
+import type { LayoutProps } from '@app/types/layout.types';
 
 import '@radix-ui/themes/styles.css';
 import './globals.css';
@@ -33,11 +35,7 @@ const themeConfig: ThemeProps = {
   radius: 'none',
 };
 
-function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <Head>
@@ -53,6 +51,7 @@ function RootLayout({
             position="relative"
           >
             {children}
+            <Footer />
           </Box>
         </Theme>
       </body>

@@ -1,10 +1,14 @@
+'use client';
+
 import type { IconType } from 'react-icons';
 import { FaPencilAlt, FaPlus } from 'react-icons/fa';
 import { Button, Flex, Text } from '@radix-ui/themes';
 
 import Link from 'next/link';
 
-import { DeleteButton } from '../deleteButton';
+import { deleteCategory } from '@app/api/category';
+import { DeleteButton } from '@app/components/deleteButton';
+
 import classes from './classes.module.css';
 import type { CategoryCardProps } from './types';
 
@@ -38,15 +42,15 @@ export const CategoryCard = async (props: CategoryCardProps) => {
       </Link>
 
       <Flex gap={'1rem'} align={'center'} className={classes.buttons}>
-        <Button>
+        <Button style={{ width: '24px', height: '24px', padding: '2px' }}>
           <FaPlus />
         </Button>
-        <Button>
+        <Button style={{ width: '24px', height: '24px', padding: '2px' }}>
           <Link href={url}>
             <FaPencilAlt />
           </Link>
         </Button>
-        <DeleteButton category={category} />
+        <DeleteButton item={category} cb={deleteCategory} />
       </Flex>
     </Flex>
   );
