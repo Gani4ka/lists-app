@@ -8,6 +8,7 @@ import { getUserToken } from './user';
 export async function getCategories(): Promise<CategoryType[] | undefined> {
   try {
     const token = await getUserToken();
+
     if (token) {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}categories`, {
         method: 'GET',
