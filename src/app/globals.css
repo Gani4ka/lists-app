@@ -2,8 +2,12 @@
   --color-primary: #29a383;
   --color-primary-pink: #f453e1;
   --color-text: #0e0e0e;
+
   --footer-height: 50px;
   --header-height: 50px;
+
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
 }
 
 * {
