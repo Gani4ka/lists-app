@@ -36,20 +36,9 @@ export const CategoryCard = async (props: CategoryCardProps) => {
   }
 
   return (
-    <Flex
-      className={classes['main-container']}
-      align="center"
-      justify="between"
-      wrap="nowrap"
-    >
+    <Flex className={classes['main-container']}>
       <Link href={url} className={classes.title}>
-        <Flex
-          direction={'row'}
-          justify={'between'}
-          align={'center'}
-          style={{ width: '100%' }}
-          gap={'1rem'}
-        >
+        <Flex style={{ width: '100%' }} gap={'1rem'}>
           {Icon && <Icon size={25} color={color} />}
           <Text>{title}</Text>
         </Flex>

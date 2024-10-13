@@ -24,24 +24,12 @@ export default function CustomDialog({
           <Dialog.Content className={styles.dialogContent}>
             <Dialog.Title>{title}</Dialog.Title>
             <Dialog.Description>{description}</Dialog.Description>
-
             {customContent}
-            <div
-              style={{
-                display: 'flex',
-                marginTop: 25,
-                justifyContent: 'center',
-                gap: '10px',
-                width: '50%',
-                alignSelf: 'center',
-              }}
-            >
-              <Dialog.Close asChild>
-                <Button className={styles.cancelButton} color="blue">
-                  Cancel
-                </Button>
-              </Dialog.Close>
-            </div>
+            <Dialog.Close asChild>
+              <Button className={styles.cancelButton} color="blue">
+                Cancel
+              </Button>
+            </Dialog.Close>
           </Dialog.Content>
         </Dialog.Overlay>
       </Dialog.Portal>
