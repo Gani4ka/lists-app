@@ -1,0 +1,36 @@
+.dialogOverlay {
+  background: rgba(0 0 0 / 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+}
+.dialogContent {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  min-height: 150px;
+  background: white;
+  padding: 30px;
+  border-radius: 4px;
+  align-items: center;
+}
+.openButton {
+  width: 20%;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 5px;
+  color: white;
+  background-color: #2aa383;
+}
+.cancelButton {
+  width: 40%;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 5px;
+  color: white;
+}
