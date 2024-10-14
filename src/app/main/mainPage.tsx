@@ -25,7 +25,7 @@ export default async function MainPage() {
 
   return (
     <main className={styles.main}>
-      <Box p={'4'}>
+      <Box p={'4'} className={styles['main-wrapper']}>
         <Flex mb={'4'} justify={'end'} className={styles.filter}>
           Sort by
         </Flex>

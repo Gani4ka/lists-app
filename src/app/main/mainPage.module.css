@@ -4,8 +4,19 @@
   justify-content: space-between;
   align-items: center;
   min-height: calc(100vh - var(--footer-height) - var(--header-height));
+  padding-bottom: var(--footer-height);
 }
 
 .filter {
   font-family: var(--font-allura);
+}
+
+.main-wrapper {
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .main-wrapper {
+    padding: 40px;
+  }
 }
