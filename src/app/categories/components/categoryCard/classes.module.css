@@ -2,6 +2,15 @@
   display: flex;
   width: 60%;
   margin-top: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+.categoryItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: center;
 }
 .buttons {
   display: flex;
@@ -12,17 +21,17 @@
 @media (max-width: 768px) {
   .main-container {
     flex-direction: column;
+    justify-content: center;
     margin-top: 40px;
-    width: 90%;
   }
+
   .title {
     align-self: self-start;
   }
   .buttons {
+    display: flex;
     width: 100%;
-    align-items: self-start;
-    justify-content: start;
-    gap: 20px 30px;
+    justify-content: space-between;
     margin-top: 20px;
   }
 }
