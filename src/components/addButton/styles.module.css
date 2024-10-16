@@ -3,6 +3,10 @@
   height: 40px;
   border-radius: 50%;
   background-color: var(--color-primary-pink);
+  position: fixed;
+  bottom: 4px;
+  left: calc(50% - 20px);
+  z-index: 2;
 }
 
 .icon {
