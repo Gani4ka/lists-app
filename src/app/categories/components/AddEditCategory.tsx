@@ -95,8 +95,17 @@ const AddEditCategory = ({ category }: AddEditProps) => {
       <Heading as="h6" className={classes.header}>
         {category ? 'Update category' : 'Create category'}
       </Heading>
+      <div
+        style={{
+          backgroundColor: categoryColor,
+          padding: '20px',
+          borderRadius: '5px',
+        }}
+      >
+        {Icon && <Icon size={40} color={'white'} />}
+      </div>
       <CustomDialog
-        buttonTitle="Set icon"
+        buttonTitle="Change icon"
         open={open}
         setOpen={setOpen}
         customContent={
@@ -107,7 +116,6 @@ const AddEditCategory = ({ category }: AddEditProps) => {
         }
       />
 
-      {Icon && <Icon size={40} color={categoryColor ?? 'red'} />}
       <ColorPicker setColor={setCategoryColor} color={categoryColor} />
       <Text wrap={'wrap'} className={classes.text}>
         {categoryTitle}
