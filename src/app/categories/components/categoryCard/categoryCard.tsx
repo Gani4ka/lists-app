@@ -14,7 +14,7 @@ import classes from './classes.module.css';
 import type { CategoryCardProps } from './types';
 const defaultIcon = categoryIcons[0];
 
-export const CategoryCard = async (props: CategoryCardProps) => {
+export const CategoryCard = (props: CategoryCardProps) => {
   const { category } = props;
   const { title, icon, color } = category;
   const [categoryIcon, setCategoryIcon] =
@@ -47,7 +47,9 @@ export const CategoryCard = async (props: CategoryCardProps) => {
 
       <Flex gap={'1rem'} align={'center'} className={classes.buttons}>
         <Button style={{ width: '24px', height: '24px', padding: '2px' }}>
-          <FaPlus />
+          <Link href={`/list`}>
+            <FaPlus />
+          </Link>
         </Button>
         <Button style={{ width: '24px', height: '24px', padding: '2px' }}>
           <Link href={url}>

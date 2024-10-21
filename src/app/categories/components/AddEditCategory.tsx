@@ -70,8 +70,8 @@ const AddEditCategory = ({ category }: AddEditProps) => {
         });
         message = 'Category created';
       }
-      if (requestResult && requestResult.error) {
-        message = requestResult.error;
+      if (requestResult && requestResult.message) {
+        message = requestResult.message;
       }
       alert(message);
       handleCancel();

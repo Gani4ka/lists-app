@@ -15,7 +15,7 @@ import styles from './mainPage.module.css';
 
 export default async function MainPage() {
   const subcategoriesResponse = await getAllSubcategories();
-  const categories = await getCategories();
+  const { categories } = await getCategories();
 
   const subcategories = subcategoriesResponse?.subcategories;
 
@@ -46,6 +46,7 @@ export default async function MainPage() {
                 if (userIcon) {
                   Icon = userIcon.Icon;
                 }
+
                 const color = currentCategory?.color ?? 'white';
                 return (
                   <ListCard key={list._id} list={list} color={color}>

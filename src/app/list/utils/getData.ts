@@ -2,7 +2,7 @@ import { getCategories } from '@app/api/categories';
 import { getSubcategoryItems } from '@app/api/item';
 import { getSubcategory } from '@app/api/subcategory';
 import type {
-  CategoryType,
+  CategoriesResponse,
   ItemType,
   SubcategoriesType,
 } from '@app/types/list.types';
@@ -20,7 +20,7 @@ export async function getData(
 export async function getData(
   dataType: 'categories',
   id: string
-): Promise<CategoryType[] | undefined>;
+): Promise<CategoriesResponse>;
 
 export async function getData<
   T extends 'subcategory' | 'subcategoryItems' | 'categories'
