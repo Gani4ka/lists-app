@@ -12,7 +12,7 @@ export default async function CategoryPage({
   const { categoryId } = params;
 
   if (categoryId) {
-    const category = await getCategoryById(categoryId);
+    const { category } = await getCategoryById(categoryId);
     if (category) return <AddEditCategory category={category} />;
   }
   //TO DO: show error page

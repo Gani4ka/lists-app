@@ -10,7 +10,7 @@ const List = async ({ params }: ListProps) => {
 
   const list = await getData('subcategory', listId);
   const listOfItems = await getData('subcategoryItems', listId);
-  const categories = await getData('categories', '');
+  const { categories } = await getData('categories', '');
 
   // const currentCategory = getCategoryByTitle(categoryName, categories);
 

@@ -11,6 +11,7 @@
 }
 .category {
   margin: 0 2rem;
+  min-height: 100%;
 }
 .header {
   margin-top: 2rem;
@@ -38,7 +39,7 @@
 
 @media (max-width: 768px) {
   .main-container {
-    justify-content: space-between;
+    justify-content: center;
     width: 90%;
   }
   .flex-input {
@@ -55,7 +56,6 @@
 @media (max-width: 508px) {
   .flex-input {
     width: 100%;
-    align-items: center;
   }
   .buttons {
     width: 100%;

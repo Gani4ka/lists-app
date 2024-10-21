@@ -1,8 +1,10 @@
 import { IconType } from 'react-icons';
 
+import { CategoryIconItem } from '@app/app/categories/types';
+
 export type IconPickerType = {
-  onSelectIcon: (icon: string) => void;
-  selectedIcon: string;
+  onSelectIcon: (icon: CategoryIconItem) => void;
+  selectedIcon: CategoryIconItem;
 };
 
 export interface CategoryIcon {

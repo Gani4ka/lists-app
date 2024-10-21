@@ -2,11 +2,17 @@
 
 import { revalidateTag } from 'next/cache';
 
-import type { CategoryCreateType, CategoryType } from '@app/types/list.types';
+import type {
+  CategoryCreateType,
+  CategoryResponse,
+  CategoryType,
+} from '@app/types/list.types';
 
 import { getUserToken } from './user';
 
-export async function createCategory(data: CategoryCreateType) {
+export async function createCategory(
+  data: CategoryCreateType
+): Promise<CategoryResponse> {
   try {
     const token = await getUserToken();
 
@@ -24,13 +30,23 @@ export async function createCategory(data: CategoryCreateType) {
     });
     const result = await res.json();
     await reloadCategories();
-    return result;
-  } catch (e) {
-    console.log('error', e);
+    return {
+      message: result.message,
+      category: result.category,
+      error: result.error,
+    } as CategoryResponse;
+  } catch (error) {
+    return {
+      message: error,
+      category: null,
+      error: error,
+    } as CategoryResponse;
   }
 }
 
-export async function updateCategory(data: CategoryType) {
+export async function updateCategory(
+  data: CategoryType
+): Promise<CategoryResponse> {
   try {
     const token = await getUserToken();
 
@@ -51,13 +67,17 @@ export async function updateCategory(data: CategoryType) {
     );
     const result = await res.json();
     await reloadCategories();
-    return result;
-  } catch (e) {
-    console.log('error', e);
+    return {
+      message: result.message,
+      category: result.category,
+      error: result.error,
+    } as CategoryResponse;
+  } catch (error) {
+    return { message: error, category: null, error: error } as CategoryResponse;
   }
 }
 
-export async function deleteCategory(id: string) {
+export async function deleteCategory(id: string): Promise<CategoryResponse> {
   try {
     const token = await getUserToken();
 
@@ -77,9 +97,17 @@ export async function deleteCategory(id: string) {
     );
     const result = await res.json();
     await reloadCategories();
-    return result;
-  } catch (e) {
-    console.log('error', e);
+    return {
+      message: result.message,
+      category: result.category,
+      error: result.error,
+    } as CategoryResponse;
+  } catch (error) {
+    return {
+      message: error,
+      category: null,
+      error: error,
+    } as CategoryResponse;
   }
 }
 const reloadCategories = async () => {
