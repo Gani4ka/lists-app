@@ -121,6 +121,7 @@ export const CreateListForm = ({
                   </div>
                 ) : (
                   <Select.Root value={category} onValueChange={setCategory}>
+                    <input type="hidden" name="categoryId" value={category} />
                     <Select.Trigger className={classes['select-trigger']}>
                       <Select.Value
                         placeholder="Select a category"
