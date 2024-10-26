@@ -8,7 +8,7 @@ import { CategoryCard } from './components/categoryCard';
 import classes from './styles.module.css';
 
 const Categories = async () => {
-  const categories = await getCategories();
+  const { categories } = await getCategories();
 
   return (
     <main className={classes.main}>

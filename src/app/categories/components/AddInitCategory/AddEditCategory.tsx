@@ -1,48 +1,52 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FaBasketShopping, FaBook, FaListCheck } from 'react-icons/fa6';
-import { PiAirplaneTiltFill } from 'react-icons/pi';
 import { Button, Flex, Heading, Text } from '@radix-ui/themes';
 
 import { useRouter } from 'next/navigation';
 
 import { createCategory, updateCategory } from '@app/api/category';
+import { CategoryIconItem } from '@app/app/categories/types';
+import { categoryIcons } from '@app/app/constants';
 import ColorPicker from '@app/components/color-picker/ColorPicker';
-import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
+import CustomDialog from '@app/components/custom-dialog/CustomDialog';
+import IconPicker from '@app/components/icon-picker/IconPicker';
 import { setRandomIconColor } from '@app/utils/setRandomIconColor';
 
-import { CategoryIconItem } from '../../types';
 import classes from './styles.module.css';
 import { AddEditProps } from './types';
 
-export const categoryIcons: CategoryIconItem[] = [
-  { id: 1, name: 'shopping', Icon: FaBasketShopping },
-  { id: 2, name: 'book', Icon: FaBook },
-  { id: 3, name: 'list', Icon: FaListCheck },
-  { id: 4, name: 'travel', Icon: PiAirplaneTiltFill },
-];
+const defaultIcon = categoryIcons[0];
 
 const AddEditCategory = ({ category }: AddEditProps) => {
   const [categoryTitle, setCategoryTitle] = useState<string>('');
-  const [categoryIcon, setCategoryIcon] = useState<CategoryIconItem>();
+  const [categoryIcon, setCategoryIcon] =
+    useState<CategoryIconItem>(defaultIcon);
   const [categoryColor, setCategoryColor] = useState<string>('');
 
   const router = useRouter();
-
+  const [open, setOpen] = useState<boolean>(false);
   let Icon = null;
 
   useEffect(() => {
     if (category) {
       setCategoryTitle(category.title);
-      const selectedIcon =
-        categoryIcons.find(
-          (icon: CategoryIconItem) => icon.name === category.icon
-        ) ?? categoryIcons[2];
-      setCategoryIcon(selectedIcon);
       setCategoryColor(category.color ?? setRandomIconColor());
+      if (category.icon) {
+        const userIcon = categoryIcons.find(
+          (icon) => icon.name === category.icon
+        );
+
+        setCategoryIcon(userIcon ?? categoryIcons[0]);
+      }
     }
   }, [category]);
+
+  useEffect(() => {
+    if (categoryIcon) {
+      setOpen(false);
+    }
+  }, [categoryIcon]);
 
   const handleCancel = () => {
     router.back();
@@ -56,20 +60,20 @@ const AddEditCategory = ({ category }: AddEditProps) => {
         requestResult = await updateCategory({
           _id: category._id,
           title: categoryTitle,
-          icon: categoryIcon?.name || DEFAULT_CATEGORY_ICON,
+          icon: categoryIcon?.name || defaultIcon.name,
           color: categoryColor || setRandomIconColor(),
         });
         message = 'Category updated';
       } else {
         requestResult = await createCategory({
           title: categoryTitle || '',
-          icon: categoryIcon?.name || DEFAULT_CATEGORY_ICON,
+          icon: categoryIcon?.name || defaultIcon.name,
           color: categoryColor ?? setRandomIconColor(),
         });
         message = 'Category created';
       }
-      if (requestResult && requestResult.error) {
-        message = requestResult.error;
+      if (requestResult && requestResult.message) {
+        message = requestResult.message;
       }
       alert(message);
       handleCancel();
@@ -79,10 +83,6 @@ const AddEditCategory = ({ category }: AddEditProps) => {
     }
   };
 
-  // function editIcon() {
-  //   //TODO - add icon picker
-  //   // setNewIcon(category?.icon);
-  // }
   if (categoryIcon?.Icon) {
     Icon = categoryIcon.Icon;
   }
@@ -97,8 +97,27 @@ const AddEditCategory = ({ category }: AddEditProps) => {
       <Heading as="h6" className={classes.header}>
         {category ? 'Update category' : 'Create category'}
       </Heading>
+      <div
+        style={{
+          backgroundColor: categoryColor,
+          padding: '20px',
+          borderRadius: '5px',
+        }}
+      >
+        {Icon && <Icon size={40} color={'white'} />}
+      </div>
+      <CustomDialog
+        buttonTitle="Change icon"
+        open={open}
+        setOpen={setOpen}
+        customContent={
+          <IconPicker
+            onSelectIcon={setCategoryIcon}
+            selectedIcon={categoryIcon}
+          />
+        }
+      />
 
-      {Icon && <Icon size={40} color={categoryColor ?? 'red'} />}
       <ColorPicker setColor={setCategoryColor} color={categoryColor} />
       <Text wrap={'wrap'} className={classes.text}>
         {categoryTitle}
@@ -114,7 +133,11 @@ const AddEditCategory = ({ category }: AddEditProps) => {
         />
 
         <Flex gap={'2rem'} className={classes.buttons}>
-          <Button onClick={handleSave} className={classes['category-button']}>
+          <Button
+            onClick={handleSave}
+            style={{ backgroundColor: '#2AA383' }}
+            className={classes['category-button']}
+          >
             Save
           </Button>
           <Button

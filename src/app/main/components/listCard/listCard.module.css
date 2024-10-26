@@ -10,4 +10,6 @@
   display: block;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  color: white;
+  /* padding: 10px; */
 }
