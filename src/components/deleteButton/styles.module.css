@@ -31,7 +31,7 @@
   line-height: 1.5;
 }
 
-.button {
+.dialog-button {
   all: unset;
   display: inline-flex;
   align-items: center;
@@ -44,19 +44,44 @@
   height: 35px;
   color: #ffffff;
 }
-.button.approve {
+.dialog-button.approve {
   background-color: var(--color-primary-pink);
 }
-.button.approve:focus,
-.button.approve:hover {
+.dialog-button.approve:focus,
+.dialog-button.approve:hover {
   box-shadow: 0 0 0 2px #a400b03d;
 }
-.button.cancel {
+.dialog-button.cancel {
   background-color: var(--color-primary);
 }
-.button.cancel:focus,
-.button.cancel:hover {
+.dialog-button.cancel:focus,
+.dialog-button.cancel:hover {
   box-shadow: 0 0 0 2px #51ee3c;
+}
+
+.button {
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+}
+
+@media (min-width: 768px) {
+  .button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .button {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 @keyframes overlayShow {

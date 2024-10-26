@@ -1,7 +1,7 @@
 'use server';
 import { getCategoryById } from '@app/api/categories';
 
-import AddEditCategory from '../components/AddEditCategory';
+import AddEditCategory from '../components/AddInitCategory';
 import { CategoryParamProp } from '../components/categoryCard/types';
 
 export default async function CategoryPage({

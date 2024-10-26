@@ -28,3 +28,25 @@
     height: 24px;
   }
 }
+
+@media (min-width: 768px) {
+  .checkbox::before {
+    width: 32px;
+    height: 32px;
+  }
+
+  .item-input {
+    font-size: 26px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .checkbox::before {
+    width: 40px;
+    height: 40px;
+  }
+
+  .item-input {
+    font-size: 30px;
+  }
+}

@@ -1,0 +1,19 @@
+.main-container {
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px;
+}
+
+.link {
+  display: flex;
+  gap: 5px;
+  flex-basis: 100%;
+  margin-right: 10px;
+}
+
+.title {
+  display: block;
+  width: 100%;
+  border-bottom: 2px solid var(--color-primary);
+}

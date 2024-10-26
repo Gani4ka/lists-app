@@ -12,9 +12,9 @@ import ColorPicker from '@app/components/color-picker/ColorPicker';
 import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
 import { setRandomIconColor } from '@app/utils/setRandomIconColor';
 
-import classes from '../category.module.css';
-import { CategoryIconItem } from '../types';
-import { AddEditProps } from './categoryCard/types';
+import { CategoryIconItem } from '../../types';
+import classes from './styles.module.css';
+import { AddEditProps } from './types';
 
 export const categoryIcons: CategoryIconItem[] = [
   { id: 1, name: 'shopping', Icon: FaBasketShopping },

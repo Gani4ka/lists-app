@@ -1,4 +1,4 @@
-import AddEditCategory from '../components/AddEditCategory';
+import AddEditCategory from '../components/AddInitCategory';
 
 export default function AddNewCategoryPage() {
   return <AddEditCategory category={null} />;

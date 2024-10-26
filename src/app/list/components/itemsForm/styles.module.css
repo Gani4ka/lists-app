@@ -25,8 +25,32 @@
   border-radius: 0;
 }
 
-/* For Firefox */
 .items-form-wrapper {
   scrollbar-width: thin;
   scrollbar-color: var(--primary-color);
+  overflow: scroll;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.width-box {
+  max-width: var(--max-layout-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .items-form-wrapper {
+    --list-title-height: 286px;
+    max-height: calc(100vh - var(--header-height) - var(--list-title-height));
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .items-form-wrapper {
+    --list-title-height: 286px;
+    max-height: calc(100vh - var(--header-height) - var(--list-title-height));
+  }
 }

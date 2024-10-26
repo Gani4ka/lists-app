@@ -1,9 +1,8 @@
-import { Flex } from '@radix-ui/themes';
-
 import { ItemsForm } from '../components/itemsForm';
 import { ListTitle } from '../components/ListTitle';
 import type { ListProps } from '../types';
 import { getData } from '../utils/getData';
+import classes from './styles.module.css';
 
 const List = async ({ params }: ListProps) => {
   const listId = params.id;
@@ -12,10 +11,10 @@ const List = async ({ params }: ListProps) => {
   const list = await getData('subcategory', listId);
 
   return (
-    <Flex direction={'column'} align={'center'} pl="2" pr="2" pt={'1'}>
+    <main className={classes.main}>
       {list && <ListTitle list={list} />}
       {listId && <ItemsForm listOfItems={listOfItems} listId={listId} />}
-    </Flex>
+    </main>
   );
 };
 

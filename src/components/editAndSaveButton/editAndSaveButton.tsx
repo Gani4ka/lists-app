@@ -48,11 +48,11 @@ export const EditAndSaveButton = ({
     <>
       {isEditing ? (
         <Button className={classes.button} onClick={handleSave}>
-          <RiCheckLine />
+          <RiCheckLine className={classes.icon} />
         </Button>
       ) : (
         <Button className={classes.button} onClick={handleEdit}>
-          <RiEdit2Line />
+          <RiEdit2Line className={classes.icon} />
         </Button>
       )}
     </>

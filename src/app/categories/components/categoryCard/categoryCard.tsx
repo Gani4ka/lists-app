@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { deleteCategory } from '@app/api/category';
 import { DeleteButton } from '@app/components/deleteButton';
 
-import classes from './classes.module.css';
+import classes from './styles.module.css';
 import type { CategoryCardProps } from './types';
 
 export const CategoryCard = async (props: CategoryCardProps) => {
@@ -22,23 +22,12 @@ export const CategoryCard = async (props: CategoryCardProps) => {
   const Icon = icons[icon] || icons['FcLikePlaceholder'];
   const url = `/categories/${category._id}`;
   return (
-    <Flex
-      className={classes['main-container']}
-      align="center"
-      justify="between"
-      wrap="nowrap"
-    >
-      <Link href={url} className={classes.title}>
-        <Flex
-          direction={'row'}
-          justify={'between'}
-          align={'center'}
-          style={{ width: '100%' }}
-          gap={'1rem'}
-        >
+    <Flex className={classes['main-container']}>
+      <Link href={url} className={classes.link}>
+        <>
           <Icon />
-          <Text>{title}</Text>
-        </Flex>
+          <Text className={classes.title}>{title}</Text>
+        </>
       </Link>
 
       <Flex gap={'1rem'} align={'center'} className={classes.buttons}>

@@ -10,7 +10,7 @@ import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
 import { PATHS } from '@app/constants/pages';
 
 import ListCard from './components/listCard';
-import styles from './mainPage.module.css';
+import classes from './mainPage.module.css';
 import { getCategoriesColor, getCategoryIcon } from './utils';
 
 export default async function MainPage() {
@@ -24,13 +24,13 @@ export default async function MainPage() {
   };
 
   return (
-    <main className={styles.main}>
-      <Box p={'4'} className={styles['main-wrapper']}>
-        <Flex mb={'4'} justify={'end'} className={styles.filter}>
-          Sort by
-        </Flex>
+    <main className={classes.main}>
+      <Box p={'4'} className={classes['main-wrapper']}>
         <Suspense fallback={<Loader />}>
-          <Grid columns="3" gap="3" rows="repeat(auto, auto)" width="auto">
+          <Flex mb={'4'} justify={'end'} className={classes.filter}>
+            Sort by
+          </Flex>
+          <Grid className={classes.grid}>
             {subcategories &&
               categories &&
               subcategories.map((list) => {

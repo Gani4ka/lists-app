@@ -1,6 +1,6 @@
 import { Flex, Text } from '@radix-ui/themes';
 
-import type { CategoryIconProps } from './types';
+import type { CategoryIconProps } from '../types';
 
 export const CategoryIcon = ({
   children,

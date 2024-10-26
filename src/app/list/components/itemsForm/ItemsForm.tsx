@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import * as Form from '@radix-ui/react-form';
-import { Flex } from '@radix-ui/themes';
+import { Box, Flex } from '@radix-ui/themes';
 
 import { deleteItem } from '@app/api/item';
 
@@ -40,17 +40,19 @@ export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
   return (
     <Flex width={'100%'}>
       <Form.Root className={classes['items-form-wrapper']}>
-        {!!items?.length &&
-          items.map((item, index) => (
-            <Item
-              key={item._id}
-              item={item}
-              index={index}
-              handleToggleDone={handleToggleDone}
-              handleTitleChange={handleTitleChange}
-              handleDelete={handleDelete}
-            />
-          ))}
+        <Box className={classes['width-box']}>
+          {!!items?.length &&
+            items.map((item, index) => (
+              <Item
+                key={item._id}
+                item={item}
+                index={index}
+                handleToggleDone={handleToggleDone}
+                handleTitleChange={handleTitleChange}
+                handleDelete={handleDelete}
+              />
+            ))}
+        </Box>
       </Form.Root>
       <CreateItem subcategoryId={listId} setItems={setItems} />
     </Flex>
