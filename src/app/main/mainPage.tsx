@@ -1,27 +1,23 @@
 import { Suspense } from 'react';
-import type { IconType } from 'react-icons';
 import { Box, Flex, Grid } from '@radix-ui/themes';
 
 import { getCategories } from '@app/api/categories';
 import { getAllSubcategories } from '@app/api/subcategory';
 import AddButton from '@app/components/addButton';
+import { CategoryIcon } from '@app/components/icon-picker/types';
 import Loader from '@app/components/loader';
-import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
 import { PATHS } from '@app/constants/pages';
+import { CategoryType } from '@app/types/list.types';
 
+import { categoryIcons } from '../constants';
 import ListCard from './components/listCard';
 import styles from './mainPage.module.css';
-import { getCategoriesColor, getCategoryIcon } from './utils';
 
 export default async function MainPage() {
   const subcategoriesResponse = await getAllSubcategories();
-  const categories = await getCategories();
+  const { categories } = await getCategories();
 
   const subcategories = subcategoriesResponse?.subcategories;
-
-  const icons = (await import('react-icons/fc')) as unknown as {
-    [key: string]: IconType;
-  };
 
   return (
     <main className={styles.main}>
@@ -30,16 +26,39 @@ export default async function MainPage() {
           Sort by
         </Flex>
         <Suspense fallback={<Loader />}>
-          <Grid columns="3" gap="3" rows="repeat(auto, auto)" width="auto">
+          <Grid
+            columns={{ initial: '1', md: '3' }}
+            gap="3"
+            className={styles.grid}
+          >
             {subcategories &&
               categories &&
               subcategories.map((list) => {
-                const icon = getCategoryIcon(list.categoryId, categories);
-                const Icon = icons[icon] || icons[DEFAULT_CATEGORY_ICON];
-                const color = getCategoriesColor(list.categoryId, categories);
+                let Icon = null;
+
+                const currentCategory = categories.find(
+                  (category: CategoryType) => category._id === list.categoryId
+                );
+                const userIcon =
+                  categoryIcons.find(
+                    (icon: CategoryIcon) => icon.name === currentCategory?.icon
+                  ) ?? categoryIcons[0];
+                if (userIcon) {
+                  Icon = userIcon.Icon;
+                }
+
+                const color = currentCategory?.color ?? 'white';
                 return (
                   <ListCard key={list._id} list={list} color={color}>
-                    <Icon />
+                    {Icon && (
+                      <Icon
+                        size={80}
+                        color={'white'}
+                        style={{
+                          marginTop: '20px',
+                        }}
+                      />
+                    )}
                   </ListCard>
                 );
               })}

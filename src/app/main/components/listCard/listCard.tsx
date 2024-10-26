@@ -1,4 +1,4 @@
-import { Flex, Heading, Text } from '@radix-ui/themes';
+import { Flex, Heading } from '@radix-ui/themes';
 
 import Link from 'next/link';
 
@@ -11,20 +11,15 @@ const ListCard = ({ list, children, color }: ListCardProps) => {
       <Flex
         key={list._id}
         className={styles.listItem}
+        direction={'column'}
         justify={'center'}
         align={'center'}
         p={'1'}
-        wrap={'wrap'}
-        style={{
-          backgroundColor: color,
-          minWidth: '100px',
-          minHeight: '100px',
-          aspectRatio: '1/1',
-        }}
+        content="space-between"
+        gapY={'50px'}
+        style={{ backgroundColor: color }}
       >
-        <Text style={{ flexBasis: '100%', textAlign: 'center' }}>
-          {children}
-        </Text>
+        {children}
         <Heading as={'h3'} className={styles.heading}>
           {list.title}
         </Heading>

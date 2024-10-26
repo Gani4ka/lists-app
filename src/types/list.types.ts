@@ -34,3 +34,13 @@ export interface AuthUser {
 export interface AuthError {
   message: string;
 }
+export interface CategoryResponse {
+  message: string;
+  category: CategoryType | null;
+  error: string | null;
+}
+export interface CategoriesResponse {
+  message: string;
+  categories: CategoryType[];
+  error: string | null;
+}
