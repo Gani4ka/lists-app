@@ -1,11 +1,10 @@
-// import type { IconType } from 'react-icons';
 import { Flex } from '@radix-ui/themes';
 
 import type { ListProps } from '../types';
 import { getData } from '../utils/getData';
-import { CreateListForm } from './createListForm/createListForm';
+import { CreateSubcategoryForm } from './createSubcategoryForm/createSubcategoryForm';
 
-const List = async ({ params }: ListProps) => {
+const Subcategory = async ({ params }: ListProps) => {
   const listId = params.id;
 
   const list = await getData('subcategory', listId);
@@ -15,7 +14,7 @@ const List = async ({ params }: ListProps) => {
   return (
     <>
       <Flex direction={'column'} align={'center'} pl="2" pr="2">
-        <CreateListForm
+        <CreateSubcategoryForm
           listOfItems={listOfItems}
           listTitle={list?.title}
           listId={listId}
@@ -27,4 +26,4 @@ const List = async ({ params }: ListProps) => {
   );
 };
 
-export default List;
+export default Subcategory;

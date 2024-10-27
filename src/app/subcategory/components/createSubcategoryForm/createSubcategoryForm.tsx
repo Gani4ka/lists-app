@@ -24,7 +24,7 @@ import { SelectItem } from './components/SelectItem';
 import classes from './styles.module.css';
 import type { ListFormProps } from './types';
 
-export const CreateListForm = ({
+export const CreateSubcategoryForm = ({
   listTitle,
   listCategoryId: initialListCategoryId,
   categories,
