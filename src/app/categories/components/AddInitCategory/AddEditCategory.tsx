@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button, Flex, Heading, Text } from '@radix-ui/themes';
+import { Button, Flex } from '@radix-ui/themes';
+import clsx from 'clsx';
 
 import { useRouter } from 'next/navigation';
 
@@ -22,7 +23,9 @@ const AddEditCategory = ({ category }: AddEditProps) => {
   const [categoryTitle, setCategoryTitle] = useState<string>('');
   const [categoryIcon, setCategoryIcon] =
     useState<CategoryIconItem>(defaultIcon);
-  const [categoryColor, setCategoryColor] = useState<string>('');
+  const [categoryColor, setCategoryColor] = useState<string>(
+    category?.color || setRandomIconColor()
+  );
 
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
@@ -88,23 +91,14 @@ const AddEditCategory = ({ category }: AddEditProps) => {
   }
 
   return (
-    <Flex
-      direction={'column'}
-      gap={'1rem'}
-      align={'center'}
-      className={classes.category}
-    >
-      <Heading as="h6" className={classes.header}>
-        {category ? 'Update category' : 'Create category'}
-      </Heading>
+    <Flex className={classes.category}>
       <div
         style={{
           backgroundColor: categoryColor,
-          padding: '20px',
-          borderRadius: '5px',
         }}
+        className={classes['icon-wrapper']}
       >
-        {Icon && <Icon size={40} color={'white'} />}
+        {Icon && <Icon color={'white'} className={classes.icon} />}
       </div>
       <CustomDialog
         buttonTitle="Change icon"
@@ -119,10 +113,7 @@ const AddEditCategory = ({ category }: AddEditProps) => {
       />
 
       <ColorPicker setColor={setCategoryColor} color={categoryColor} />
-      <Text wrap={'wrap'} className={classes.text}>
-        {categoryTitle}
-      </Text>
-      <Flex className={classes['flex-input']} direction={'column'} gap={'1rem'}>
+      <Flex direction={'column'} gap={'1rem'}>
         <input
           type="text"
           value={categoryTitle || category?.title}
@@ -132,18 +123,13 @@ const AddEditCategory = ({ category }: AddEditProps) => {
           multiple={true}
         />
 
-        <Flex gap={'2rem'} className={classes.buttons}>
-          <Button
-            onClick={handleSave}
-            style={{ backgroundColor: '#2AA383' }}
-            className={classes['category-button']}
-          >
+        <Flex className={classes.buttons}>
+          <Button onClick={handleSave} className={classes['category-button']}>
             Save
           </Button>
           <Button
             onClick={handleCancel}
-            className={classes['category-button']}
-            color="blue"
+            className={clsx(classes['category-button'], classes.cancel)}
           >
             Cancel
           </Button>

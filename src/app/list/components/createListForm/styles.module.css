@@ -20,7 +20,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 10px;
   margin-bottom: 20px;
   font-size: 13px;
   line-height: 1;
@@ -43,6 +43,7 @@
 
 .select-content {
   width: 100%;
+  min-width: 240px;
   overflow: hidden;
   background-color: white;
   box-shadow: 0 0 3px 1px var(--color-primary);
@@ -59,7 +60,7 @@
   display: flex;
   align-items: center;
   height: 25px;
-  padding: 0 35px 0 25px;
+  padding: 8px;
   position: relative;
   user-select: none;
 }
@@ -69,8 +70,7 @@
 }
 .select-item[data-highlighted] {
   outline: none;
-  background-color: blue;
-  color: greenyellow;
+  color: var(--color-primary);
 }
 
 .select-label {
@@ -99,6 +99,41 @@
   cursor: default;
 }
 
+.select-value {
+  align-items: center;
+  gap: 8px;
+}
+
 .button {
   width: 100%;
+}
+
+.category-icon {
+  margin-right: 5px;
+}
+
+@media (min-width: 768px) {
+  .textfield {
+    padding: 0 8px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    min-width: 280px;
+  }
+
+  .select-trigger {
+    padding: 0 12px;
+    margin-bottom: 30px;
+    font-size: 18px;
+    height: 45px;
+  }
+
+  .select-item {
+    font-size: 16px;
+    height: 30px;
+  }
+
+  .button {
+    font-size: 18px;
+    height: 44px;
+  }
 }

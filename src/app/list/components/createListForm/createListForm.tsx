@@ -1,6 +1,10 @@
 'use client';
 
-import { KeyboardEvent as ReactKeyboardEvent, useState } from 'react';
+import {
+  KeyboardEvent as ReactKeyboardEvent,
+  useEffect,
+  useState,
+} from 'react';
 import * as Form from '@radix-ui/react-form';
 import { ChevronUpIcon } from '@radix-ui/react-icons';
 import * as Select from '@radix-ui/react-select';
@@ -9,6 +13,8 @@ import { Button, ChevronDownIcon, Flex, Link } from '@radix-ui/themes';
 import { useRouter } from 'next/navigation';
 
 import { createSubcategory } from '@app/api/subcategory';
+import type { CategoryIconItem } from '@app/app/categories/types';
+import { categoryIcons } from '@app/app/constants';
 import AddButton from '@app/components/addButton';
 import type { SubcategoriesType } from '@app/types/list.types';
 
@@ -26,6 +32,27 @@ export const CreateListForm = ({
   const [title, setTitle] = useState('');
   const [errors, setErrors] = useState({ isMin: false, isMax: false });
   const [category, setCategory] = useState(initialListCategoryId || '');
+
+  const defaultIcon = categoryIcons[0];
+  const [categoryIcon, setCategoryIcon] =
+    useState<CategoryIconItem>(defaultIcon);
+  const categoryData = categories?.find((cat) => cat.title === category);
+  let Icon = null;
+
+  useEffect(() => {
+    if (categoryData?.icon) {
+      const selectedIcon = categoryIcons.find(
+        (iconItem) => iconItem.name === categoryData.icon
+      );
+
+      setCategoryIcon(selectedIcon ?? defaultIcon);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category]);
+
+  if (categoryIcon?.Icon) {
+    Icon = categoryIcon.Icon;
+  }
 
   const router = useRouter();
 
@@ -127,7 +154,12 @@ export const CreateListForm = ({
                         placeholder="Select a category"
                         aria-label={category}
                       >
-                        {category || 'Select a category'}
+                        <Flex className={classes['select-value']}>
+                          {Icon && (
+                            <Icon color={categoryData?.color} size={20} />
+                          )}{' '}
+                          {category || 'Select a category'}
+                        </Flex>
                       </Select.Value>
                       <Select.Icon className={classes['select-icon']}>
                         <ChevronDownIcon />
@@ -142,7 +174,11 @@ export const CreateListForm = ({
                       </Select.ScrollUpButton>
                       <Select.Viewport className={classes['select-viewport']}>
                         {categories?.map((category) => (
-                          <SelectItem value={category.title} key={category._id}>
+                          <SelectItem
+                            value={category.title}
+                            key={category._id}
+                            category={category}
+                          >
                             {category.title}
                           </SelectItem>
                         ))}

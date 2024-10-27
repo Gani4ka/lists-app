@@ -26,9 +26,7 @@ export default function CustomDialog({
             <Dialog.Description>{description}</Dialog.Description>
             {customContent}
             <Dialog.Close asChild>
-              <Button className={styles.cancelButton} color="blue">
-                Cancel
-              </Button>
+              <Button className={styles.cancelButton}>Cancel</Button>
             </Dialog.Close>
           </Dialog.Content>
         </Dialog.Overlay>

@@ -17,3 +17,54 @@
   width: 100%;
   border-bottom: 2px solid var(--color-primary);
 }
+
+.button {
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+}
+
+.category-icon {
+  width: 25px;
+  height: 25px;
+}
+
+@media (min-width: 768px) {
+  .button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .category-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 5px;
+  }
+
+  .main-container {
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 22px;
+    padding-left: 5px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .category-icon {
+    width: 44px;
+    height: 44px;
+    margin-right: 10px;
+  }
+}

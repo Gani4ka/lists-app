@@ -12,15 +12,6 @@ const List = async ({ params }: ListProps) => {
   const listOfItems = await getData('subcategoryItems', listId);
   const { categories } = await getData('categories', '');
 
-  // const currentCategory = getCategoryByTitle(categoryName, categories);
-
-  //   const icons = (await import('react-icons/fc')) as unknown as {
-  //     [key: string]: IconType;
-  //   };
-  //   const Icon =
-  //     (currentCategory && icons[currentCategory.icon]) ||
-  //     icons[DEFAULT_CATEGORY_ICON];
-
   return (
     <>
       <Flex direction={'column'} align={'center'} pl="2" pr="2">

@@ -46,15 +46,7 @@ export default async function MainPage() {
                 const color = currentCategory?.color ?? 'white';
                 return (
                   <ListCard key={list._id} list={list} color={color}>
-                    {Icon && (
-                      <Icon
-                        size={20}
-                        color={'white'}
-                        // style={{
-                        //   marginTop: '20px',
-                        // }}
-                      />
-                    )}
+                    {Icon && <Icon color={'white'} className={classes.icon} />}
                   </ListCard>
                 );
               })}
