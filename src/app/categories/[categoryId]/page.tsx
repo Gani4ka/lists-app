@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { getCategoryById } from '@app/api/categories';
 
-import AddEditCategory from '../components/AddInitCategory';
+import AddEditCategory from '../components/AddEditCategory';
 import { CategoryParamProp } from '../components/categoryCard/types';
 
 export default async function CategoryPage({
