@@ -18,8 +18,8 @@ export const DeleteButton = ({ item, cb }: DeleteButtonProps) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <Button style={{ width: '24px', height: '24px', padding: '2px' }}>
-          <RiDeleteBinLine />
+        <Button className={classes.button}>
+          <RiDeleteBinLine className={classes.icon} />
         </Button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
@@ -39,14 +39,16 @@ export const DeleteButton = ({ item, cb }: DeleteButtonProps) => {
             }}
           >
             <AlertDialog.Cancel asChild>
-              <button className={clsx(classes.button, classes.cancel)}>
+              <button
+                className={clsx(classes['dialog-button'], classes.cancel)}
+              >
                 Cancel
               </button>
             </AlertDialog.Cancel>
             <AlertDialog.Action asChild>
               <button
                 onClick={(e) => handleDelete(e)}
-                className={clsx(classes.button, classes.approve)}
+                className={clsx(classes['dialog-button'], classes.approve)}
               >
                 Yes, delete {item.title}
               </button>

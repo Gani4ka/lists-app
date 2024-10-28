@@ -5,7 +5,7 @@ import { Flex, Grid, Text } from '@radix-ui/themes';
 import { CategoryIconItem } from '@app/app/categories/types';
 import { categoryIcons } from '@app/app/constants';
 
-import styles from './classes.module.css';
+import classes from './classes.module.css';
 import { IconPickerType } from './types';
 
 const IconPicker = ({ selectedIcon, onSelectIcon }: IconPickerType) => {
@@ -13,14 +13,14 @@ const IconPicker = ({ selectedIcon, onSelectIcon }: IconPickerType) => {
     <Flex
       direction={'column'}
       gap={'20px'}
-      width={'320px'}
+      min-width={'320px'}
       align={'center'}
-      className={styles.container}
+      className={classes.container}
     >
-      <Text align={'center'} style={{ marginTop: '20px' }}>
+      <Text align={'center'} className={classes.text}>
         Choose category icon
       </Text>
-      <Grid columns={'5'} rows={'4'} className={styles.grid}>
+      <Grid columns={'5'} rows={'4'} className={classes.grid}>
         {categoryIcons.map((iconItem: CategoryIconItem) => {
           const { name, Icon: IconComponent } = iconItem;
           return (
@@ -33,7 +33,7 @@ const IconPicker = ({ selectedIcon, onSelectIcon }: IconPickerType) => {
               <Flex
                 key={name}
                 onClick={() => onSelectIcon(iconItem)}
-                className={styles.icon}
+                className={classes.icon}
                 style={{
                   backgroundColor:
                     selectedIcon.name === name ? '#2AA383' : 'transparent',
@@ -48,6 +48,7 @@ const IconPicker = ({ selectedIcon, onSelectIcon }: IconPickerType) => {
                 style={{
                   marginBottom: '10px',
                 }}
+                className={classes.text}
               >
                 {name}
               </Text>

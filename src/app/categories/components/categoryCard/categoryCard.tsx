@@ -10,8 +10,9 @@ import { categoryIcons } from '@app/app/constants';
 import { DeleteButton } from '@app/components/deleteButton';
 
 import { CategoryIconItem } from '../../types';
-import classes from './classes.module.css';
+import classes from './styles.module.css';
 import type { CategoryCardProps } from './types';
+
 const defaultIcon = categoryIcons[0];
 
 export const CategoryCard = (props: CategoryCardProps) => {
@@ -19,6 +20,7 @@ export const CategoryCard = (props: CategoryCardProps) => {
   const { title, icon, color } = category;
   const [categoryIcon, setCategoryIcon] =
     useState<CategoryIconItem>(defaultIcon);
+
   const url = `/categories/${category._id}`;
   let Icon = null;
 
@@ -38,22 +40,22 @@ export const CategoryCard = (props: CategoryCardProps) => {
 
   return (
     <Flex className={classes['main-container']}>
-      <Link href={url} className={classes.title}>
-        <Flex style={{ width: '100%' }} gap={'1rem'}>
-          {Icon && <Icon size={25} color={color} />}
-          <Text>{title}</Text>
-        </Flex>
+      <Link href={url} className={classes.link}>
+        <>
+          {Icon && <Icon color={color} className={classes['category-icon']} />}
+          <Text className={classes.title}>{title}</Text>
+        </>
       </Link>
 
-      <Flex gap={'1rem'} align={'center'} className={classes.buttons}>
-        <Button style={{ width: '24px', height: '24px', padding: '2px' }}>
+      <Flex gap={'1rem'} align={'center'}>
+        <Button className={classes.button}>
           <Link href={`/list`}>
-            <FaPlus />
+            <FaPlus className={classes.icon} />
           </Link>
         </Button>
-        <Button style={{ width: '24px', height: '24px', padding: '2px' }}>
+        <Button className={classes.button}>
           <Link href={url}>
-            <FaPencilAlt />
+            <FaPencilAlt className={classes.icon} />
           </Link>
         </Button>
         <DeleteButton item={category} cb={deleteCategory} />

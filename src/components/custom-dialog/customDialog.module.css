@@ -20,16 +20,34 @@
   align-items: center;
 }
 .openButton {
-  border-radius: 5px;
   margin: 10px 0;
   padding: 15px;
-  color: white;
-  background-color: #2aa383;
 }
 .cancelButton {
   width: 50%;
-  border-radius: 5px;
   margin: 10px 0;
   padding: 5px;
   color: white;
+  background-color: var(--color-primary-pink);
+}
+
+@media (min-width: 768px) {
+  .openButton {
+    margin: 20px 0;
+    padding: 20px;
+    font-size: 18px;
+  }
+
+  .cancelButton {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .openButton {
+    margin: 25px 0;
+    padding: 25px;
+    font-size: 19px;
+  }
 }

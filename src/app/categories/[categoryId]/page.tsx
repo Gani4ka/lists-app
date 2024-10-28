@@ -1,4 +1,6 @@
 'use server';
+import { notFound } from 'next/navigation';
+
 import { getCategoryById } from '@app/api/categories';
 
 import AddEditCategory from '../components/AddEditCategory';
@@ -15,6 +17,6 @@ export default async function CategoryPage({
     const { category } = await getCategoryById(categoryId);
     if (category) return <AddEditCategory category={category} />;
   }
-  //TO DO: show error page
-  return <p>Error occured. Category is not found or not valid</p>;
+
+  notFound();
 }

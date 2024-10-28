@@ -11,7 +11,7 @@ import { CategoryType } from '@app/types/list.types';
 
 import { categoryIcons } from '../constants';
 import ListCard from './components/listCard';
-import styles from './mainPage.module.css';
+import classes from './mainPage.module.css';
 
 export default async function MainPage() {
   const subcategoriesResponse = await getAllSubcategories();
@@ -20,17 +20,13 @@ export default async function MainPage() {
   const subcategories = subcategoriesResponse?.subcategories;
 
   return (
-    <main className={styles.main}>
-      <Box p={'4'}>
-        <Flex mb={'4'} justify={'end'} className={styles.filter}>
-          Sort by
-        </Flex>
+    <main className={classes.main}>
+      <Box p={'4'} className={classes['main-wrapper']}>
         <Suspense fallback={<Loader />}>
-          <Grid
-            columns={{ initial: '1', md: '3' }}
-            gap="3"
-            className={styles.grid}
-          >
+          <Flex mb={'4'} justify={'end'} className={classes.filter}>
+            Sort by
+          </Flex>
+          <Grid className={classes.grid}>
             {subcategories &&
               categories &&
               subcategories.map((list) => {
@@ -50,15 +46,7 @@ export default async function MainPage() {
                 const color = currentCategory?.color ?? 'white';
                 return (
                   <ListCard key={list._id} list={list} color={color}>
-                    {Icon && (
-                      <Icon
-                        size={80}
-                        color={'white'}
-                        style={{
-                          marginTop: '20px',
-                        }}
-                      />
-                    )}
+                    {Icon && <Icon color={'white'} className={classes.icon} />}
                   </ListCard>
                 );
               })}

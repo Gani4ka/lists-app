@@ -10,14 +10,17 @@ const ListCard = ({ list, children, color }: ListCardProps) => {
     <Link href={`/list/${list._id}`}>
       <Flex
         key={list._id}
-        className={styles.listItem}
         direction={'column'}
         justify={'center'}
         align={'center'}
         p={'1'}
-        content="space-between"
-        gapY={'50px'}
-        style={{ backgroundColor: color }}
+        wrap={'wrap'}
+        style={{
+          backgroundColor: color,
+          minWidth: '100px',
+          minHeight: '100px',
+          aspectRatio: '1/1',
+        }}
       >
         {children}
         <Heading as={'h3'} className={styles.heading}>

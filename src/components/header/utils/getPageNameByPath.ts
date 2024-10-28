@@ -16,9 +16,12 @@ export function getPageNameByPath(path: string) {
     case PATHS.auth:
       return PAGES_NAMES.auth;
     default: {
-      const categoryPageRegexp = /category\//;
+      const categoryPageRegexp = /categories\//;
       const matchCategoryPage = path.match(categoryPageRegexp);
       if (matchCategoryPage) return PAGES_NAMES.category;
+      const categoriesPageRegexp = /categories/;
+      const matchCategoriesPage = path.match(categoriesPageRegexp);
+      if (matchCategoriesPage) return PAGES_NAMES.categories;
       return PAGES_NAMES.home;
     }
   }

@@ -3,7 +3,7 @@ import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { Button } from '@radix-ui/themes';
 
 import Menu from '../menu';
-
+import classes from './styles.module.css';
 type Props = {
   hasUser: boolean;
 };
@@ -15,8 +15,8 @@ const MenuButton = ({ hasUser }: Props) => {
   };
   return (
     <>
-      <Button className="menu-button" onClick={toggleMenu} ml="auto">
-        <HamburgerMenuIcon />
+      <Button className={classes['menu-button']} onClick={toggleMenu}>
+        <HamburgerMenuIcon className={classes['menu-button-icon']} />
       </Button>
       <Menu isOpen={isOpen} hasUser={hasUser} />
     </>

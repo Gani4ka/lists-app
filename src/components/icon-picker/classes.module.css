@@ -1,6 +1,7 @@
 .container {
   border: 2px solid #bed7dc;
   align-self: center;
+  padding: 10px;
 }
 .icon {
   cursor: pointer;
@@ -18,4 +19,15 @@
 }
 .grid {
   width: 100%;
+  gap: 10px;
+}
+
+.text {
+  font-family: var(--roboto-font), sans-serif;
+}
+
+@media (min-width: 768px) {
+  .text {
+    font-size: 18px;
+  }
 }
