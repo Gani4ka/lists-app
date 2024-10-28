@@ -13,6 +13,7 @@ import type { ItemsFormProps } from './types';
 
 export const ItemsForm = ({ listOfItems, subcategoryId }: ItemsFormProps) => {
   const [items, setItems] = useState(listOfItems || []);
+  const [error, setError] = useState<string>('');
 
   function handleTitleChange(index: number, newTitle: string) {
     const updatedItems = [...(items || [])];
@@ -30,17 +31,23 @@ export const ItemsForm = ({ listOfItems, subcategoryId }: ItemsFormProps) => {
   async function handleDelete(id: string) {
     const response = await deleteItem(id);
 
-    response &&
-      setItems((items) => {
-        const itemsRest = items?.filter((item) => item._id !== id);
-        return itemsRest;
-      });
+    if (response.error) {
+      setError(response.message);
+    } else {
+      setError('');
+    }
+
+    setItems((items) => {
+      const itemsRest = items?.filter((item) => item._id !== id);
+      return itemsRest;
+    });
   }
 
   return (
     <Flex width={'100%'}>
       <Form.Root className={classes['items-form-wrapper']}>
         <Box className={classes['width-box']}>
+          {error && <p>{error}</p>}
           {!!items?.length &&
             items.map((item, index) => (
               <Item
