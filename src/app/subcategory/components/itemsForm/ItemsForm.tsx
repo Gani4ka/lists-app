@@ -11,7 +11,7 @@ import { Item } from './components/item';
 import classes from './styles.module.css';
 import type { ItemsFormProps } from './types';
 
-export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
+export const ItemsForm = ({ listOfItems, subcategoryId }: ItemsFormProps) => {
   const [items, setItems] = useState(listOfItems || []);
 
   function handleTitleChange(index: number, newTitle: string) {
@@ -54,7 +54,7 @@ export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
             ))}
         </Box>
       </Form.Root>
-      <CreateItem subcategoryId={listId} setItems={setItems} />
+      <CreateItem subcategoryId={subcategoryId} setItems={setItems} />
     </Flex>
   );
 };

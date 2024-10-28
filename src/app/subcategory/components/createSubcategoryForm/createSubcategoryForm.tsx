@@ -47,7 +47,6 @@ export const CreateSubcategoryForm = ({
 
       setCategoryIcon(selectedIcon ?? defaultIcon);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
   if (categoryIcon?.Icon) {
@@ -84,12 +83,11 @@ export const CreateSubcategoryForm = ({
 
     if (currentCategoryId) {
       const response = await createSubcategory(currentCategoryId, data);
-      const isError = !response || ('error' in response && !!response.error);
-      if (isError) {
-        alert(response?.error || 'Error creating list');
+      if (response.error) {
+        alert(response.error || 'Error creating list');
       } else {
         const { subcategory } = response;
-        router.push(`/list/${subcategory._id}`);
+        router.push(`/subcategory/${subcategory?._id}`);
       }
     }
   }
@@ -191,7 +189,11 @@ export const CreateSubcategoryForm = ({
             </Form.Control>
           </Form.Field>
 
-          <Button className={classes.button} type="submit">
+          <Button
+            className={classes.button}
+            type="submit"
+            disabled={title === '' || category === ''}
+          >
             Save
           </Button>
         </Form.Root>

@@ -124,7 +124,11 @@ const AddEditCategory = ({ category }: AddEditProps) => {
         />
 
         <Flex className={classes.buttons}>
-          <Button onClick={handleSave} className={classes['category-button']}>
+          <Button
+            onClick={handleSave}
+            className={classes['category-button']}
+            disabled={categoryTitle === ''}
+          >
             Save
           </Button>
           <Button

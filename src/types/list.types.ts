@@ -13,7 +13,7 @@ export interface SubcategoriesType {
   categoryId: string;
 }
 
-export interface ItemType {
+export interface SubCategoryItemType {
   _id: string;
   title: string;
   subcategoryId: string;
@@ -42,5 +42,31 @@ export interface CategoryResponse {
 export interface CategoriesResponse {
   message: string;
   categories: CategoryType[];
+  error: string | null;
+}
+export interface SubCategoryResponse {
+  message: string;
+  subcategory: SubcategoriesType | null;
+  error: string | null;
+}
+export interface SubCategoriesResponse {
+  message: string;
+  subcategories: SubcategoriesType[];
+  error: string | null;
+}
+export interface SubCategoryItemResponse {
+  message: string;
+  subcategoryItem: SubCategoryItemType | null;
+  error: string | null;
+}
+export interface SubCategoryItemsResponse {
+  message: string;
+  subcategoryItems: SubCategoryItemType[];
+  error: string | null;
+}
+export interface SubCategoryManyItemsResponse {
+  message: string;
+  subcategoryItems: SubCategoryItemType[];
+  subcategoryItemsFailed?: SubCategoryItemType[];
   error: string | null;
 }

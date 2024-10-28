@@ -5,20 +5,23 @@ import { getData } from '../utils/getData';
 import { CreateSubcategoryForm } from './createSubcategoryForm/createSubcategoryForm';
 
 const Subcategory = async ({ params }: ListProps) => {
-  const listId = params.id;
+  const subcategoryId = params.subcategoryId;
 
-  const list = await getData('subcategory', listId);
-  const listOfItems = await getData('subcategoryItems', listId);
+  const subcategoryResponse = await getData('subcategory', subcategoryId);
+  const subcategoriesResponse = await getData(
+    'subcategoryItems',
+    subcategoryId
+  );
   const { categories } = await getData('categories', '');
 
   return (
     <>
       <Flex direction={'column'} align={'center'} pl="2" pr="2">
         <CreateSubcategoryForm
-          listOfItems={listOfItems}
-          listTitle={list?.title}
-          listId={listId}
-          listCategoryId={list?.categoryId}
+          listOfItems={subcategoriesResponse?.subcategoryItems}
+          listTitle={subcategoryResponse?.subcategory?.title}
+          listId={subcategoryId}
+          listCategoryId={subcategoryResponse?.subcategory?.categoryId}
           categories={categories}
         />
       </Flex>

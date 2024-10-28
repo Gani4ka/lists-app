@@ -2,13 +2,18 @@
 
 import { revalidateTag } from 'next/cache';
 
-import type { ItemType } from '@app/types/list.types';
+import type {
+  SubCategoryItemResponse,
+  SubCategoryItemsResponse,
+  SubCategoryItemType,
+  SubCategoryManyItemsResponse,
+} from '@app/types/list.types';
 
 import { getUserToken } from './user';
 
 export async function getSubcategoryItems(
   id: string
-): Promise<{ subcategoryItems: ItemType[] } | undefined> {
+): Promise<SubCategoryItemsResponse> {
   try {
     const token = await getUserToken();
 
@@ -27,16 +32,26 @@ export async function getSubcategoryItems(
         next: { tags: ['items'] },
       }
     );
-    return await res.json();
+    const result = await res.json();
+    return {
+      error: result.error,
+      subcategoryItems: result.subcategoryItems,
+      message: result.message,
+    } as SubCategoryItemsResponse;
   } catch (e) {
     console.log('error', e);
+    return {
+      error: e,
+      subcategoryItems: [],
+      message: e,
+    } as SubCategoryItemsResponse;
   }
 }
 
-export async function createItem(
+export async function createSubCategoryItem(
   subCategoryId: string,
-  data: ItemType
-): Promise<{ subcategoryItem: ItemType } | { error: string }> {
+  data: SubCategoryItemType
+): Promise<SubCategoryItemResponse> {
   try {
     const token = await getUserToken();
     if (!token) {
@@ -59,17 +74,25 @@ export async function createItem(
 
     if (res.ok) revalidateTag('items');
 
-    return response;
+    return {
+      error: response.error,
+      subcategoryItem: response.subcategoryItem,
+      message: response.message,
+    } as SubCategoryItemResponse;
   } catch (e) {
     console.error('error', e);
-    return { error: String(e) };
+    return {
+      error: e,
+      subcategoryItem: null,
+      message: e,
+    } as SubCategoryItemResponse;
   }
 }
 
 export async function updateItem(
   subCategoryId: string,
-  data: ItemType
-): Promise<{ subcategoryItem: ItemType } | undefined> {
+  data: SubCategoryItemType
+): Promise<SubCategoryItemResponse> {
   try {
     const token = await getUserToken();
 
@@ -89,16 +112,26 @@ export async function updateItem(
       }
     );
     revalidateTag('items');
-    return await res.json();
+    const response = await res.json();
+    return {
+      error: response.error,
+      subcategoryItem: response.subcategoryItem,
+      message: response.message,
+    } as SubCategoryItemResponse;
   } catch (e) {
     console.log('error', e);
+    return {
+      error: e,
+      subcategoryItem: null,
+      message: e,
+    } as SubCategoryItemResponse;
   }
 }
 
 export async function updateItemMany(
   subCategoryId: string,
-  data: ItemType[]
-): Promise<{ items: ItemType[] } | undefined> {
+  data: SubCategoryItemType[]
+): Promise<SubCategoryManyItemsResponse> {
   try {
     const token = await getUserToken();
 
@@ -118,15 +151,26 @@ export async function updateItemMany(
       }
     );
     revalidateTag('items');
-    return await res.json();
+    const response = await res.json();
+    return {
+      error: response.error,
+      subcategoryItems: response.subcategoryItems,
+      subcategoryItemsFailed: response.subcategoryItemsFailed ?? [],
+      message: response.message,
+    } as SubCategoryManyItemsResponse;
   } catch (e) {
-    console.log('error', e);
+    return {
+      error: e,
+      subcategoryItems: [],
+      subcategoryItemsFailed: [],
+      message: e,
+    } as SubCategoryManyItemsResponse;
   }
 }
 
 export async function deleteItem(
   itemId: string
-): Promise<{ subcategoryItem: ItemType } | undefined> {
+): Promise<SubCategoryItemResponse> {
   try {
     const token = await getUserToken();
 
@@ -145,8 +189,18 @@ export async function deleteItem(
       }
     );
     revalidateTag('items');
-    return await res.json();
+    const response = await res.json();
+    return {
+      error: response.error,
+      subcategoryItem: response.subcategoryItem,
+      message: response.message,
+    } as SubCategoryItemResponse;
   } catch (e) {
     console.log('error', e);
+    return {
+      error: e,
+      subcategoryItem: null,
+      message: e,
+    } as SubCategoryItemResponse;
   }
 }

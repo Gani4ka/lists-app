@@ -8,7 +8,7 @@ import { CategoryCard } from './components/categoryCard';
 import classes from './styles.module.css';
 
 const Categories = async () => {
-  const { categories } = await getCategories();
+  const { categories, message, error } = await getCategories();
 
   return (
     <main className={classes.main}>
@@ -18,6 +18,7 @@ const Categories = async () => {
             categories.map((category) => (
               <CategoryCard key={category._id} category={category} />
             ))}
+          {error && <p>{message}</p>}
         </Suspense>
       </Flex>
     </main>
