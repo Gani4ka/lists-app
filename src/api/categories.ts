@@ -34,7 +34,7 @@ export async function getCategories(): Promise<CategoriesResponse> {
     return {
       message: error,
       categories: [],
-      error: error,
+      error: true,
     } as CategoriesResponse;
   }
 }
@@ -69,7 +69,7 @@ export async function getCategoryById(
     return {
       message: error,
       category: null,
-      error: error,
+      error: true,
     } as CategoryResponse;
   }
 }

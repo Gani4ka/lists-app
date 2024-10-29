@@ -24,19 +24,19 @@ import { SelectItem } from './components/SelectItem';
 import classes from './styles.module.css';
 import type { ListFormProps } from './types';
 
+const defaultIcon = categoryIcons[0];
 export const CreateSubcategoryForm = ({
   listTitle,
   listCategoryId: initialListCategoryId,
   categories,
 }: ListFormProps) => {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState<string>('');
   const [errors, setErrors] = useState({ isMin: false, isMax: false });
   const [category, setCategory] = useState(initialListCategoryId || '');
-
-  const defaultIcon = categoryIcons[0];
   const [categoryIcon, setCategoryIcon] =
     useState<CategoryIconItem>(defaultIcon);
   const categoryData = categories?.find((cat) => cat.title === category);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   let Icon = null;
 
   useEffect(() => {
@@ -82,12 +82,15 @@ export const CreateSubcategoryForm = ({
     const currentCategoryId = categoryId || initialListCategoryId;
 
     if (currentCategoryId) {
-      const response = await createSubcategory(currentCategoryId, data);
-      if (response.error) {
-        alert(response.error || 'Error creating list');
+      const { subcategory, error, message } = await createSubcategory(
+        currentCategoryId,
+        data
+      );
+      if (error) {
+        setErrorMessage(message);
       } else {
-        const { subcategory } = response;
         router.push(`/subcategory/${subcategory?._id}`);
+        setErrorMessage('');
       }
     }
   }
@@ -126,6 +129,7 @@ export const CreateSubcategoryForm = ({
                 maxLength={MAX_FIELD_LENGTH}
               />
             </Form.Control>
+            {errorMessage && <p className="error-text">{errorMessage}</p>}
           </Form.Field>
 
           <Form.Field name="categoryId">

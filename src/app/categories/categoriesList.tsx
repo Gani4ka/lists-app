@@ -18,7 +18,7 @@ const Categories = async () => {
             categories.map((category) => (
               <CategoryCard key={category._id} category={category} />
             ))}
-          {error && <p>{message}</p>}
+          {error && <p className="error-text">{message}</p>}
         </Suspense>
       </Flex>
     </main>

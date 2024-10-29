@@ -39,7 +39,7 @@ export async function createCategory(
     return {
       message: error,
       category: null,
-      error: error,
+      error: true,
     } as CategoryResponse;
   }
 }
@@ -73,7 +73,7 @@ export async function updateCategory(
       error: result.error,
     } as CategoryResponse;
   } catch (error) {
-    return { message: error, category: null, error: error } as CategoryResponse;
+    return { message: error, category: null, error: true } as CategoryResponse;
   }
 }
 
@@ -106,7 +106,7 @@ export async function deleteCategory(id: string): Promise<CategoryResponse> {
     return {
       message: error,
       category: null,
-      error: error,
+      error: true,
     } as CategoryResponse;
   }
 }

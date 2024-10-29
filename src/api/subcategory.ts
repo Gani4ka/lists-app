@@ -35,12 +35,12 @@ export async function getAllSubcategories(): Promise<SubCategoriesResponse> {
       subcategories: result.subcategories,
       message: result.message,
     } as SubCategoriesResponse;
-  } catch (e) {
-    console.log('error', e);
+  } catch (error) {
+    console.log('error', error);
     return {
-      error: e,
+      error: true,
       subcategories: [],
-      message: e,
+      message: error,
     } as SubCategoriesResponse;
   }
 }
@@ -70,12 +70,12 @@ export async function getSubcategory(id: string): Promise<SubCategoryResponse> {
       subcategory: result.subcategory,
       message: result.message,
     } as SubCategoryResponse;
-  } catch (e) {
-    console.log('error', e);
+  } catch (error) {
+    console.log('error', error);
     return {
-      error: e,
+      error: true,
       subcategory: null,
-      message: e,
+      message: error,
     } as SubCategoryResponse;
   }
 }
@@ -110,11 +110,11 @@ export async function createSubcategory(
       subcategory: result.subcategory,
       message: result.message,
     } as SubCategoryResponse;
-  } catch (e) {
+  } catch (error) {
     return {
-      error: e,
+      error: true,
       subcategory: null,
-      message: e,
+      message: error,
     } as SubCategoryResponse;
   }
 }
@@ -148,12 +148,12 @@ export async function updateSubcategory(
       subcategory: result.subcategory,
       message: result.message,
     } as SubCategoryResponse;
-  } catch (e) {
-    console.log('error', e);
+  } catch (error) {
+    console.log('error', error);
     return {
-      error: e,
+      error: true,
       subcategory: null,
-      message: e,
+      message: error,
     } as SubCategoryResponse;
   }
 }
@@ -185,12 +185,12 @@ export async function deleteSubcategory(
       subcategory: response.subcategory,
       message: response.message,
     } as SubCategoryResponse;
-  } catch (e) {
-    console.log('error', e);
+  } catch (error) {
+    console.log('error', error);
     return {
-      error: e,
+      error: true,
       subcategory: null,
-      message: e,
+      message: error,
     } as SubCategoryResponse;
   }
 }

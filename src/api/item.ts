@@ -38,12 +38,12 @@ export async function getSubcategoryItems(
       subcategoryItems: result.subcategoryItems,
       message: result.message,
     } as SubCategoryItemsResponse;
-  } catch (e) {
-    console.log('error', e);
+  } catch (error) {
+    console.log('error', error);
     return {
-      error: e,
+      error: true,
       subcategoryItems: [],
-      message: e,
+      message: error,
     } as SubCategoryItemsResponse;
   }
 }
@@ -79,12 +79,12 @@ export async function createSubCategoryItem(
       subcategoryItem: response.subcategoryItem,
       message: response.message,
     } as SubCategoryItemResponse;
-  } catch (e) {
-    console.error('error', e);
+  } catch (error) {
+    console.error('error', error);
     return {
-      error: e,
+      error: true,
       subcategoryItem: null,
-      message: e,
+      message: error,
     } as SubCategoryItemResponse;
   }
 }
@@ -118,12 +118,12 @@ export async function updateItem(
       subcategoryItem: response.subcategoryItem,
       message: response.message,
     } as SubCategoryItemResponse;
-  } catch (e) {
-    console.log('error', e);
+  } catch (error) {
+    console.log('error', error);
     return {
-      error: e,
+      error: true,
       subcategoryItem: null,
-      message: e,
+      message: error,
     } as SubCategoryItemResponse;
   }
 }
@@ -158,12 +158,12 @@ export async function updateItemMany(
       subcategoryItemsFailed: response.subcategoryItemsFailed ?? [],
       message: response.message,
     } as SubCategoryManyItemsResponse;
-  } catch (e) {
+  } catch (error) {
     return {
-      error: e,
+      error: true,
       subcategoryItems: [],
       subcategoryItemsFailed: [],
-      message: e,
+      message: error,
     } as SubCategoryManyItemsResponse;
   }
 }
@@ -195,12 +195,12 @@ export async function deleteItem(
       subcategoryItem: response.subcategoryItem,
       message: response.message,
     } as SubCategoryItemResponse;
-  } catch (e) {
-    console.log('error', e);
+  } catch (error) {
+    console.log('error', error);
     return {
-      error: e,
+      error: true,
       subcategoryItem: null,
-      message: e,
+      message: error,
     } as SubCategoryItemResponse;
   }
 }

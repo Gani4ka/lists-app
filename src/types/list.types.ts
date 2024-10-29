@@ -37,36 +37,36 @@ export interface AuthError {
 export interface CategoryResponse {
   message: string;
   category: CategoryType | null;
-  error: string | null;
+  error: boolean;
 }
 export interface CategoriesResponse {
   message: string;
   categories: CategoryType[];
-  error: string | null;
+  error: boolean;
 }
 export interface SubCategoryResponse {
   message: string;
   subcategory: SubcategoriesType | null;
-  error: string | null;
+  error: boolean;
 }
 export interface SubCategoriesResponse {
   message: string;
   subcategories: SubcategoriesType[];
-  error: string | null;
+  error: boolean;
 }
 export interface SubCategoryItemResponse {
   message: string;
   subcategoryItem: SubCategoryItemType | null;
-  error: string | null;
+  error: boolean;
 }
 export interface SubCategoryItemsResponse {
   message: string;
   subcategoryItems: SubCategoryItemType[];
-  error: string | null;
+  error: boolean;
 }
 export interface SubCategoryManyItemsResponse {
   message: string;
   subcategoryItems: SubCategoryItemType[];
   subcategoryItemsFailed?: SubCategoryItemType[];
-  error: string | null;
+  error: boolean;
 }

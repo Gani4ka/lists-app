@@ -29,10 +29,10 @@ export const ItemsForm = ({ listOfItems, subcategoryId }: ItemsFormProps) => {
   }
 
   async function handleDelete(id: string) {
-    const response = await deleteItem(id);
+    const { error, message } = await deleteItem(id);
 
-    if (response.error) {
-      setError(response.message);
+    if (error) {
+      setError(message);
     } else {
       setError('');
     }

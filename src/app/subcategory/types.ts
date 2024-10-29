@@ -8,5 +8,5 @@ export interface ListProps {
 export interface SubCategoryResponse {
   message: string;
   subcategory: SubcategoriesType | null;
-  error: string | null;
+  error: boolean;
 }

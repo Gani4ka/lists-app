@@ -49,7 +49,7 @@ export default async function MainPage() {
                 );
               })}
           </Grid>
-          {error && <p>{message}</p>}
+          {error && <p className="error-text">{message}</p>}
         </Suspense>
       </Box>
       <AddButton linkTo={PATHS.subcategory} />
