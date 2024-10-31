@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { deleteCategory } from '@app/api/category';
 import { categoryIcons } from '@app/app/constants';
 import { DeleteButton } from '@app/components/deleteButton';
+import { useSubCategoryContext } from '@app/components/SubCategoryContext/SubCategoryContext';
 
 import { CategoryIconItem } from '../../types';
 import classes from './styles.module.css';
@@ -20,7 +21,7 @@ export const CategoryCard = (props: CategoryCardProps) => {
   const { title, icon, color } = category;
   const [categoryIcon, setCategoryIcon] =
     useState<CategoryIconItem>(defaultIcon);
-
+  const { setCategoryId } = useSubCategoryContext();
   const url = `/categories/${category._id}`;
   let Icon = null;
 
@@ -49,7 +50,10 @@ export const CategoryCard = (props: CategoryCardProps) => {
 
       <Flex gap={'1rem'} align={'center'}>
         <Button className={classes.button}>
-          <Link href={`/subcategory`}>
+          <Link
+            href={`/subcategory`}
+            onClick={() => setCategoryId(category._id)}
+          >
             <FaPlus className={classes.icon} />
           </Link>
         </Button>
