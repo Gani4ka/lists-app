@@ -1,10 +1,10 @@
 import type {
   CategoryType,
-  ItemType,
   SubcategoriesType,
+  SubCategoryItemType,
 } from '@app/types/list.types';
 
 export interface DeleteButtonProps {
-  item: CategoryType | ItemType | SubcategoriesType;
+  item: CategoryType | SubCategoryItemType | SubcategoriesType;
   cb: (id: string) => void;
 }

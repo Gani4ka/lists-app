@@ -7,7 +7,7 @@ import type { ListCardProps } from './listCard.types';
 
 const ListCard = ({ list, children, color }: ListCardProps) => {
   return (
-    <Link href={`/list/${list._id}`}>
+    <Link href={`/subcategory/${list._id}`}>
       <Flex
         key={list._id}
         direction={'column'}

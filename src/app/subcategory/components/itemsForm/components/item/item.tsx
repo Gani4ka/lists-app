@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import * as Form from '@radix-ui/react-form';
 import { Checkbox, Flex } from '@radix-ui/themes';
 
@@ -18,39 +18,48 @@ export const Item = ({
 }: ItemProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const [error, setError] = useState<string>('');
 
   async function saveItem() {
-    await updateItem(item.subcategoryId, item);
+    const response = await updateItem(item.subcategoryId, item);
+    if (response.error) {
+      setError(response.message);
+    } else {
+      setError('');
+    }
   }
 
   return (
-    <Flex key={item._id} className={classes['item-wrapper']} ref={wrapperRef}>
-      <Checkbox
-        checked={item.isDone}
-        onCheckedChange={() => handleToggleDone(item._id!, !item.isDone)}
-        id={`checkbox-${index}`}
-        className={classes.checkbox}
-      />
-      <Form.Field
-        name={`title-${index}`}
-        className={classes['item-input-wrapper']}
-      >
-        <Form.Control asChild>
-          <input
-            value={item.title}
-            onChange={(e) => handleTitleChange(index, e.target.value)}
-            placeholder="Enter title"
-            className={classes['item-input']}
-            ref={inputRef}
-          />
-        </Form.Control>
-      </Form.Field>
-      <EditAndSaveButton
-        cbSave={saveItem}
-        formRef={wrapperRef}
-        inputRef={inputRef}
-      />
-      <DeleteButton item={item} cb={handleDelete} />
+    <Flex direction={'column'}>
+      <Flex key={item._id} className={classes['item-wrapper']} ref={wrapperRef}>
+        <Checkbox
+          checked={item.isDone}
+          onCheckedChange={() => handleToggleDone(item._id!, !item.isDone)}
+          id={`checkbox-${index}`}
+          className={classes.checkbox}
+        />
+        <Form.Field
+          name={`title-${index}`}
+          className={classes['item-input-wrapper']}
+        >
+          <Form.Control asChild>
+            <input
+              value={item.title}
+              onChange={(e) => handleTitleChange(index, e.target.value)}
+              placeholder="Enter title"
+              className={classes['item-input']}
+              ref={inputRef}
+            />
+          </Form.Control>
+        </Form.Field>
+        <EditAndSaveButton
+          cbSave={saveItem}
+          formRef={wrapperRef}
+          inputRef={inputRef}
+        />
+        <DeleteButton item={item} cb={handleDelete} />
+      </Flex>
+      {error && <p>{error}</p>}
     </Flex>
   );
 };

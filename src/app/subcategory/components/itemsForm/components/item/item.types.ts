@@ -1,7 +1,7 @@
-import type { ItemType } from '@app/types/list.types';
+import type { SubCategoryItemType } from '@app/types/list.types';
 
 export interface ItemProps {
-  item: ItemType;
+  item: SubCategoryItemType;
   index: number;
   handleToggleDone: (id: string, isDone: boolean) => void;
   handleTitleChange: (index: number, newTitle: string) => void;

@@ -1,6 +1,6 @@
-import type { ItemType } from '@app/types/list.types';
+import type { SubCategoryItemType } from '@app/types/list.types';
 
 export interface ItemsFormProps {
-  listOfItems?: ItemType[];
-  listId: string;
+  listOfItems?: SubCategoryItemType[];
+  subcategoryId: string;
 }

@@ -14,10 +14,8 @@ import ListCard from './components/listCard';
 import classes from './mainPage.module.css';
 
 export default async function MainPage() {
-  const subcategoriesResponse = await getAllSubcategories();
+  const { subcategories, error, message } = await getAllSubcategories();
   const { categories } = await getCategories();
-
-  const subcategories = subcategoriesResponse?.subcategories;
 
   return (
     <main className={classes.main}>
@@ -51,9 +49,10 @@ export default async function MainPage() {
                 );
               })}
           </Grid>
+          {error && <p className="error-text">{message}</p>}
         </Suspense>
       </Box>
-      <AddButton linkTo={PATHS.list} />
+      <AddButton linkTo={PATHS.subcategory} />
     </main>
   );
 }

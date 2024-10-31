@@ -29,6 +29,7 @@ const AddEditCategory = ({ category }: AddEditProps) => {
 
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
   let Icon = null;
 
   useEffect(() => {
@@ -75,14 +76,13 @@ const AddEditCategory = ({ category }: AddEditProps) => {
         });
         message = 'Category created';
       }
-      if (requestResult && requestResult.message) {
+      if (requestResult.error) {
         message = requestResult.message;
       }
-      alert(message);
+      setMessage(message);
       handleCancel();
     } catch (error) {
-      console.error('Error updating/creating category', error);
-      alert('Error updating/creating category');
+      setMessage('Error updating/creating category');
     }
   };
 
@@ -122,9 +122,13 @@ const AddEditCategory = ({ category }: AddEditProps) => {
           className={classes.input}
           multiple={true}
         />
-
+        {message && <p className="error-text">{message}</p>}
         <Flex className={classes.buttons}>
-          <Button onClick={handleSave} className={classes['category-button']}>
+          <Button
+            onClick={handleSave}
+            className={classes['category-button']}
+            disabled={categoryTitle === ''}
+          >
             Save
           </Button>
           <Button

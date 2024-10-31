@@ -12,11 +12,16 @@ import styles from './styles.module.css';
 interface AddButtonProps {
   clickHandler?: MouseEventHandler<HTMLButtonElement>;
   linkTo?: PATHS;
+  disabled?: boolean;
 }
 
-const AddButton = ({ clickHandler, linkTo }: AddButtonProps) => {
+const AddButton = ({ clickHandler, linkTo, disabled }: AddButtonProps) => {
   return (
-    <Button className={styles.button} onClick={clickHandler}>
+    <Button
+      className={styles.button}
+      onClick={clickHandler}
+      disabled={disabled ?? false}
+    >
       {linkTo ? (
         <Link href={linkTo}>
           <p className={styles.icon} />

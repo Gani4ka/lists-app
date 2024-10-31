@@ -2,13 +2,15 @@
 
 import { revalidateTag } from 'next/cache';
 
-import type { SubcategoriesType } from '@app/types/list.types';
+import type {
+  SubCategoriesResponse,
+  SubcategoriesType,
+  SubCategoryResponse,
+} from '@app/types/list.types';
 
 import { getUserToken } from './user';
 
-export async function getAllSubcategories(): Promise<
-  { subcategories: SubcategoriesType[] } | undefined
-> {
+export async function getAllSubcategories(): Promise<SubCategoriesResponse> {
   try {
     const token = await getUserToken();
 
@@ -27,15 +29,24 @@ export async function getAllSubcategories(): Promise<
         next: { tags: ['subcategory'] },
       }
     );
-    return await res.json();
-  } catch (e) {
-    console.log('error', e);
+    const result = await res.json();
+    return {
+      error: result.error,
+      subcategories: result.subcategories,
+      message: result.message,
+    };
+  } catch (error) {
+    console.log('error', error);
+    const eString = JSON.stringify(error);
+    return {
+      error: true,
+      subcategories: [],
+      message: eString,
+    };
   }
 }
 
-export async function getSubcategory(
-  id: string
-): Promise<{ subcategory: SubcategoriesType } | undefined> {
+export async function getSubcategory(id: string): Promise<SubCategoryResponse> {
   try {
     const token = await getUserToken();
 
@@ -54,16 +65,27 @@ export async function getSubcategory(
         next: { tags: ['subcategory'] },
       }
     );
-    return await res.json();
-  } catch (e) {
-    console.log('error', e);
+    const result = await res.json();
+    return {
+      error: result.error,
+      subcategory: result.subcategory,
+      message: result.message,
+    };
+  } catch (error) {
+    console.log('error', error);
+    const eString = JSON.stringify(error);
+    return {
+      error: true,
+      subcategory: null,
+      message: eString,
+    };
   }
 }
 
 export async function createSubcategory(
   categoryId: string,
   data: SubcategoriesType
-): Promise<{ subcategory: SubcategoriesType } | undefined> {
+): Promise<SubCategoryResponse> {
   try {
     const token = await getUserToken();
 
@@ -84,16 +106,26 @@ export async function createSubcategory(
     );
     const result = await res.json();
     revalidateTag('subcategory');
-    return result;
-  } catch (e) {
-    console.log('error', e);
+
+    return {
+      error: result.error,
+      subcategory: result.subcategory,
+      message: result.message,
+    };
+  } catch (error) {
+    const eString = JSON.stringify(error);
+    return {
+      error: true,
+      subcategory: null,
+      message: eString,
+    };
   }
 }
 
 export async function updateSubcategory(
   categoryId: string,
   data: SubcategoriesType
-): Promise<{ subcategoryItem: SubcategoriesType } | undefined> {
+): Promise<SubCategoryResponse> {
   try {
     const token = await getUserToken();
 
@@ -114,13 +146,25 @@ export async function updateSubcategory(
     );
     const result = await res.json();
     revalidateTag('subcategory');
-    return result;
-  } catch (e) {
-    console.log('error', e);
+    return {
+      error: result.error,
+      subcategory: result.subcategory,
+      message: result.message,
+    };
+  } catch (error) {
+    console.log('error', error);
+    const eString = JSON.stringify(error);
+    return {
+      error: true,
+      subcategory: null,
+      message: eString,
+    };
   }
 }
 
-export async function deleteSubcategory(id: string): Promise<void> {
+export async function deleteSubcategory(
+  id: string
+): Promise<SubCategoryResponse> {
   try {
     const token = await getUserToken();
 
@@ -128,15 +172,30 @@ export async function deleteSubcategory(id: string): Promise<void> {
       throw new Error('Token is not found/valid. Try loging in again');
     }
 
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}subcategories/${id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    const result = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}subcategories/${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
     revalidateTag('subcategory');
-  } catch (e) {
-    console.log('error', e);
+    const response = await result.json();
+    return {
+      error: response.error,
+      subcategory: response.subcategory,
+      message: response.message,
+    };
+  } catch (error) {
+    console.log('error', error);
+    const eString = JSON.stringify(error);
+    return {
+      error: true,
+      subcategory: null,
+      message: eString,
+    };
   }
 }

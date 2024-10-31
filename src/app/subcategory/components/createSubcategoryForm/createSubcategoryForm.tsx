@@ -24,19 +24,19 @@ import { SelectItem } from './components/SelectItem';
 import classes from './styles.module.css';
 import type { ListFormProps } from './types';
 
+const defaultIcon = categoryIcons[0];
 export const CreateSubcategoryForm = ({
   listTitle,
   listCategoryId: initialListCategoryId,
   categories,
 }: ListFormProps) => {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState<string>('');
   const [errors, setErrors] = useState({ isMin: false, isMax: false });
   const [category, setCategory] = useState(initialListCategoryId || '');
-
-  const defaultIcon = categoryIcons[0];
   const [categoryIcon, setCategoryIcon] =
     useState<CategoryIconItem>(defaultIcon);
   const categoryData = categories?.find((cat) => cat.title === category);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   let Icon = null;
 
   useEffect(() => {
@@ -47,7 +47,6 @@ export const CreateSubcategoryForm = ({
 
       setCategoryIcon(selectedIcon ?? defaultIcon);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
   if (categoryIcon?.Icon) {
@@ -83,13 +82,15 @@ export const CreateSubcategoryForm = ({
     const currentCategoryId = categoryId || initialListCategoryId;
 
     if (currentCategoryId) {
-      const response = await createSubcategory(currentCategoryId, data);
-      const isError = !response || ('error' in response && !!response.error);
-      if (isError) {
-        alert(response?.error || 'Error creating list');
+      const { subcategory, error, message } = await createSubcategory(
+        currentCategoryId,
+        data
+      );
+      if (error) {
+        setErrorMessage(message);
       } else {
-        const { subcategory } = response;
-        router.push(`/list/${subcategory._id}`);
+        router.push(`/subcategory/${subcategory?._id}`);
+        setErrorMessage('');
       }
     }
   }
@@ -128,6 +129,7 @@ export const CreateSubcategoryForm = ({
                 maxLength={MAX_FIELD_LENGTH}
               />
             </Form.Control>
+            {errorMessage && <p className="error-text">{errorMessage}</p>}
           </Form.Field>
 
           <Form.Field name="categoryId">
@@ -191,7 +193,11 @@ export const CreateSubcategoryForm = ({
             </Form.Control>
           </Form.Field>
 
-          <Button className={classes.button} type="submit">
+          <Button
+            className={classes.button}
+            type="submit"
+            disabled={title === '' || category === ''}
+          >
             Save
           </Button>
         </Form.Root>

@@ -49,7 +49,7 @@ export const CategoryCard = (props: CategoryCardProps) => {
 
       <Flex gap={'1rem'} align={'center'}>
         <Button className={classes.button}>
-          <Link href={`/list`}>
+          <Link href={`/subcategory`}>
             <FaPlus className={classes.icon} />
           </Link>
         </Button>

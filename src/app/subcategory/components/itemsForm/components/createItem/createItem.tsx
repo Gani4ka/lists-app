@@ -7,9 +7,9 @@ import {
 } from 'react';
 import * as Form from '@radix-ui/react-form';
 
-import { createItem } from '@app/api/item';
+import { createSubCategoryItem } from '@app/api/item';
 import AddButton from '@app/components/addButton';
-import type { ItemType } from '@app/types/list.types';
+import type { SubCategoryItemType } from '@app/types/list.types';
 
 import { MAX_FIELD_LENGTH, MIN_FIELD_LENGTH } from '../../../../constants';
 import { checkIsValidValue } from '../../../../utils/checkIsValidValue';
@@ -29,24 +29,23 @@ export const CreateItem = ({ subcategoryId, setItems }: CreateItemProps) => {
     setErrors({ isMin, isMax });
     if (isMin || isMax) return;
 
-    const item: ItemType = {
+    const item: SubCategoryItemType = {
       title,
       subcategoryId,
       _id: '',
       isDone: false,
     };
 
-    const response = await createItem(subcategoryId, item);
+    const { subcategoryItem, error, message } = await createSubCategoryItem(
+      subcategoryId,
+      item
+    );
 
-    const isError =
-      !response ||
-      ('error' in response && !!response.error) ||
-      !('subcategoryItem' in response);
-
-    if (isError) alert(response?.error || 'Error creating item');
+    if (error || subcategoryItem === null)
+      alert(message || 'Error creating item');
     else {
-      setItems((items: ItemType[]) => {
-        return [...items, response.subcategoryItem];
+      setItems((items: SubCategoryItemType[]) => {
+        return [...items, subcategoryItem];
       });
       setTitle('');
     }
@@ -80,7 +79,7 @@ export const CreateItem = ({ subcategoryId, setItems }: CreateItemProps) => {
         </Form.Control>
       </Form.Field>
 
-      <AddButton clickHandler={handleAdd} />
+      <AddButton clickHandler={handleAdd} disabled={title === ''} />
     </Form.Root>
   );
 };

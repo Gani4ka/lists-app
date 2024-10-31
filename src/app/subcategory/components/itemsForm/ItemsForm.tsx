@@ -11,8 +11,9 @@ import { Item } from './components/item';
 import classes from './styles.module.css';
 import type { ItemsFormProps } from './types';
 
-export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
+export const ItemsForm = ({ listOfItems, subcategoryId }: ItemsFormProps) => {
   const [items, setItems] = useState(listOfItems || []);
+  const [error, setError] = useState<string>('');
 
   function handleTitleChange(index: number, newTitle: string) {
     const updatedItems = [...(items || [])];
@@ -28,19 +29,25 @@ export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
   }
 
   async function handleDelete(id: string) {
-    const response = await deleteItem(id);
+    const { error, message } = await deleteItem(id);
 
-    response &&
-      setItems((items) => {
-        const itemsRest = items?.filter((item) => item._id !== id);
-        return itemsRest;
-      });
+    if (error) {
+      setError(message);
+    } else {
+      setError('');
+    }
+
+    setItems((items) => {
+      const itemsRest = items?.filter((item) => item._id !== id);
+      return itemsRest;
+    });
   }
 
   return (
     <Flex width={'100%'}>
       <Form.Root className={classes['items-form-wrapper']}>
         <Box className={classes['width-box']}>
+          {error && <p>{error}</p>}
           {!!items?.length &&
             items.map((item, index) => (
               <Item
@@ -54,7 +61,7 @@ export const ItemsForm = ({ listOfItems, listId }: ItemsFormProps) => {
             ))}
         </Box>
       </Form.Root>
-      <CreateItem subcategoryId={listId} setItems={setItems} />
+      <CreateItem subcategoryId={subcategoryId} setItems={setItems} />
     </Flex>
   );
 };
