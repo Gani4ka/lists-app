@@ -47,6 +47,7 @@ export const CreateSubcategoryForm = ({
 
       setCategoryIcon(selectedIcon ?? defaultIcon);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
   if (categoryIcon?.Icon) {
