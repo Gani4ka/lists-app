@@ -1,5 +1,6 @@
-import { SubCategoryItemType } from '@app/types/list.types';
 import type { Dispatch, SetStateAction } from 'react';
+
+import { SubCategoryItemType } from '@app/types/list.types';
 
 export interface CreateItemProps {
   subcategoryId: string;

@@ -3,6 +3,7 @@
 import {
   KeyboardEvent as ReactKeyboardEvent,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 import * as Form from '@radix-ui/react-form';
@@ -39,6 +40,8 @@ export const CreateSubcategoryForm = ({
   const [errorMessage, setErrorMessage] = useState<string>('');
   let Icon = null;
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   useEffect(() => {
     if (categoryData?.icon) {
       const selectedIcon = categoryIcons.find(
@@ -47,7 +50,7 @@ export const CreateSubcategoryForm = ({
 
       setCategoryIcon(selectedIcon ?? defaultIcon);
     }
-  }, [category]);
+  }, [categoryData]);
 
   if (categoryIcon?.Icon) {
     Icon = categoryIcon.Icon;
@@ -65,7 +68,7 @@ export const CreateSubcategoryForm = ({
 
     if (isMin || isMax) return;
 
-    const form = e.target as HTMLFormElement;
+    const form = formRef.current as HTMLFormElement;
     const formData = new FormData(form);
     const formTitle = formData.get('title');
     const formCategoryId = formData.get('categoryId');
@@ -98,7 +101,7 @@ export const CreateSubcategoryForm = ({
   return (
     <>
       <Flex direction={'column'} align={'center'} pt="8">
-        <Form.Root onSubmit={(e) => handleListFormSubmit(e)}>
+        <Form.Root onSubmit={(e) => handleListFormSubmit(e)} ref={formRef}>
           <Form.Field name="title" style={{ position: 'relative' }}>
             <Form.Message
               match="tooShort"
@@ -202,7 +205,10 @@ export const CreateSubcategoryForm = ({
           </Button>
         </Form.Root>
       </Flex>
-      <AddButton clickHandler={handleListFormSubmit} />
+      <AddButton
+        clickHandler={handleListFormSubmit}
+        disabled={title === '' || category === ''}
+      />
     </>
   );
 };
