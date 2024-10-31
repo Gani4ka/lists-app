@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { createCategory, updateCategory } from '@app/api/category';
 import { CategoryIconItem } from '@app/app/categories/types';
 import { categoryIcons } from '@app/app/constants';
+import AddButton from '@app/components/addButton';
 import ColorPicker from '@app/components/color-picker/ColorPicker';
 import CustomDialog from '@app/components/custom-dialog/CustomDialog';
 import IconPicker from '@app/components/icon-picker/IconPicker';
@@ -139,6 +140,7 @@ const AddEditCategory = ({ category }: AddEditProps) => {
           </Button>
         </Flex>
       </Flex>
+      <AddButton clickHandler={handleSave} disabled={categoryTitle === ''} />
     </Flex>
   );
 };

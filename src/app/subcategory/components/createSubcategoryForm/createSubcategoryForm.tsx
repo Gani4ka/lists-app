@@ -3,6 +3,7 @@
 import {
   KeyboardEvent as ReactKeyboardEvent,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 import * as Form from '@radix-ui/react-form';
@@ -49,6 +50,8 @@ export const CreateSubcategoryForm = ({
     }
   }, [categories, category, categoryId]);
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   useEffect(() => {
     if (categoryData?.icon) {
       const selectedIcon = categoryIcons.find(
@@ -59,6 +62,7 @@ export const CreateSubcategoryForm = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
+
 
 
   if (categoryIcon?.Icon) {
@@ -73,7 +77,7 @@ export const CreateSubcategoryForm = ({
     e.preventDefault();
     setErrorMessage('');
 
-    const form = e.target as HTMLFormElement;
+    const form = formRef.current as HTMLFormElement;
     const formData = new FormData(form);
     const formTitle = formData.get('title');
 
@@ -113,7 +117,7 @@ export const CreateSubcategoryForm = ({
   return (
     <>
       <Flex direction={'column'} align={'center'} pt="8">
-        <Form.Root onSubmit={(e) => handleListFormSubmit(e)}>
+        <Form.Root onSubmit={(e) => handleListFormSubmit(e)} ref={formRef}>
           <Form.Field name="title" style={{ position: 'relative' }}>
             <Form.Message
               match="tooShort"
@@ -221,7 +225,10 @@ export const CreateSubcategoryForm = ({
           </Button>
         </Form.Root>
       </Flex>
-      <AddButton clickHandler={handleListFormSubmit} />
+      <AddButton
+        clickHandler={handleListFormSubmit}
+        disabled={title === '' || category === ''}
+      />
     </>
   );
 };

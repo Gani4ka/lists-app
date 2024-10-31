@@ -1,36 +1,35 @@
 'use client';
 
-import type { MouseEventHandler } from 'react';
 import { Button } from '@radix-ui/themes';
+import clsx from 'clsx';
 
 import Link from 'next/link';
 
-import type { PATHS } from '@app/constants/pages';
-
 import styles from './styles.module.css';
-
-interface AddButtonProps {
-  clickHandler?: MouseEventHandler<HTMLButtonElement>;
-  linkTo?: PATHS;
-  disabled?: boolean;
-}
+import type { AddButtonProps } from './types';
 
 const AddButton = ({ clickHandler, linkTo, disabled }: AddButtonProps) => {
-  return (
-    <Button
-      className={styles.button}
-      onClick={clickHandler}
-      disabled={disabled ?? false}
-    >
-      {linkTo ? (
-        <Link href={linkTo}>
-          <p className={styles.icon} />
-        </Link>
-      ) : (
+  const ButtonComponent = () => {
+    return (
+      <Button
+        className={clsx(styles.button, disabled && styles.disabled)}
+        onClick={clickHandler}
+        disabled={disabled ?? false}
+      >
         <p className={styles.icon} />
-      )}
-    </Button>
-  );
+      </Button>
+    );
+  };
+
+  if (linkTo) {
+    return (
+      <Link href={linkTo}>
+        <ButtonComponent />
+      </Link>
+    );
+  } else {
+    return <ButtonComponent />;
+  }
 };
 
 export default AddButton;
