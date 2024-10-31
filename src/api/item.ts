@@ -37,14 +37,15 @@ export async function getSubcategoryItems(
       error: result.error,
       subcategoryItems: result.subcategoryItems,
       message: result.message,
-    } as SubCategoryItemsResponse;
+    };
   } catch (error) {
-    console.log('error', error);
+    const eString = JSON.stringify(error);
+
     return {
       error: true,
       subcategoryItems: [],
-      message: error,
-    } as SubCategoryItemsResponse;
+      message: eString,
+    };
   }
 }
 
@@ -78,14 +79,16 @@ export async function createSubCategoryItem(
       error: response.error,
       subcategoryItem: response.subcategoryItem,
       message: response.message,
-    } as SubCategoryItemResponse;
+    };
   } catch (error) {
     console.error('error', error);
+    const eString = JSON.stringify(error);
+
     return {
       error: true,
       subcategoryItem: null,
-      message: error,
-    } as SubCategoryItemResponse;
+      message: eString,
+    };
   }
 }
 
@@ -117,14 +120,16 @@ export async function updateItem(
       error: response.error,
       subcategoryItem: response.subcategoryItem,
       message: response.message,
-    } as SubCategoryItemResponse;
+    };
   } catch (error) {
     console.log('error', error);
+    const eString = JSON.stringify(error);
+
     return {
       error: true,
       subcategoryItem: null,
-      message: error,
-    } as SubCategoryItemResponse;
+      message: eString,
+    };
   }
 }
 
@@ -157,13 +162,15 @@ export async function updateItemMany(
       subcategoryItems: response.subcategoryItems,
       subcategoryItemsFailed: response.subcategoryItemsFailed ?? [],
       message: response.message,
-    } as SubCategoryManyItemsResponse;
+    };
   } catch (error) {
+    const eString = JSON.stringify(error);
+
     return {
       error: true,
       subcategoryItems: [],
       subcategoryItemsFailed: [],
-      message: error,
+      message: eString,
     } as SubCategoryManyItemsResponse;
   }
 }
@@ -194,13 +201,15 @@ export async function deleteItem(
       error: response.error,
       subcategoryItem: response.subcategoryItem,
       message: response.message,
-    } as SubCategoryItemResponse;
+    };
   } catch (error) {
     console.log('error', error);
+    const eString = JSON.stringify(error);
+
     return {
       error: true,
       subcategoryItem: null,
-      message: error,
-    } as SubCategoryItemResponse;
+      message: eString,
+    };
   }
 }

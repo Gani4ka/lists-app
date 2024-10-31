@@ -34,14 +34,15 @@ export async function getAllSubcategories(): Promise<SubCategoriesResponse> {
       error: result.error,
       subcategories: result.subcategories,
       message: result.message,
-    } as SubCategoriesResponse;
+    };
   } catch (error) {
     console.log('error', error);
+    const eString = JSON.stringify(error);
     return {
       error: true,
       subcategories: [],
-      message: error,
-    } as SubCategoriesResponse;
+      message: eString,
+    };
   }
 }
 
@@ -69,14 +70,15 @@ export async function getSubcategory(id: string): Promise<SubCategoryResponse> {
       error: result.error,
       subcategory: result.subcategory,
       message: result.message,
-    } as SubCategoryResponse;
+    };
   } catch (error) {
     console.log('error', error);
+    const eString = JSON.stringify(error);
     return {
       error: true,
       subcategory: null,
-      message: error,
-    } as SubCategoryResponse;
+      message: eString,
+    };
   }
 }
 
@@ -109,13 +111,14 @@ export async function createSubcategory(
       error: result.error,
       subcategory: result.subcategory,
       message: result.message,
-    } as SubCategoryResponse;
+    };
   } catch (error) {
+    const eString = JSON.stringify(error);
     return {
       error: true,
       subcategory: null,
-      message: error,
-    } as SubCategoryResponse;
+      message: eString,
+    };
   }
 }
 
@@ -147,14 +150,15 @@ export async function updateSubcategory(
       error: result.error,
       subcategory: result.subcategory,
       message: result.message,
-    } as SubCategoryResponse;
+    };
   } catch (error) {
     console.log('error', error);
+    const eString = JSON.stringify(error);
     return {
       error: true,
       subcategory: null,
-      message: error,
-    } as SubCategoryResponse;
+      message: eString,
+    };
   }
 }
 
@@ -184,13 +188,14 @@ export async function deleteSubcategory(
       error: response.error,
       subcategory: response.subcategory,
       message: response.message,
-    } as SubCategoryResponse;
+    };
   } catch (error) {
     console.log('error', error);
+    const eString = JSON.stringify(error);
     return {
       error: true,
       subcategory: null,
-      message: error,
-    } as SubCategoryResponse;
+      message: eString,
+    };
   }
 }

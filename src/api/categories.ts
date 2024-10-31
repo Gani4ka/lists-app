@@ -26,16 +26,18 @@ export async function getCategories(): Promise<CategoriesResponse> {
         message: categoriesResponse.message,
         categories: categoriesResponse?.categories,
         error: categoriesResponse.error,
-      } as CategoriesResponse;
+      };
     } else {
       throw new Error('Token is not found/valid. Try loging in again');
     }
   } catch (error) {
+    const eString = JSON.stringify(error);
+
     return {
-      message: error,
+      message: eString,
       categories: [],
       error: true,
-    } as CategoriesResponse;
+    };
   }
 }
 export async function getCategoryById(
@@ -61,15 +63,17 @@ export async function getCategoryById(
         message: categoryResponse.message,
         category: categoryResponse?.category,
         error: categoryResponse.error,
-      } as CategoryResponse;
+      };
     } else {
       throw new Error('Token is not found/valid. Try loging in again');
     }
   } catch (error) {
+    const eString = JSON.stringify(error);
+
     return {
-      message: error,
+      message: eString,
       category: null,
       error: true,
-    } as CategoryResponse;
+    };
   }
 }

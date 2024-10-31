@@ -34,13 +34,15 @@ export async function createCategory(
       message: result.message,
       category: result.category,
       error: result.error,
-    } as CategoryResponse;
+    };
   } catch (error) {
+    const eString = JSON.stringify(error);
+
     return {
-      message: error,
+      message: eString,
       category: null,
       error: true,
-    } as CategoryResponse;
+    };
   }
 }
 
@@ -71,9 +73,15 @@ export async function updateCategory(
       message: result.message,
       category: result.category,
       error: result.error,
-    } as CategoryResponse;
+    };
   } catch (error) {
-    return { message: error, category: null, error: true } as CategoryResponse;
+    const eString = JSON.stringify(error);
+
+    return {
+      message: eString,
+      category: null,
+      error: true,
+    };
   }
 }
 
@@ -103,11 +111,13 @@ export async function deleteCategory(id: string): Promise<CategoryResponse> {
       error: result.error,
     } as CategoryResponse;
   } catch (error) {
+    const eString = JSON.stringify(error);
+
     return {
-      message: error,
+      message: eString,
       category: null,
       error: true,
-    } as CategoryResponse;
+    };
   }
 }
 const reloadCategories = async () => {
