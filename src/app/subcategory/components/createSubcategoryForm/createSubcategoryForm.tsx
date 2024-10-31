@@ -16,7 +16,8 @@ import { createSubcategory } from '@app/api/subcategory';
 import type { CategoryIconItem } from '@app/app/categories/types';
 import { categoryIcons } from '@app/app/constants';
 import AddButton from '@app/components/addButton';
-import type { SubcategoriesType } from '@app/types/list.types';
+import { useSubCategoryContext } from '@app/components/SubCategoryContext/SubCategoryContext';
+import type { CategoryType, SubcategoriesType } from '@app/types/list.types';
 
 import { MAX_FIELD_LENGTH, MIN_FIELD_LENGTH } from '../../constants';
 import { checkIsValidValue } from '../../utils/checkIsValidValue';
@@ -32,13 +33,22 @@ export const CreateSubcategoryForm = ({
 }: ListFormProps) => {
   const [title, setTitle] = useState<string>('');
   const [errors, setErrors] = useState({ isMin: false, isMax: false });
-  const [category, setCategory] = useState(initialListCategoryId || '');
+  const [category, setCategory] = useState<CategoryType | null>(null);
   const [categoryIcon, setCategoryIcon] =
     useState<CategoryIconItem>(defaultIcon);
-  const categoryData = categories?.find((cat) => cat.title === category);
+  const categoryData = categories?.find((cat) => cat.title === category?.title);
   const [errorMessage, setErrorMessage] = useState<string>('');
   let Icon = null;
+  const { categoryId } = useSubCategoryContext();
 
+  useEffect(() => {
+    if (categoryId && !category) {
+      const selectedCategory = categories?.find((ct) => ct._id === categoryId);
+      if (selectedCategory) {
+        setCategory(selectedCategory);
+      }
+    }
+  }, [categories, category, categoryId]);
   useEffect(() => {
     if (categoryData?.icon) {
       const selectedIcon = categoryIcons.find(
@@ -47,7 +57,7 @@ export const CreateSubcategoryForm = ({
 
       setCategoryIcon(selectedIcon ?? defaultIcon);
     }
-  }, [category]);
+  }, [categoryData]);
 
   if (categoryIcon?.Icon) {
     Icon = categoryIcon.Icon;
@@ -59,7 +69,7 @@ export const CreateSubcategoryForm = ({
     e: MouseEvent | ReactKeyboardEvent | React.FormEvent
   ) {
     e.preventDefault();
-
+    setErrorMessage('');
     const { isMin, isMax } = checkIsValidValue(title);
     setErrors({ isMin, isMax });
 
@@ -68,30 +78,32 @@ export const CreateSubcategoryForm = ({
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     const formTitle = formData.get('title');
-    const formCategoryId = formData.get('categoryId');
 
-    const data: SubcategoriesType = {
-      _id: '',
-      title: typeof formTitle === 'string' ? formTitle : '',
-      categoryId: typeof formCategoryId === 'string' ? formCategoryId : '',
-    };
+    const categoryId = categories?.find((ct) => ct._id === category?._id)?._id;
 
-    const categoryId = categories?.find(
-      (cat) => cat.title === data.categoryId
-    )?._id;
-    const currentCategoryId = categoryId || initialListCategoryId;
+    if (categoryId) {
+      const data: SubcategoriesType = {
+        _id: '',
+        title: typeof formTitle === 'string' ? formTitle : '',
+        categoryId: categoryId,
+      };
 
-    if (currentCategoryId) {
-      const { subcategory, error, message } = await createSubcategory(
-        currentCategoryId,
-        data
-      );
-      if (error) {
-        setErrorMessage(message);
-      } else {
-        router.push(`/subcategory/${subcategory?._id}`);
-        setErrorMessage('');
+      const currentCategoryId = categoryId || initialListCategoryId;
+
+      if (currentCategoryId) {
+        const { subcategory, error, message } = await createSubcategory(
+          currentCategoryId,
+          data
+        );
+        if (error) {
+          setErrorMessage(message);
+        } else {
+          router.push(`/subcategory/${subcategory?._id}`);
+          setErrorMessage('');
+        }
       }
+    } else {
+      setErrorMessage('Category is not found');
     }
   }
 
@@ -149,18 +161,28 @@ export const CreateSubcategoryForm = ({
                     </p>
                   </div>
                 ) : (
-                  <Select.Root value={category} onValueChange={setCategory}>
-                    <input type="hidden" name="categoryId" value={category} />
+                  <Select.Root
+                    value={category?._id.toString() || ''}
+                    onValueChange={(value) => {
+                      const selectedValue = categories.find(
+                        (ct) => ct._id === value
+                      );
+                      if (selectedValue) {
+                        setCategory(selectedValue);
+                      }
+                    }}
+                    defaultValue=""
+                  >
                     <Select.Trigger className={classes['select-trigger']}>
                       <Select.Value
                         placeholder="Select a category"
-                        aria-label={category}
+                        aria-label={category?.title}
                       >
                         <Flex className={classes['select-value']}>
                           {Icon && (
                             <Icon color={categoryData?.color} size={20} />
                           )}{' '}
-                          {category || 'Select a category'}
+                          {category?.title}
                         </Flex>
                       </Select.Value>
                       <Select.Icon className={classes['select-icon']}>
@@ -177,7 +199,7 @@ export const CreateSubcategoryForm = ({
                       <Select.Viewport className={classes['select-viewport']}>
                         {categories?.map((category) => (
                           <SelectItem
-                            value={category.title}
+                            value={category._id}
                             key={category._id}
                             category={category}
                           >
@@ -185,7 +207,6 @@ export const CreateSubcategoryForm = ({
                           </SelectItem>
                         ))}
                       </Select.Viewport>
-                      <input type="hidden" name="categoryId" value={category} />
                     </Select.Content>
                   </Select.Root>
                 )}
@@ -196,7 +217,7 @@ export const CreateSubcategoryForm = ({
           <Button
             className={classes.button}
             type="submit"
-            disabled={title === '' || category === ''}
+            disabled={title === '' || category?.title === ''}
           >
             Save
           </Button>
