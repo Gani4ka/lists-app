@@ -63,8 +63,6 @@ export const CreateSubcategoryForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
-
-
   if (categoryIcon?.Icon) {
     Icon = categoryIcon.Icon;
   }
@@ -225,10 +223,7 @@ export const CreateSubcategoryForm = ({
           </Button>
         </Form.Root>
       </Flex>
-      <AddButton
-        clickHandler={handleListFormSubmit}
-        disabled={title === '' || category === ''}
-      />
+      <AddButton clickHandler={handleListFormSubmit} disabled={!category} />
     </>
   );
 };
