@@ -1,0 +1,53 @@
+.dialogOverlay {
+  background: rgba(0 0 0 / 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+}
+.dialogContent {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  min-height: 150px;
+  background: white;
+  padding: 30px;
+  border-radius: 4px;
+  align-items: center;
+}
+.openButton {
+  margin: 10px 0;
+  padding: 15px;
+}
+.cancelButton {
+  width: 50%;
+  margin: 10px 0;
+  padding: 5px;
+  color: white;
+  background-color: var(--color-primary-pink);
+}
+
+@media (min-width: 768px) {
+  .openButton {
+    margin: 20px 0;
+    padding: 20px;
+    font-size: 18px;
+  }
+
+  .cancelButton {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .openButton {
+    margin: 25px 0;
+    padding: 25px;
+    font-size: 19px;
+  }
+}

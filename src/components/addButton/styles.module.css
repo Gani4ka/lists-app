@@ -1,0 +1,19 @@
+.button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-primary-pink);
+  position: fixed;
+  bottom: 4px;
+  left: calc(50% - 20px);
+  z-index: 2;
+}
+
+.icon {
+  border: 1px dotted var(--color-primary-pink);
+  width: 3px;
+  height: 3px;
+  background-color: var(--color-primary);
+  box-sizing: border-box;
+  transform: scale(6);
+}

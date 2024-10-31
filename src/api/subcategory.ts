@@ -1,122 +1,201 @@
-import type { ItemType, SubcategoriesType } from '@app/types/list.types';
+'use server';
 
-export async function getSubcategoryItems(
-  id: string
-): Promise<{ subcategoryItems: ItemType[] } | undefined> {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/subcategory/${id}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-        cache: 'no-store',
-      }
-    );
-    return res.json();
-  } catch (e) {
-    console.log('error', e);
-  }
-}
+import { revalidateTag } from 'next/cache';
 
-export async function getAllSubcategories(): Promise<
-  { subcategories: SubcategoriesType[] } | undefined
-> {
+import type {
+  SubCategoriesResponse,
+  SubcategoriesType,
+  SubCategoryResponse,
+} from '@app/types/list.types';
+
+import { getUserToken } from './user';
+
+export async function getAllSubcategories(): Promise<SubCategoriesResponse> {
   try {
+    const token = await getUserToken();
+
+    if (!token) {
+      throw new Error('Token is not found/valid. Try loging in again');
+    }
+
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}all-subcategories`,
       {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        cache: 'no-store',
+        next: { tags: ['subcategory'] },
       }
     );
-    return res.json();
-  } catch (e) {
-    console.log('error', e);
+    const result = await res.json();
+    return {
+      error: result.error,
+      subcategories: result.subcategories,
+      message: result.message,
+    };
+  } catch (error) {
+    console.log('error', error);
+    const eString = JSON.stringify(error);
+    return {
+      error: true,
+      subcategories: [],
+      message: eString,
+    };
+  }
+}
+
+export async function getSubcategory(id: string): Promise<SubCategoryResponse> {
+  try {
+    const token = await getUserToken();
+
+    if (!token) {
+      throw new Error('Token is not found/valid. Try loging in again');
+    }
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}subcategories/${id}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['subcategory'] },
+      }
+    );
+    const result = await res.json();
+    return {
+      error: result.error,
+      subcategory: result.subcategory,
+      message: result.message,
+    };
+  } catch (error) {
+    console.log('error', error);
+    const eString = JSON.stringify(error);
+    return {
+      error: true,
+      subcategory: null,
+      message: eString,
+    };
   }
 }
 
 export async function createSubcategory(
   categoryId: string,
   data: SubcategoriesType
-): Promise<{ subcategoryItem: SubcategoriesType } | undefined> {
+): Promise<SubCategoryResponse> {
   try {
+    const token = await getUserToken();
+
+    if (!token) {
+      throw new Error('Token is not found/valid. Try loging in again');
+    }
+
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}subcategories/${categoryId}`,
       {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       }
     );
-    return res.json();
-  } catch (e) {
-    console.log('error', e);
+    const result = await res.json();
+    revalidateTag('subcategory');
+
+    return {
+      error: result.error,
+      subcategory: result.subcategory,
+      message: result.message,
+    };
+  } catch (error) {
+    const eString = JSON.stringify(error);
+    return {
+      error: true,
+      subcategory: null,
+      message: eString,
+    };
   }
 }
 
 export async function updateSubcategory(
   categoryId: string,
   data: SubcategoriesType
-): Promise<{ subcategoryItem: SubcategoriesType } | undefined> {
+): Promise<SubCategoryResponse> {
   try {
+    const token = await getUserToken();
+
+    if (!token) {
+      throw new Error('Token is not found/valid. Try loging in again');
+    }
+
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}subcategories/${categoryId}`,
       {
         method: 'PUT',
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       }
     );
-    return res.json();
-  } catch (e) {
-    console.log('error', e);
+    const result = await res.json();
+    revalidateTag('subcategory');
+    return {
+      error: result.error,
+      subcategory: result.subcategory,
+      message: result.message,
+    };
+  } catch (error) {
+    console.log('error', error);
+    const eString = JSON.stringify(error);
+    return {
+      error: true,
+      subcategory: null,
+      message: eString,
+    };
   }
 }
 
-export async function deleteSubcategory(id: string): Promise<void> {
-  try {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}subcategories/${id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-    });
-  } catch (e) {
-    console.log('error', e);
-  }
-}
-
-export async function getSubcategory(
+export async function deleteSubcategory(
   id: string
-): Promise<{ subcategory: SubcategoriesType } | undefined> {
+): Promise<SubCategoryResponse> {
   try {
-    const res = await fetch(
+    const token = await getUserToken();
+
+    if (!token) {
+      throw new Error('Token is not found/valid. Try loging in again');
+    }
+
+    const result = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}subcategories/${id}`,
       {
-        method: 'GET',
+        method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        cache: 'no-store',
       }
     );
-    return res.json();
-  } catch (e) {
-    console.log('error', e);
+    revalidateTag('subcategory');
+    const response = await result.json();
+    return {
+      error: response.error,
+      subcategory: response.subcategory,
+      message: response.message,
+    };
+  } catch (error) {
+    console.log('error', error);
+    const eString = JSON.stringify(error);
+    return {
+      error: true,
+      subcategory: null,
+      message: eString,
+    };
   }
 }

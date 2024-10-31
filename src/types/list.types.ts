@@ -7,19 +7,13 @@ export interface CategoryType {
 
 export type CategoryCreateType = Omit<CategoryType, '_id'>;
 
-export interface List {
-  _id?: string;
-  title: string;
-  category: CategoryType;
-}
-
 export interface SubcategoriesType {
-  _id?: string;
+  _id: string;
   title: string;
   categoryId: string;
 }
 
-export interface ItemType {
+export interface SubCategoryItemType {
   _id: string;
   title: string;
   subcategoryId: string;
@@ -27,7 +21,7 @@ export interface ItemType {
   isDone?: boolean;
 }
 export interface User {
-  _id?: string;
+  _id: string;
   username: string;
   email: string;
   password: string;
@@ -39,4 +33,40 @@ export interface AuthUser {
 
 export interface AuthError {
   message: string;
+}
+export interface CategoryResponse {
+  message: string;
+  category: CategoryType | null;
+  error: boolean;
+}
+export interface CategoriesResponse {
+  message: string;
+  categories: CategoryType[];
+  error: boolean;
+}
+export interface SubCategoryResponse {
+  message: string;
+  subcategory: SubcategoriesType | null;
+  error: boolean;
+}
+export interface SubCategoriesResponse {
+  message: string;
+  subcategories: SubcategoriesType[];
+  error: boolean;
+}
+export interface SubCategoryItemResponse {
+  message: string;
+  subcategoryItem: SubCategoryItemType | null;
+  error: boolean;
+}
+export interface SubCategoryItemsResponse {
+  message: string;
+  subcategoryItems: SubCategoryItemType[];
+  error: boolean;
+}
+export interface SubCategoryManyItemsResponse {
+  message: string;
+  subcategoryItems: SubCategoryItemType[];
+  subcategoryItemsFailed?: SubCategoryItemType[];
+  error: boolean;
 }

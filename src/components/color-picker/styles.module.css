@@ -1,0 +1,20 @@
+.wrapper {
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .text {
+    font-size: 18px;
+  }
+
+  .wrapper :global(.circle-picker) {
+    width: 324px !important;
+  }
+
+  .wrapper :global(.circle-picker span div) {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}

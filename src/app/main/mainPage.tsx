@@ -1,50 +1,58 @@
 import { Suspense } from 'react';
-import type { IconType } from 'react-icons';
 import { Box, Flex, Grid } from '@radix-ui/themes';
 
 import { getCategories } from '@app/api/categories';
 import { getAllSubcategories } from '@app/api/subcategory';
+import AddButton from '@app/components/addButton';
+import { CategoryIcon } from '@app/components/icon-picker/types';
 import Loader from '@app/components/loader';
-import { DEFAULT_CATEGORY_ICON } from '@app/constants/icon';
+import { PATHS } from '@app/constants/pages';
+import { CategoryType } from '@app/types/list.types';
 
+import { categoryIcons } from '../constants';
 import ListCard from './components/listCard';
-import styles from './mainPage.module.css';
-import { getCategoriesColor, getCategoryIcon } from './utils';
+import classes from './mainPage.module.css';
 
 export default async function MainPage() {
-  const subcategoriesResponse = await getAllSubcategories();
-  const categoriesResponse = await getCategories();
-
-  const categories = categoriesResponse?.categories;
-  const subcategories = subcategoriesResponse?.subcategories;
-
-  const icons = (await import('react-icons/fc')) as unknown as {
-    [key: string]: IconType;
-  };
+  const { subcategories, error, message } = await getAllSubcategories();
+  const { categories } = await getCategories();
 
   return (
-    <main className={styles.main}>
-      <Box p={'4'}>
-        <Flex mb={'4'} justify={'end'} className={styles.filter}>
-          Sort by
-        </Flex>
+    <main className={classes.main}>
+      <Box p={'4'} className={classes['main-wrapper']}>
         <Suspense fallback={<Loader />}>
-          <Grid columns="3" gap="3" rows="repeat(auto, auto)" width="auto">
+          <Flex mb={'4'} justify={'end'} className={classes.filter}>
+            Sort by
+          </Flex>
+          <Grid className={classes.grid}>
             {subcategories &&
               categories &&
               subcategories.map((list) => {
-                const icon = getCategoryIcon(list.categoryId, categories);
-                const Icon = icons[icon] || icons[DEFAULT_CATEGORY_ICON];
-                const color = getCategoriesColor(list.categoryId, categories);
+                let Icon = null;
+
+                const currentCategory = categories.find(
+                  (category: CategoryType) => category._id === list.categoryId
+                );
+                const userIcon =
+                  categoryIcons.find(
+                    (icon: CategoryIcon) => icon.name === currentCategory?.icon
+                  ) ?? categoryIcons[0];
+                if (userIcon) {
+                  Icon = userIcon.Icon;
+                }
+
+                const color = currentCategory?.color ?? 'white';
                 return (
                   <ListCard key={list._id} list={list} color={color}>
-                    <Icon />
+                    {Icon && <Icon color={'white'} className={classes.icon} />}
                   </ListCard>
                 );
               })}
           </Grid>
+          {error && <p className="error-text">{message}</p>}
         </Suspense>
       </Box>
+      <AddButton linkTo={PATHS.subcategory} />
     </main>
   );
 }

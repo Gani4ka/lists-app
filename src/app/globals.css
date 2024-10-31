@@ -2,8 +2,15 @@
   --color-primary: #29a383;
   --color-primary-pink: #f453e1;
   --color-text: #0e0e0e;
+
   --footer-height: 50px;
   --header-height: 50px;
+  --header-height-tablet: 80px;
+
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+
+  --max-layout-width: 1200px;
 }
 
 * {
@@ -16,7 +23,6 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
 }
 
 body {
@@ -34,4 +40,8 @@ a {
 
 .allura-font {
   font-family: var(--font-allura);
+}
+.error-text {
+  color: var(--color-primary-pink);
+  margin: 1rem 0;
 }

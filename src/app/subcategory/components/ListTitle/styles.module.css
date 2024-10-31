@@ -1,0 +1,22 @@
+.list-title-input {
+  border: none;
+  outline: none;
+  border-bottom: 2px solid var(--color-primary);
+  width: 100%;
+  padding: 0 5px;
+  height: 100%;
+  font-size: 19px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .list-title-input {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .list-title-input {
+    font-size: 28px;
+  }
+}

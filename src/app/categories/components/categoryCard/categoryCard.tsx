@@ -1,59 +1,64 @@
-import type { IconType } from 'react-icons';
+'use client';
+import { useEffect, useState } from 'react';
 import { FaPencilAlt, FaPlus } from 'react-icons/fa';
-import { Button, Flex } from '@radix-ui/themes';
+import { Button, Flex, Text } from '@radix-ui/themes';
 
-import { headers } from 'next/headers';
 import Link from 'next/link';
 
-import { DeleteButton } from '../deleteButton';
-import classes from './classes.module.css';
+import { deleteCategory } from '@app/api/category';
+import { categoryIcons } from '@app/app/constants';
+import { DeleteButton } from '@app/components/deleteButton';
+
+import { CategoryIconItem } from '../../types';
+import classes from './styles.module.css';
 import type { CategoryCardProps } from './types';
 
-export const CategoryCard = async (props: CategoryCardProps) => {
+const defaultIcon = categoryIcons[0];
+
+export const CategoryCard = (props: CategoryCardProps) => {
   const { category } = props;
-  const { title, icon } = category;
+  const { title, icon, color } = category;
+  const [categoryIcon, setCategoryIcon] =
+    useState<CategoryIconItem>(defaultIcon);
 
-  const headersList = headers();
-  const host = headersList.get('host');
-  const protocol = headersList.get('x-forwarded-proto') || 'http';
+  const url = `/categories/${category._id}`;
+  let Icon = null;
 
-  const icons = (await import('react-icons/fc')) as unknown as {
-    [key: string]: IconType;
-  };
-  const Icon = icons[icon] || icons['FcLikePlaceholder'];
-  const formattedTitle = title.replace(/\s+/g, '-');
-  const url = `${protocol}://${host}/category/${formattedTitle}`;
+  useEffect(() => {
+    if (icon) {
+      const selectedIcon = categoryIcons.find(
+        (iconItem) => iconItem.name === icon
+      );
+
+      setCategoryIcon(selectedIcon ?? defaultIcon);
+    }
+  }, [icon]);
+
+  if (categoryIcon?.Icon) {
+    Icon = categoryIcon.Icon;
+  }
 
   return (
-    <Flex
-      className="category-card"
-      align="center"
-      justify="between"
-      wrap="nowrap"
-    >
-      <Flex
-        className="category-card"
-        align="center"
-        justify="between"
-        wrap="nowrap"
-      >
-        <Link href={url} className={classes.link}>
-          <div>
-            <Icon />
-          </div>
-          <div>{title}</div>
-        </Link>
-      </Flex>
-      <Flex>
-        <Button>
-          <FaPlus />
-        </Button>
-        <Button>
-          <Link href={url}>
-            <FaPencilAlt />
+    <Flex className={classes['main-container']}>
+      <Link href={url} className={classes.link}>
+        <>
+          {Icon && <Icon color={color} className={classes['category-icon']} />}
+          <Text className={classes.title}>{title}</Text>
+        </>
+      </Link>
+
+      <Flex gap={'1rem'} align={'center'}>
+        <Button className={classes.button}>
+          <Link href={`/subcategory`}>
+            <FaPlus className={classes.icon} />
           </Link>
         </Button>
-        <DeleteButton category={category} />
+        <Button className={classes.button}>
+          <Link href={url}>
+            <FaPencilAlt className={classes.icon} />
+          </Link>
+        </Button>
+        <DeleteButton item={category} cb={deleteCategory} />
       </Flex>
     </Flex>
   );

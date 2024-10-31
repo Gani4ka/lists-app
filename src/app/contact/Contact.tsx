@@ -1,10 +1,10 @@
 'use client';
-import { useState } from 'react';
-
-import ColorPicker from '@app/components/color-picker/ColorPicker';
+import { Flex } from '@radix-ui/themes';
 
 export default function Contact() {
-  const [color, setColor] = useState<string>('');
-
-  return <ColorPicker color={color} setColor={setColor} />;
+  return (
+    <Flex direction={'column'} gap={'2rem 0'}>
+      <p>Contact page</p>
+    </Flex>
+  );
 }
