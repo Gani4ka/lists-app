@@ -31,7 +31,6 @@ export const CreateSubcategoryForm = ({
   listCategoryId: initialListCategoryId,
   categories,
 }: ListFormProps) => {
-  const [title, setTitle] = useState<string>('');
   const [errors, setErrors] = useState({ isMin: false, isMax: false });
   const [category, setCategory] = useState<CategoryType | null>(null);
   const [categoryIcon, setCategoryIcon] =
@@ -49,6 +48,7 @@ export const CreateSubcategoryForm = ({
       }
     }
   }, [categories, category, categoryId]);
+
   useEffect(() => {
     if (categoryData?.icon) {
       const selectedIcon = categoryIcons.find(
@@ -70,15 +70,16 @@ export const CreateSubcategoryForm = ({
   ) {
     e.preventDefault();
     setErrorMessage('');
-    const { isMin, isMax } = checkIsValidValue(title);
-    setErrors({ isMin, isMax });
-
-    if (isMin || isMax) return;
 
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     const formTitle = formData.get('title');
 
+    const { isMin, isMax } = checkIsValidValue(
+      formTitle ? formTitle.toString() : ''
+    );
+    if (isMin || isMax) return;
+    setErrors({ isMin, isMax });
     const categoryId = categories?.find((ct) => ct._id === category?._id)?._id;
 
     if (categoryId) {
@@ -114,12 +115,12 @@ export const CreateSubcategoryForm = ({
           <Form.Field name="title" style={{ position: 'relative' }}>
             <Form.Message
               match="tooShort"
-              forceMatch={!!title.length && errors.isMin}
+              forceMatch={errors.isMin}
               className={classes['validation-message']}
             >{`At list ${MIN_FIELD_LENGTH} characters`}</Form.Message>
             <Form.Message
               match="tooLong"
-              forceMatch={!!title.length && errors.isMax}
+              forceMatch={errors.isMax}
               className={classes['validation-message']}
             >{`Max length is ${MAX_FIELD_LENGTH} characters`}</Form.Message>
             <Form.Message
@@ -135,7 +136,6 @@ export const CreateSubcategoryForm = ({
                 required
                 defaultValue={listTitle}
                 placeholder={listTitle || 'Title'}
-                onChange={(e) => setTitle(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleListFormSubmit(e)}
                 minLength={MIN_FIELD_LENGTH}
                 maxLength={MAX_FIELD_LENGTH}
@@ -214,11 +214,7 @@ export const CreateSubcategoryForm = ({
             </Form.Control>
           </Form.Field>
 
-          <Button
-            className={classes.button}
-            type="submit"
-            disabled={title === '' || category?.title === ''}
-          >
+          <Button className={classes.button} type="submit" disabled={!category}>
             Save
           </Button>
         </Form.Root>
