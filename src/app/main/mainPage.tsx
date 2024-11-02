@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Box, Flex } from '@radix-ui/themes';
+import { Box } from '@radix-ui/themes';
 
 import { getCategories } from '@app/api/categories';
 import { getAllSubcategories } from '@app/api/subcategory';
@@ -18,9 +18,6 @@ export default async function MainPage() {
     <main className={classes.main}>
       <Box p={'4'} className={classes['main-wrapper']}>
         <Suspense fallback={<Loader />}>
-          <Flex mb={'4'} justify={'end'} className={classes.filter}>
-            Sort by
-          </Flex>
           <AllSubCategoryItems
             subcategories={subcategories}
             categories={categories}
