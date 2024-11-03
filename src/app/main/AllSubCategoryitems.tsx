@@ -18,7 +18,7 @@ import {
   UserCategoryType,
 } from './type';
 
-const allCategory = { id: '0', category: 'No filter' };
+const allCategoryFilter = { id: '0', category: 'No filter' };
 
 export default function AllSubCategoryItems({
   subcategories,
@@ -32,7 +32,7 @@ export default function AllSubCategoryItems({
     const userCategoriesList = categories.map((category: CategoryType) => {
       return { id: category._id, category: category.title };
     });
-    userCategoriesList.unshift(allCategory);
+    userCategoriesList.unshift(allCategoryFilter);
     return userCategoriesList;
   }, [categories]);
 
@@ -70,7 +70,8 @@ export default function AllSubCategoryItems({
 
   const filteredSubCategoryItems = useMemo(() => {
     const filteredSubCategories =
-      selectedCategory && selectedCategory.category !== allCategory.category
+      selectedCategory &&
+      selectedCategory.category !== allCategoryFilter.category
         ? subcategories.filter(
             (subcategory: SubcategoriesType) =>
               subcategory.categoryId === selectedCategory.id
