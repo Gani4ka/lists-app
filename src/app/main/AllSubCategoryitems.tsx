@@ -1,38 +1,38 @@
 'use client';
 import { useCallback, useMemo, useState } from 'react';
-import { CheckIcon, ChevronDownIcon } from '@radix-ui/react-icons';
-import * as Label from '@radix-ui/react-label';
-import * as Select from '@radix-ui/react-select';
 import { Flex, Grid } from '@radix-ui/themes';
 
 import { CategoryIcon } from '@app/components/icon-picker/types';
 import { CategoryType, SubcategoriesType } from '@app/types/list.types';
 
 import { categoryIcons } from '../constants';
+import CustomSelect from './components/custom-select/CustomSelect';
+import {
+  categoriesSortingOptions,
+  CategoryFilterOption,
+  CategorySortingOption,
+  DATE_ASC_FILTER,
+  DATE_DESC_FILTER,
+  NO_CATEGORIES_FILLTER,
+  TITLE_ASC_FILTER,
+  TITLE_DESC_FILTER,
+} from './components/custom-select/types';
 import ListCard from './components/listCard';
 import classes from './mainPage.module.css';
-import {
-  AllSubCategoriesItemsType,
-  categoriesSortingTypes,
-  UserCategorySortingType,
-  UserCategoryType,
-} from './type';
-
-const allCategoryFilter = { id: '0', category: 'No filter' };
-
+import { AllSubCategoriesItemsType } from './type';
 export default function AllSubCategoryItems({
   subcategories,
   categories,
 }: AllSubCategoriesItemsType) {
   const [selectedCategory, setSelectedCategory] =
-    useState<UserCategoryType | null>(null);
+    useState<CategoryFilterOption | null>(null);
+  const [sorting, setSorting] = useState<CategorySortingOption | null>(null);
 
-  const [sorting, setSorting] = useState<UserCategorySortingType>();
   const userCategories = useMemo(() => {
     const userCategoriesList = categories.map((category: CategoryType) => {
-      return { id: category._id, category: category.title };
+      return { id: category._id, name: category.title };
     });
-    userCategoriesList.unshift(allCategoryFilter);
+    userCategoriesList.unshift(NO_CATEGORIES_FILLTER);
     return userCategoriesList;
   }, [categories]);
 
@@ -41,18 +41,18 @@ export default function AllSubCategoryItems({
       if (sorting) {
         return [...items].sort(
           (itemA: SubcategoriesType, itemB: SubcategoriesType) => {
-            if (sorting.sorting === 'title-asc') {
+            if (sorting.name === TITLE_ASC_FILTER) {
               return itemA.title.localeCompare(itemB.title);
-            } else if (sorting.sorting === 'title-desc') {
+            } else if (sorting.name === TITLE_DESC_FILTER) {
               return itemB.title.localeCompare(itemA.title);
             } else if (
-              sorting.sorting === 'date-asc' &&
+              sorting.name === DATE_ASC_FILTER &&
               itemA.createdAt &&
               itemB.createdAt
             ) {
               return +new Date(itemA.createdAt) - +new Date(itemB.createdAt);
             } else if (
-              sorting.sorting === 'date-desc' &&
+              sorting.name === DATE_DESC_FILTER &&
               itemA.createdAt &&
               itemB.createdAt
             ) {
@@ -70,8 +70,7 @@ export default function AllSubCategoryItems({
 
   const filteredSubCategoryItems = useMemo(() => {
     const filteredSubCategories =
-      selectedCategory &&
-      selectedCategory.category !== allCategoryFilter.category
+      selectedCategory && selectedCategory.name !== NO_CATEGORIES_FILLTER.name
         ? subcategories.filter(
             (subcategory: SubcategoriesType) =>
               subcategory.categoryId === selectedCategory.id
@@ -83,70 +82,18 @@ export default function AllSubCategoryItems({
   return (
     <>
       <Flex className={classes.filterSorting}>
-        <Flex className={classes.select}>
-          <Label.Root>Filter by category</Label.Root>
-          <Select.Root
-            value={selectedCategory?.id.toString()}
-            onValueChange={(value) => {
-              const selected = userCategories?.find(
-                (option) => option.id.toString() === value
-              );
-              if (selected) setSelectedCategory(selected);
-            }}
-          >
-            <Select.Trigger className={classes.selectOption}>
-              <Select.Value placeholder="Select category" />
-              <Select.Icon>
-                <ChevronDownIcon />
-              </Select.Icon>
-            </Select.Trigger>
-
-            <Select.Content className={classes.selectContent}>
-              <Select.Viewport>
-                {userCategories?.map((option) => (
-                  <Select.Item key={option.id} value={option.id.toString()}>
-                    <Select.ItemText>{option.category}</Select.ItemText>
-                    <Select.ItemIndicator>
-                      <CheckIcon />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                ))}
-              </Select.Viewport>
-            </Select.Content>
-          </Select.Root>
-        </Flex>
-        <Flex className={classes.sorting}>
-          <Label.Root>Sort by </Label.Root>
-          <Select.Root
-            value={sorting?.id.toString()}
-            onValueChange={(value) => {
-              const selected = categoriesSortingTypes?.find(
-                (option) => option.id.toString() === value
-              );
-              if (selected) setSorting(selected);
-            }}
-          >
-            <Select.Trigger className={classes.selectOption}>
-              <Select.Value placeholder="Select Sorting" />
-              <Select.Icon>
-                <ChevronDownIcon />
-              </Select.Icon>
-            </Select.Trigger>
-
-            <Select.Content className={classes.selectContent}>
-              <Select.Viewport>
-                {categoriesSortingTypes?.map((option) => (
-                  <Select.Item key={option.id} value={option.id.toString()}>
-                    <Select.ItemText>{option.sorting}</Select.ItemText>
-                    <Select.ItemIndicator>
-                      <CheckIcon />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                ))}
-              </Select.Viewport>
-            </Select.Content>
-          </Select.Root>
-        </Flex>
+        <CustomSelect
+          options={userCategories}
+          value={selectedCategory}
+          onChange={setSelectedCategory}
+          label={'Filter by'}
+        />
+        <CustomSelect
+          options={categoriesSortingOptions}
+          value={sorting}
+          onChange={setSorting}
+          label={'Sort by'}
+        />
       </Flex>
       <Grid className={classes.grid}>
         {filteredSubCategoryItems &&

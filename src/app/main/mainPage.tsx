@@ -7,7 +7,7 @@ import AddButton from '@app/components/addButton';
 import Loader from '@app/components/loader';
 import { PATHS } from '@app/constants/pages';
 
-import AllSubCategoryItems from './AllSubCategoryitems';
+import AllSubCategoryItems from './AllSubCategoryItems';
 import classes from './mainPage.module.css';
 
 export default async function MainPage() {
