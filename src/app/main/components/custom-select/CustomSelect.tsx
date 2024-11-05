@@ -1,4 +1,4 @@
-import { CheckIcon, ChevronDownIcon } from '@radix-ui/react-icons';
+import { ChevronDownIcon } from '@radix-ui/react-icons';
 import * as Select from '@radix-ui/react-select';
 import { Flex } from '@radix-ui/themes';
 
@@ -27,26 +27,29 @@ export default function CustomSelect({
           if (selected) onChange(selected);
         }}
       >
-        <Select.Trigger className={classes.selectOption}>
+        <Select.Trigger className={classes.selectTrigger}>
           <Select.Value placeholder={label} className={classes.label} />
-          <Select.Icon>
+          <Select.Icon className={classes.icon}>
             <ChevronDownIcon />
           </Select.Icon>
         </Select.Trigger>
 
         <Select.Content className={classes.selectContent}>
-          <Select.Viewport>
+          <Select.ScrollUpButton className={classes.scrollButton} />
+          <Select.Viewport className={classes.selectViewport}>
             {options?.map(
               (option: CategoryFilterOption | CategorySortingOption) => (
-                <Select.Item key={option.id} value={option.name}>
+                <Select.Item
+                  key={option.id}
+                  value={option.name}
+                  className={classes.selectItem}
+                >
                   <Select.ItemText>{option.name}</Select.ItemText>
-                  <Select.ItemIndicator>
-                    <CheckIcon />
-                  </Select.ItemIndicator>
                 </Select.Item>
               )
             )}
           </Select.Viewport>
+          <Select.ScrollDownButton className={classes.scrollButton} />
         </Select.Content>
       </Select.Root>
     </Flex>
