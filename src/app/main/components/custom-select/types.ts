@@ -19,8 +19,8 @@ export const NO_CATEGORIES_FILLTER = { id: '0', name: 'No filter' };
 export const TITLE_ASC_FILTER = 'title A-Z';
 export const TITLE_DESC_FILTER = 'title Z-A';
 
-export const DATE_ASC_FILTER = 'date from new';
-export const DATE_DESC_FILTER = 'date from old';
+export const DATE_ASC_FILTER = 'from newest';
+export const DATE_DESC_FILTER = 'from oldest';
 export interface UserCategorySortingType {
   id: number;
   sorting: string;

@@ -1,6 +1,6 @@
 .select {
   padding: 1rem;
-  width: 12rem;
+  width: 20rem;
   margin: 1rem 0;
   display: flex;
   flex-direction: column;
@@ -17,6 +17,7 @@
   cursor: pointer;
   font-size: 34px;
   font-family: var(--font-allura);
+  align-self: center;
 }
 
 .icon {

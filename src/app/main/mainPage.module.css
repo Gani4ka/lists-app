@@ -37,7 +37,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: var(--max-layout-width);
 }
 
 @media (min-width: 768px) {
@@ -65,7 +64,7 @@
   .filterSorting {
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: center;
   }
 }
 
@@ -93,6 +92,6 @@
   .filterSorting {
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: center;
   }
 }
