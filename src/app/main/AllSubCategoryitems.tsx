@@ -6,7 +6,7 @@ import { CategoryIcon } from '@app/components/icon-picker/types';
 import { CategoryType, SubcategoriesType } from '@app/types/list.types';
 
 import { categoryIcons } from '../constants';
-import CustomSelect from './components/custom-select/CustomSelect';
+import CustomSelect from './components/custom-select/customSelect';
 import {
   categoriesSortingOptions,
   CategoryFilterOption,

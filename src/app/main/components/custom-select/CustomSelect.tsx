@@ -9,12 +9,12 @@ import {
   CategorySortingOption,
 } from './types';
 
-export default function CustomSelect({
+const CustomSelect = ({
   options,
   value,
   onChange,
   label,
-}: CategorySelectProps) {
+}: CategorySelectProps) => {
   return (
     <Flex className={classes.select}>
       <Select.Root
@@ -54,4 +54,5 @@ export default function CustomSelect({
       </Select.Root>
     </Flex>
   );
-}
+};
+export default CustomSelect;
