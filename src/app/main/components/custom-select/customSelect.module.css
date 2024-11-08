@@ -9,7 +9,7 @@
 
 .selectTrigger {
   display: inline-flex;
-  align-items: end;
+  align-items: flex-end;
   padding: 8px 12px;
   background-color: white;
   border: none;
