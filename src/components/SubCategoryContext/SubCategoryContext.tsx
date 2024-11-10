@@ -27,7 +27,9 @@ export const SubCategoryContextProvider = ({
 export const useSubCategoryContext = () => {
   const context = useContext(SubCategoryContext);
   if (!context) {
-    throw new Error('useMyContext must be used within a MyContextProvider');
+    throw new Error(
+      'useSubCategoryContext must be used within a SubCategoryContextProvider'
+    );
   }
   return context;
 };
