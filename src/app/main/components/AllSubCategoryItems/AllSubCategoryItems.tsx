@@ -5,8 +5,10 @@ import { Flex, Grid } from '@radix-ui/themes';
 import { CategoryIcon } from '@app/components/icon-picker/types';
 import { CategoryType, SubcategoriesType } from '@app/types/list.types';
 
-import { categoryIcons } from '../constants';
-import CustomSelect from './components/custom-select/customSelect';
+import { categoryIcons } from '../../../constants';
+import classes from '../../mainPage.module.css';
+import { AllSubCategoriesItemsType } from '../../type';
+import CustomSelect from '../custom-select';
 import {
   categoriesSortingOptions,
   CategoryFilterOption,
@@ -16,11 +18,10 @@ import {
   NO_CATEGORIES_FILLTER,
   TITLE_ASC_FILTER,
   TITLE_DESC_FILTER,
-} from './components/custom-select/types';
-import ListCard from './components/listCard';
-import classes from './mainPage.module.css';
-import { AllSubCategoriesItemsType } from './type';
-export default function AllSubCategoryItems({
+} from '../custom-select/types';
+import ListCard from '../listCard';
+
+export function AllSubCategoryItems({
   subcategories,
   categories,
 }: AllSubCategoriesItemsType) {
@@ -29,10 +30,10 @@ export default function AllSubCategoryItems({
   const [sorting, setSorting] = useState<CategorySortingOption | null>(null);
 
   const userCategories = useMemo(() => {
-    const userCategoriesList = categories.map((category: CategoryType) => {
+    const userCategoriesList = categories?.map((category: CategoryType) => {
       return { id: category._id, name: category.title };
     });
-    userCategoriesList.unshift(NO_CATEGORIES_FILLTER);
+    userCategoriesList?.unshift(NO_CATEGORIES_FILLTER);
     return userCategoriesList;
   }, [categories]);
 
