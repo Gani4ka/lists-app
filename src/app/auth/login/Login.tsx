@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 
 import { signinUser } from '@app/api/user';
-import ResetLink from '@app/app/reset-password/components/ResetLink';
+import ResetPasswordLink from '@app/app/reset-password/components/ResetPasswordLink';
 
 import AuthLink from '../components/AuthLink';
 import Email from '../components/Email';
@@ -36,7 +36,7 @@ export default function Login() {
           link={'/auth/signup'}
         />
       </form>
-      <ResetLink />
+      <ResetPasswordLink />
     </div>
   );
 }

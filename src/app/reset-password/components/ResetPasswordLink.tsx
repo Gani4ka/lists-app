@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import styles from './resetLink.module.css';
-const ResetLink = () => {
+const ResetPasswordLink = () => {
   return (
     <div className={styles.container}>
       <Link className={styles.resetLink} href={'/reset-password'}>
@@ -10,4 +10,4 @@ const ResetLink = () => {
     </div>
   );
 };
-export default ResetLink;
+export default ResetPasswordLink;
