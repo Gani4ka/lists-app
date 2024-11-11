@@ -11,7 +11,7 @@ const ResetPasswordForm = ({ resetPassword }: ResetPasswordTypes) => {
   const [error, setError] = useState<string>('');
   const [message, setMessage] = useState<string>('');
 
-  const onResetEmailHandler = async () => {
+  const onResetPasswordHandler = async () => {
     setError('');
     if (email.includes('@')) {
       const result = await resetPassword(email);
@@ -41,7 +41,7 @@ const ResetPasswordForm = ({ resetPassword }: ResetPasswordTypes) => {
       <Button
         className={styles.button}
         disabled={email === ''}
-        onClick={onResetEmailHandler}
+        onClick={onResetPasswordHandler}
       >
         Send
       </Button>
