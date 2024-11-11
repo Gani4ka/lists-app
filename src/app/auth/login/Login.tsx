@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 
 import { signinUser } from '@app/api/user';
+import ResetLink from '@app/app/reset-password/components/ResetLink';
 
 import AuthLink from '../components/AuthLink';
 import Email from '../components/Email';
@@ -23,16 +24,19 @@ export default function Login() {
   }, [state]);
 
   return (
-    <form action={formAction} onSubmit={() => setErrorMessage('')}>
-      <Email />
-      <Password />
-      <SubmitButton btnText={'Login'} />
-      <AuthLink
-        text={'No account?'}
-        linkText={'Sign up'}
-        errorMessage={errorMessage}
-        link={'/auth/signup'}
-      />
-    </form>
+    <div>
+      <form action={formAction} onSubmit={() => setErrorMessage('')}>
+        <Email />
+        <Password />
+        <SubmitButton btnText={'Login'} />
+        <AuthLink
+          text={'No account?'}
+          linkText={'Sign up'}
+          errorMessage={errorMessage}
+          link={'/auth/signup'}
+        />
+      </form>
+      <ResetLink />
+    </div>
   );
 }

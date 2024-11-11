@@ -2,6 +2,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
+import { ResetPasswordResponse } from '@app/app/reset-password/reset-password-form/types';
 import { AuthError, AuthUser } from '@app/types/list.types';
 
 export const setCookies = (name: string, data: string) => {
@@ -67,4 +68,23 @@ export const logout = () => {
   cookies().delete('auth-user');
   cookies().delete('token');
   redirect('/auth');
+};
+export const resetPassword = async (
+  email: string
+): Promise<ResetPasswordResponse> => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/reset-password-request`,
+      {
+        method: 'POST',
+        body: email,
+      }
+    );
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    const eString = JSON.stringify(error);
+
+    return { error: true, message: eString };
+  }
 };
