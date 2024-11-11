@@ -3,5 +3,5 @@ export interface ResetPasswordResponse {
   message: string;
 }
 export type ResetPasswordTypes = {
-  resetPassword: (password: string) => Promise<ResetPasswordResponse>;
+  resetPassword: (email: string) => Promise<ResetPasswordResponse>;
 };
