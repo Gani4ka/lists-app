@@ -74,10 +74,13 @@ export const resetPassword = async (
 ): Promise<ResetPasswordResponse> => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/reset-password-request`,
+      `${process.env.NEXT_PUBLIC_API_URL}reset-password-request`,
       {
         method: 'POST',
-        body: email,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email }),
       }
     );
     const result = await response.json();
