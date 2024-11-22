@@ -13,15 +13,15 @@ const ResetPasswordForm = ({ resetPassword }: ResetPasswordTypes) => {
 
   const onResetPasswordHandler = async () => {
     setError('');
-    if (email.includes('@')) {
-      const result = await resetPassword(email);
-      if (result.error) {
-        setError(result.message);
-      } else {
-        setMessage(result.message);
-      }
-    } else {
+    if (!email.includes('@')) {
       setError('Please enter a valid email');
+      return;
+    }
+    const result = await resetPassword(email);
+    if (result.error) {
+      setError(result.message);
+    } else {
+      setMessage(result.message);
     }
   };
   return (
