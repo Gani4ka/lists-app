@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 
 import { signupUser } from '@app/api/user';
+import ResetPasswordLink from '@app/app/reset-password/components/ResetPasswordLink';
 import { AuthError } from '@app/types/list.types';
 
 import AuthLink from '../components/AuthLink';
@@ -25,17 +26,20 @@ export default function SignUp() {
   }, [state]);
 
   return (
-    <form action={formAction} onSubmit={() => setErrorMessage('')}>
-      <Username />
-      <Email />
-      <Password />
-      <SubmitButton btnText={'SignUp'} />
-      <AuthLink
-        text={'Already have an account?'}
-        linkText={'Login'}
-        errorMessage={errorMessage}
-        link={'/auth/login'}
-      />
-    </form>
+    <div>
+      <form action={formAction} onSubmit={() => setErrorMessage('')}>
+        <Username />
+        <Email />
+        <Password />
+        <SubmitButton btnText={'SignUp'} />
+        <AuthLink
+          text={'Already have an account?'}
+          linkText={'Login'}
+          errorMessage={errorMessage}
+          link={'/auth/login'}
+        />
+      </form>
+      <ResetPasswordLink />
+    </div>
   );
 }
