@@ -8,8 +8,10 @@ import type {
   SubCategoryItemType,
   SubCategoryManyItemsResponse,
 } from '@app/types/list.types';
+import { getBackendUrl } from '@app/utils/getBackendUrl';
 
 import { getUserToken } from './user';
+const backendUrl = getBackendUrl();
 
 export async function getSubcategoryItems(
   id: string
@@ -22,7 +24,7 @@ export async function getSubcategoryItems(
     }
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/subcategory/${id}`,
+      `${backendUrl}subcategory-items/subcategory/${id}`,
       {
         method: 'GET',
         headers: {
@@ -59,17 +61,14 @@ export async function createSubCategoryItem(
       throw new Error('Token is not found/valid. Try loging in again');
     }
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/${subCategoryId}`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    const res = await fetch(`${backendUrl}subcategory-items/${subCategoryId}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
 
     const response = await res.json();
 
@@ -103,17 +102,14 @@ export async function updateItem(
       throw new Error('Token is not found/valid. Try loging in again');
     }
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/${subCategoryId}`,
-      {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    const res = await fetch(`${backendUrl}subcategory-items/${subCategoryId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
     revalidateTag('items');
     const response = await res.json();
     return {
@@ -145,7 +141,7 @@ export async function updateItemMany(
     }
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/all-subcategory-items/${subCategoryId}`,
+      `${backendUrl}subcategory-items/all-subcategory-items/${subCategoryId}`,
       {
         method: 'PUT',
         headers: {
@@ -185,16 +181,13 @@ export async function deleteItem(
       throw new Error('Token is not found/valid. Try loging in again');
     }
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}subcategory-items/${itemId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const res = await fetch(`${backendUrl}subcategory-items/${itemId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
     revalidateTag('items');
     const response = await res.json();
     return {
