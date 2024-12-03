@@ -26,9 +26,9 @@ const roboto_mono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'My Lists App',
+  title: 'Listify',
   description:
-    'My Lists App - is a tool for keeping in order your thoughts, wishes and plans.',
+    'Listify is a tool for keeping in order your thoughts, wishes and plans.',
 };
 
 const themeConfig: ThemeProps = {
