@@ -5,14 +5,16 @@ import type {
   CategoriesResponse,
   CategoryResponse,
 } from '@app/types/list.types';
+import { getBackendUrl } from '@app/utils/getBackendUrl';
 
 import { getUserToken } from './user';
+const backendUrl = getBackendUrl();
 
 export async function getCategories(): Promise<CategoriesResponse> {
   try {
     const token = await getUserToken();
     if (token) {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}categories`, {
+      const res = await fetch(`${backendUrl}categories`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -46,17 +48,14 @@ export async function getCategoryById(
   try {
     const token = await getUserToken();
     if (token) {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}categories/${categoryId}`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          cache: 'no-store',
-        }
-      );
+      const res = await fetch(`${backendUrl}categories/${categoryId}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store',
+      });
 
       const categoryResponse = await res.json();
       return {
