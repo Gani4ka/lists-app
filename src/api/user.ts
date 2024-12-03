@@ -4,8 +4,6 @@ import { redirect } from 'next/navigation';
 
 import { ResetPasswordResponse } from '@app/app/reset-password/reset-password-form/types';
 import { AuthError, AuthUser } from '@app/types/list.types';
-import { getBackendUrl } from '@app/utils/getBackendUrl';
-const backendUrl = getBackendUrl();
 
 export const setCookies = (name: string, data: string) => {
   cookies().set(name, data);
@@ -27,7 +25,7 @@ export async function signupUser(prevState: AuthError, formData: FormData) {
     username: formData.get('username') as string,
   };
 
-  const signUpRes = await fetch(`${backendUrl}signup`, {
+  const signUpRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -45,7 +43,7 @@ export async function signupUser(prevState: AuthError, formData: FormData) {
 export async function signinUser(prevState: AuthError, formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
-  const signInRes = await fetch(`${backendUrl}login`, {
+  const signInRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -75,13 +73,16 @@ export const resetPassword = async (
   email: string
 ): Promise<ResetPasswordResponse> => {
   try {
-    const response = await fetch(`${backendUrl}reset-password-request`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email: email }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}reset-password-request`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email }),
+      }
+    );
     const result = await response.json();
     return result;
   } catch (error) {
