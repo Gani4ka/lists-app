@@ -7,10 +7,8 @@ import type {
   SubcategoriesType,
   SubCategoryResponse,
 } from '@app/types/list.types';
-import { getBackendUrl } from '@app/utils/getBackendUrl';
 
 import { getUserToken } from './user';
-const backendUrl = getBackendUrl();
 
 export async function getAllSubcategories(): Promise<SubCategoriesResponse> {
   try {
@@ -20,14 +18,17 @@ export async function getAllSubcategories(): Promise<SubCategoriesResponse> {
       throw new Error('Token is not found/valid. Try loging in again');
     }
 
-    const res = await fetch(`${backendUrl}all-subcategories`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      next: { tags: ['subcategory'] },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}all-subcategories`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['subcategory'] },
+      }
+    );
     const result = await res.json();
 
     return {
@@ -54,14 +55,17 @@ export async function getSubcategory(id: string): Promise<SubCategoryResponse> {
       throw new Error('Token is not found/valid. Try loging in again');
     }
 
-    const res = await fetch(`${backendUrl}subcategories/${id}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      next: { tags: ['subcategory'] },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}subcategories/${id}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['subcategory'] },
+      }
+    );
     const result = await res.json();
     return {
       error: result.error,
@@ -90,14 +94,17 @@ export async function createSubcategory(
       throw new Error('Token is not found/valid. Try loging in again');
     }
 
-    const res = await fetch(`${backendUrl}subcategories/${categoryId}`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}subcategories/${categoryId}`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
     const result = await res.json();
     revalidateTag('subcategory');
 
@@ -127,14 +134,17 @@ export async function updateSubcategory(
       throw new Error('Token is not found/valid. Try loging in again');
     }
 
-    const res = await fetch(`${backendUrl}subcategories/${categoryId}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}subcategories/${categoryId}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
     const result = await res.json();
     revalidateTag('subcategory');
     return {
@@ -163,13 +173,16 @@ export async function deleteSubcategory(
       throw new Error('Token is not found/valid. Try loging in again');
     }
 
-    const result = await fetch(`${backendUrl}subcategories/${id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    const result = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}subcategories/${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
     revalidateTag('subcategory');
     const response = await result.json();
     return {
