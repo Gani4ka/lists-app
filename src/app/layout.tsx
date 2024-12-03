@@ -2,7 +2,6 @@ import { Box, Theme, ThemeProps } from '@radix-ui/themes';
 
 import type { Metadata } from 'next';
 import { Allura, Roboto_Mono } from 'next/font/google';
-import Head from 'next/head';
 
 import { Favicon } from '@app/components/favicon';
 import { Footer } from '@app/components/footer';
@@ -39,16 +38,13 @@ const themeConfig: ThemeProps = {
 function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <Head>
-        <Favicon />
-        <link rel="manifest" href="/manifest.json"></link>
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/icons/apple-touch-icon.png"
-        ></link>
-      </Head>
-
+      <Favicon />
+      <link rel="manifest" href="/manifest.json"></link>
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/icons/apple-touch-icon.png"
+      ></link>
       <body>
         <SubCategoryContextProvider>
           <Theme {...themeConfig}>
