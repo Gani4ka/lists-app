@@ -41,6 +41,12 @@ function RootLayout({ children }: LayoutProps) {
     <html lang="en">
       <Head>
         <Favicon />
+        <link rel="manifest" href="/manifest.json"></link>
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/icons/apple-touch-icon.png"
+        ></link>
       </Head>
 
       <body>
