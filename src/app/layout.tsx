@@ -39,30 +39,47 @@ function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <Favicon />
-      <link rel="manifest" href="/manifest.json"></link>
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="24x24"
+        href="/icons/icon-24x24.png"
+      ></link>
       <link
         rel="icon"
         type="image/png"
         sizes="32x32"
-        href="/icons/icon-96x96.png"
+        href="/icons/icon-32x32.png"
+      ></link>
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="64x64"
+        href="/icons/icon-64x64.png"
       ></link>
       <link
         rel="icon"
         type="image/png"
         sizes="96x96"
-        href="/icons/icon-192x192.png"
+        href="/icons/icon-96x96.png"
+      ></link>
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="180x180"
+        href="/icons/icon-180x180.png"
       ></link>
       <link
         rel="icon"
         type="image/png"
         sizes="192x192"
-        href="/icons/icon-512x512.png"
+        href="/icons/icon-192x192.png"
       ></link>
       <link
         rel="icon"
         type="image/png"
-        sizes="16x16"
-        href="/icons/favicon-16x16.png"
+        sizes="512x512"
+        href="/icons/icon-512x512.png"
       ></link>
       <link
         rel="apple-touch-icon"
