@@ -45,14 +45,14 @@ const Menu = ({ isOpen, hasUser }: MenuProps) => {
           <li>
             <Link asChild highContrast>
               <BaseLink href={PATHS.category}>
-                Create {PAGES_NAMES.category}
+                New {PAGES_NAMES.category}
               </BaseLink>
             </Link>
           </li>
           <li>
             <Link asChild highContrast>
               <BaseLink href={PATHS.subcategory}>
-                Create {PAGES_NAMES.subcategory}
+                New {PAGES_NAMES.subcategory}
               </BaseLink>
             </Link>
           </li>

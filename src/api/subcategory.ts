@@ -30,6 +30,7 @@ export async function getAllSubcategories(): Promise<SubCategoriesResponse> {
       }
     );
     const result = await res.json();
+
     return {
       error: result.error,
       subcategories: result.subcategories,

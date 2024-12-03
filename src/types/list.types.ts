@@ -11,6 +11,7 @@ export interface SubcategoriesType {
   _id: string;
   title: string;
   categoryId: string;
+  createdAt?: Date;
 }
 
 export interface SubCategoryItemType {

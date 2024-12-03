@@ -5,6 +5,7 @@ import { Checkbox, Flex } from '@radix-ui/themes';
 import { updateItem } from '@app/api/item';
 import { DeleteButton } from '@app/components/deleteButton';
 import { EditAndSaveButton } from '@app/components/editAndSaveButton';
+import { debounce } from '@app/utils/debounce';
 
 import type { ItemProps } from './item.types';
 import classes from './styles.module.css';
@@ -21,20 +22,25 @@ export const Item = ({
   const [error, setError] = useState<string>('');
 
   async function saveItem() {
-    const response = await updateItem(item.subcategoryId, item);
+    const response = await updateItem(item._id, item);
+
     if (response.error) {
       setError(response.message);
     } else {
       setError('');
     }
   }
+  const onDoneChecked = debounce(() => {
+    handleToggleDone(item._id!, !item.isDone);
+    saveItem();
+  }, 300);
 
   return (
     <Flex direction={'column'}>
       <Flex key={item._id} className={classes['item-wrapper']} ref={wrapperRef}>
         <Checkbox
           checked={item.isDone}
-          onCheckedChange={() => handleToggleDone(item._id!, !item.isDone)}
+          onCheckedChange={onDoneChecked}
           id={`checkbox-${index}`}
           className={classes.checkbox}
         />

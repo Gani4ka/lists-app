@@ -6,6 +6,7 @@ import Head from 'next/head';
 
 import { Favicon } from '@app/components/favicon';
 import { Footer } from '@app/components/footer';
+import { SubCategoryContextProvider } from '@app/components/SubCategoryContext/SubCategoryContext';
 import type { LayoutProps } from '@app/types/layout.types';
 
 import '@radix-ui/themes/styles.css';
@@ -43,17 +44,19 @@ function RootLayout({ children }: LayoutProps) {
       </Head>
 
       <body>
-        <Theme {...themeConfig}>
-          <Box
-            className={`${roboto_mono.variable} ${allura.variable}`}
-            style={roboto_mono.style}
-            minHeight="100vh"
-            position="relative"
-          >
-            {children}
-            <Footer />
-          </Box>
-        </Theme>
+        <SubCategoryContextProvider>
+          <Theme {...themeConfig}>
+            <Box
+              className={`${roboto_mono.variable} ${allura.variable}`}
+              style={roboto_mono.style}
+              minHeight="100vh"
+              position="relative"
+            >
+              {children}
+              <Footer />
+            </Box>
+          </Theme>
+        </SubCategoryContextProvider>
       </body>
     </html>
   );

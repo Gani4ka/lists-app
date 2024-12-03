@@ -1,0 +1,53 @@
+.select {
+  padding: 1rem;
+  width: 20rem;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.selectTrigger {
+  display: inline-flex;
+  align-items: flex-end;
+  padding: 8px 12px;
+  background-color: white;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  font-size: 34px;
+  font-family: var(--font-allura);
+  align-self: center;
+}
+
+.icon {
+  margin-left: 8px;
+  color: #666;
+}
+
+.selectContent {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.scrollButton {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.selectViewport {
+  padding: 4px;
+}
+
+.selectItem {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.selectItem:hover {
+  background-color: #f0f0f0;
+}

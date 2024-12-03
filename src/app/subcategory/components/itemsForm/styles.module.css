@@ -41,16 +41,8 @@
 
 @media (min-width: 768px) {
   .items-form-wrapper {
-    --list-title-height: 286px;
     max-height: calc(100vh - var(--header-height) - var(--list-title-height));
     padding-left: 40px;
     padding-right: 40px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .items-form-wrapper {
-    --list-title-height: 286px;
-    max-height: calc(100vh - var(--header-height) - var(--list-title-height));
   }
 }
