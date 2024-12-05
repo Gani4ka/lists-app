@@ -2,10 +2,10 @@ import { Box, Theme, ThemeProps } from '@radix-ui/themes';
 
 import type { Metadata } from 'next';
 import { Allura, Roboto_Mono } from 'next/font/google';
-import Head from 'next/head';
 
 import { Favicon } from '@app/components/favicon';
 import { Footer } from '@app/components/footer';
+import { HeadIcons } from '@app/components/headIcons';
 import { SubCategoryContextProvider } from '@app/components/SubCategoryContext/SubCategoryContext';
 import type { LayoutProps } from '@app/types/layout.types';
 
@@ -26,9 +26,9 @@ const roboto_mono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'My Lists App',
+  title: 'Listify',
   description:
-    'My Lists App - is a tool for keeping in order your thoughts, wishes and plans.',
+    'Listify is a tool for keeping in order your thoughts, wishes and plans.',
 };
 
 const themeConfig: ThemeProps = {
@@ -39,10 +39,8 @@ const themeConfig: ThemeProps = {
 function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <Head>
-        <Favicon />
-      </Head>
-
+      <Favicon />
+      <HeadIcons />
       <body>
         <SubCategoryContextProvider>
           <Theme {...themeConfig}>
