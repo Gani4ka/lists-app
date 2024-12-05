@@ -82,6 +82,7 @@ export const resetPassword = async (
       },
       body: JSON.stringify({ email: email }),
     });
+
     const result = await response.json();
     return result;
   } catch (error) {

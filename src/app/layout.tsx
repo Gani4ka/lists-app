@@ -5,7 +5,9 @@ import { Allura, Roboto_Mono } from 'next/font/google';
 
 import { Favicon } from '@app/components/favicon';
 import { Footer } from '@app/components/footer';
+
 import { HeadIcons } from '@app/components/headIcons';
+
 import { SubCategoryContextProvider } from '@app/components/SubCategoryContext/SubCategoryContext';
 import type { LayoutProps } from '@app/types/layout.types';
 
