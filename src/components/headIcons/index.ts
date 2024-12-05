@@ -1,0 +1,1 @@
+export { HeadIcons } from './HeadIcons';
