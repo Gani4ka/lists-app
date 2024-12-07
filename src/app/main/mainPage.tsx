@@ -7,6 +7,7 @@ import AddButton from '@app/components/addButton';
 import Loader from '@app/components/loader';
 import { PATHS } from '@app/constants/pages';
 
+import { GoToLoginPage } from '../auth/components/GoToLogin';
 import { AllSubCategoryItems } from './components/AllSubCategoryItems';
 import classes from './mainPage.module.css';
 
@@ -22,7 +23,7 @@ export default async function MainPage() {
             subcategories={subcategories}
             categories={categories}
           />
-          {error && <p className="error-text">{message}</p>}
+          {error && <GoToLoginPage message={message} />}
         </Suspense>
       </Box>
       <AddButton linkTo={PATHS.subcategory} />
