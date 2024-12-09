@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 import type {
   SubCategoriesResponse,
@@ -28,15 +29,20 @@ export async function getAllSubcategories(): Promise<SubCategoriesResponse> {
       },
       next: { tags: ['subcategory'] },
     });
-    const result = await res.json();
+    if (res.ok) {
+      const result = await res.json();
 
-    return {
-      error: result.error,
-      subcategories: result.subcategories,
-      message: result.message,
-    };
+      return {
+        error: result.error,
+        subcategories: result.subcategories,
+        message: result.message,
+      };
+    } else if (res.status === 401) {
+      redirect('/auth/login');
+    } else {
+      throw new Error('Error fetching subcategories');
+    }
   } catch (error) {
-    console.log('error', error);
     const eString = JSON.stringify(error);
     return {
       error: true,
@@ -62,14 +68,19 @@ export async function getSubcategory(id: string): Promise<SubCategoryResponse> {
       },
       next: { tags: ['subcategory'] },
     });
-    const result = await res.json();
-    return {
-      error: result.error,
-      subcategory: result.subcategory,
-      message: result.message,
-    };
+    if (res.ok) {
+      const result = await res.json();
+      return {
+        error: result.error,
+        subcategory: result.subcategory,
+        message: result.message,
+      };
+    } else if (res.status === 401) {
+      redirect('/auth/login');
+    } else {
+      throw new Error('Error fetching subcategory');
+    }
   } catch (error) {
-    console.log('error', error);
     const eString = JSON.stringify(error);
     return {
       error: true,
@@ -98,14 +109,19 @@ export async function createSubcategory(
       },
       body: JSON.stringify(data),
     });
-    const result = await res.json();
-    revalidateTag('subcategory');
-
-    return {
-      error: result.error,
-      subcategory: result.subcategory,
-      message: result.message,
-    };
+    if (res.ok) {
+      const result = await res.json();
+      revalidateTag('subcategory');
+      return {
+        error: result.error,
+        subcategory: result.subcategory,
+        message: result.message,
+      };
+    } else if (res.status === 401) {
+      redirect('/auth/login');
+    } else {
+      throw new Error('Error creating subcategory');
+    }
   } catch (error) {
     const eString = JSON.stringify(error);
     return {
@@ -135,13 +151,19 @@ export async function updateSubcategory(
       },
       body: JSON.stringify(data),
     });
-    const result = await res.json();
-    revalidateTag('subcategory');
-    return {
-      error: result.error,
-      subcategory: result.subcategory,
-      message: result.message,
-    };
+    if (res.ok) {
+      const result = await res.json();
+      revalidateTag('subcategory');
+      return {
+        error: result.error,
+        subcategory: result.subcategory,
+        message: result.message,
+      };
+    } else if (res.status === 401) {
+      redirect('/auth/login');
+    } else {
+      throw new Error('Error updating subcategory');
+    }
   } catch (error) {
     console.log('error', error);
     const eString = JSON.stringify(error);
@@ -170,13 +192,19 @@ export async function deleteSubcategory(
         'Content-Type': 'application/json',
       },
     });
-    revalidateTag('subcategory');
-    const response = await result.json();
-    return {
-      error: response.error,
-      subcategory: response.subcategory,
-      message: response.message,
-    };
+    if (result.ok) {
+      revalidateTag('subcategory');
+      const response = await result.json();
+      return {
+        error: response.error,
+        subcategory: response.subcategory,
+        message: response.message,
+      };
+    } else if (result.status === 401) {
+      redirect('/auth/login');
+    } else {
+      throw new Error('Error deleting subcategory');
+    }
   } catch (error) {
     console.log('error', error);
     const eString = JSON.stringify(error);

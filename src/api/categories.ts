@@ -1,5 +1,7 @@
 'use server';
 
+import { redirect } from 'next/navigation';
+
 import { CategoryParamProp } from '@app/app/categories/components/categoryCard/types';
 import type {
   CategoriesResponse,
@@ -23,12 +25,18 @@ export async function getCategories(): Promise<CategoriesResponse> {
         cache: 'no-store',
       });
 
-      const categoriesResponse = await res.json();
-      return {
-        message: categoriesResponse.message,
-        categories: categoriesResponse?.categories,
-        error: categoriesResponse.error,
-      };
+      if (res.ok) {
+        const categoriesResponse = await res.json();
+        return {
+          message: categoriesResponse.message,
+          categories: categoriesResponse?.categories ?? [],
+          error: categoriesResponse.error,
+        };
+      } else if (res.status === 401) {
+        redirect('/auth/login');
+      } else {
+        throw new Error('Error fetching categories');
+      }
     } else {
       throw new Error('Token is not found/valid. Try loging in again');
     }
@@ -57,12 +65,18 @@ export async function getCategoryById(
         cache: 'no-store',
       });
 
-      const categoryResponse = await res.json();
-      return {
-        message: categoryResponse.message,
-        category: categoryResponse?.category,
-        error: categoryResponse.error,
-      };
+      if (res.ok) {
+        const categoryResponse = await res.json();
+        return {
+          message: categoryResponse.message,
+          category: categoryResponse?.category,
+          error: categoryResponse.error,
+        };
+      } else if (res.status === 401) {
+        redirect('/auth/login');
+      } else {
+        throw new Error('Error fetching category');
+      }
     } else {
       throw new Error('Token is not found/valid. Try loging in again');
     }

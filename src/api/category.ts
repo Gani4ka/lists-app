@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 import type {
   CategoryCreateType,
@@ -30,13 +31,19 @@ export async function createCategory(
       },
       body: JSON.stringify(data),
     });
-    const result = await res.json();
-    await reloadCategories();
-    return {
-      message: result.message,
-      category: result.category,
-      error: result.error,
-    };
+    if (res.ok) {
+      const result = await res.json();
+      await reloadCategories();
+      return {
+        message: result.message,
+        category: result.category,
+        error: result.error,
+      };
+    } else if (res.status === 401) {
+      redirect('/auth/login');
+    } else {
+      throw new Error('Error creating category');
+    }
   } catch (error) {
     const eString = JSON.stringify(error);
 
@@ -66,13 +73,19 @@ export async function updateCategory(
       },
       body: JSON.stringify(data),
     });
-    const result = await res.json();
-    await reloadCategories();
-    return {
-      message: result.message,
-      category: result.category,
-      error: result.error,
-    };
+    if (res.ok) {
+      const result = await res.json();
+      await reloadCategories();
+      return {
+        message: result.message,
+        category: result.category,
+        error: result.error,
+      };
+    } else if (res.status === 401) {
+      redirect('/auth/login');
+    } else {
+      throw new Error('Error updating category');
+    }
   } catch (error) {
     const eString = JSON.stringify(error);
 
@@ -99,13 +112,19 @@ export async function deleteCategory(id: string): Promise<CategoryResponse> {
         'Content-Type': 'application/json',
       },
     });
-    const result = await res.json();
-    await reloadCategories();
-    return {
-      message: result.message,
-      category: result.category,
-      error: result.error,
-    } as CategoryResponse;
+    if (res.ok) {
+      const result = await res.json();
+      await reloadCategories();
+      return {
+        message: result.message,
+        category: result.category,
+        error: result.error,
+      } as CategoryResponse;
+    } else if (res.status === 401) {
+      redirect('/auth/login');
+    } else {
+      throw new Error('Error deleting category');
+    }
   } catch (error) {
     const eString = JSON.stringify(error);
 

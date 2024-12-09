@@ -13,17 +13,24 @@ import classes from './mainPage.module.css';
 
 export default async function MainPage() {
   const { subcategories, error, message } = await getAllSubcategories();
-  const { categories } = await getCategories();
+  const {
+    categories,
+    error: categoriesError,
+    message: categoriesMessage,
+  } = await getCategories();
 
   return (
     <main className={classes.main}>
       <Box p={'4'} className={classes['main-wrapper']}>
         <Suspense fallback={<Loader />}>
-          <AllSubCategoryItems
-            subcategories={subcategories}
-            categories={categories}
-          />
-          {error && <GoToLoginPage message={message} />}
+          {categoriesError || error ? (
+            <GoToLoginPage message={categoriesMessage ?? message} />
+          ) : (
+            <AllSubCategoryItems
+              subcategories={subcategories}
+              categories={categories}
+            />
+          )}
         </Suspense>
       </Box>
       <AddButton linkTo={PATHS.subcategory} />
