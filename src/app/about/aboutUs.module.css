@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+  max-height: calc(100vh - var(--header-height) - var(--footer-height));
+  padding: 4rem;
+  overflow: scroll;
+}
+.section {
+  margin: 3rem 0;
+}
+
+.link {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  gap: 1rem;
+}
