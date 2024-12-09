@@ -1,8 +1,7 @@
 'use server';
 
-import { redirect } from 'next/navigation';
-
 import { CategoryParamProp } from '@app/app/categories/components/categoryCard/types';
+import { USER_TOKEN_ERROR } from '@app/app/constants';
 import type {
   CategoriesResponse,
   CategoryResponse,
@@ -33,7 +32,11 @@ export async function getCategories(): Promise<CategoriesResponse> {
           error: categoriesResponse.error,
         };
       } else if (res.status === 401) {
-        redirect('/auth/login');
+        return {
+          message: USER_TOKEN_ERROR,
+          categories: [],
+          error: true,
+        };
       } else {
         throw new Error('Error fetching categories');
       }
@@ -73,7 +76,11 @@ export async function getCategoryById(
           error: categoryResponse.error,
         };
       } else if (res.status === 401) {
-        redirect('/auth/login');
+        return {
+          message: USER_TOKEN_ERROR,
+          category: null,
+          error: true,
+        };
       } else {
         throw new Error('Error fetching category');
       }

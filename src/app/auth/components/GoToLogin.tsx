@@ -8,7 +8,7 @@ export const GoToLoginPage = ({ message }: GoToLoginPageProps) => {
     <div style={{ textAlign: 'center' }}>
       <p className="error-text">{message} </p>
       <Link className={styles.link} href={'/auth/login'}>
-        Login
+        <span>Login</span>
       </Link>
     </div>
   );

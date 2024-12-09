@@ -1,8 +1,8 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { redirect } from 'next/navigation';
 
+import { USER_TOKEN_ERROR } from '@app/app/constants';
 import type {
   CategoryCreateType,
   CategoryResponse,
@@ -40,7 +40,11 @@ export async function createCategory(
         error: result.error,
       };
     } else if (res.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        category: null,
+        error: true,
+      };
     } else {
       throw new Error('Error creating category');
     }
@@ -82,7 +86,11 @@ export async function updateCategory(
         error: result.error,
       };
     } else if (res.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        category: null,
+        error: true,
+      };
     } else {
       throw new Error('Error updating category');
     }
@@ -121,7 +129,11 @@ export async function deleteCategory(id: string): Promise<CategoryResponse> {
         error: result.error,
       } as CategoryResponse;
     } else if (res.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        category: null,
+        error: true,
+      };
     } else {
       throw new Error('Error deleting category');
     }

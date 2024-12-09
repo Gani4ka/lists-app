@@ -1,8 +1,8 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { redirect } from 'next/navigation';
 
+import { USER_TOKEN_ERROR } from '@app/app/constants';
 import type {
   SubCategoryItemResponse,
   SubCategoryItemsResponse,
@@ -43,7 +43,11 @@ export async function getSubcategoryItems(
         message: result.message,
       };
     } else if (res.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        subcategoryItems: [],
+        error: true,
+      };
     } else {
       throw new Error('Error creating subcategory item');
     }
@@ -86,7 +90,11 @@ export async function createSubCategoryItem(
         message: response.message,
       };
     } else if (res.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        subcategoryItem: null,
+        error: true,
+      };
     } else {
       throw new Error('Error creating subcategory item');
     }
@@ -130,7 +138,11 @@ export async function updateItem(
         message: response.message,
       };
     } else if (res.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        subcategoryItem: null,
+        error: true,
+      };
     } else {
       throw new Error('Error updating subcategory item');
     }
@@ -178,7 +190,11 @@ export async function updateItemMany(
         message: response.message,
       };
     } else if (res.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        subcategoryItems: [],
+        error: true,
+      };
     } else {
       throw new Error('Error updating subcategory items');
     }
@@ -220,7 +236,11 @@ export async function deleteItem(
         message: response.message,
       };
     } else if (res.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        subcategoryItem: null,
+        error: true,
+      };
     } else {
       throw new Error('Error deleting subcategory item');
     }

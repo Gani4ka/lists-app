@@ -1,8 +1,8 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { redirect } from 'next/navigation';
 
+import { USER_TOKEN_ERROR } from '@app/app/constants';
 import type {
   SubCategoriesResponse,
   SubcategoriesType,
@@ -38,7 +38,11 @@ export async function getAllSubcategories(): Promise<SubCategoriesResponse> {
         message: result.message,
       };
     } else if (res.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        subcategories: [],
+        error: true,
+      };
     } else {
       throw new Error('Error fetching subcategories');
     }
@@ -76,7 +80,11 @@ export async function getSubcategory(id: string): Promise<SubCategoryResponse> {
         message: result.message,
       };
     } else if (res.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        subcategory: null,
+        error: true,
+      };
     } else {
       throw new Error('Error fetching subcategory');
     }
@@ -118,7 +126,11 @@ export async function createSubcategory(
         message: result.message,
       };
     } else if (res.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        subcategory: null,
+        error: true,
+      };
     } else {
       throw new Error('Error creating subcategory');
     }
@@ -160,7 +172,11 @@ export async function updateSubcategory(
         message: result.message,
       };
     } else if (res.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        subcategory: null,
+        error: true,
+      };
     } else {
       throw new Error('Error updating subcategory');
     }
@@ -201,7 +217,11 @@ export async function deleteSubcategory(
         message: response.message,
       };
     } else if (result.status === 401) {
-      redirect('/auth/login');
+      return {
+        message: USER_TOKEN_ERROR,
+        subcategory: null,
+        error: true,
+      };
     } else {
       throw new Error('Error deleting subcategory');
     }

@@ -1,5 +1,8 @@
 import { Flex } from '@radix-ui/themes';
 
+import { GoToLoginPage } from '@app/app/auth/components/GoToLogin';
+import { USER_TOKEN_ERROR } from '@app/app/constants';
+
 import type { ListProps } from '../types';
 import { getData } from '../utils/getData';
 import { CreateSubcategoryForm } from './createSubcategoryForm/createSubcategoryForm';
@@ -12,18 +15,23 @@ const Subcategory = async ({ params }: ListProps) => {
     'subcategoryItems',
     subcategoryId
   );
-  const { categories } = await getData('categories', '');
+  const { categories, error, message } = await getData('categories', '');
 
   return (
     <>
       <Flex direction={'column'} align={'center'} pl="2" pr="2">
-        <CreateSubcategoryForm
-          listOfItems={subcategoriesResponse?.subcategoryItems}
-          listTitle={subcategoryResponse?.subcategory?.title}
-          listId={subcategoryId}
-          listCategoryId={subcategoryResponse?.subcategory?.categoryId}
-          categories={categories}
-        />
+        {error &&
+          (message === USER_TOKEN_ERROR ? (
+            <GoToLoginPage message={message} />
+          ) : (
+            <CreateSubcategoryForm
+              listOfItems={subcategoriesResponse?.subcategoryItems}
+              listTitle={subcategoryResponse?.subcategory?.title}
+              listId={subcategoryId}
+              listCategoryId={subcategoryResponse?.subcategory?.categoryId}
+              categories={categories}
+            />
+          ))}
       </Flex>
     </>
   );
