@@ -1,3 +1,6 @@
+import { GoToLoginPage } from '@app/app/auth/components/GoToLogin';
+import { USER_TOKEN_ERROR } from '@app/app/constants';
+
 import { ItemsForm } from '../components/itemsForm';
 import { ListTitle } from '../components/ListTitle';
 import type { ListProps } from '../types';
@@ -14,6 +17,8 @@ const List = async ({ params }: ListProps) => {
     error: subcategoryError,
     message: subcategoryMessage,
   } = await getData('subcategory', subcategoryId);
+  const tokenErrorMessage =
+    message === USER_TOKEN_ERROR || subcategoryMessage === USER_TOKEN_ERROR;
 
   return (
     <main className={classes.main}>
@@ -24,9 +29,9 @@ const List = async ({ params }: ListProps) => {
             listOfItems={subcategoryItems}
             subcategoryId={subcategoryId}
           />
-          {error && <p className={'error-text'}>{message}</p>}
-          {subcategoryError && (
-            <p className={'error-text'}>{subcategoryMessage}</p>
+          {tokenErrorMessage && <GoToLoginPage message={message} />}
+          {(error || subcategoryError) && !tokenErrorMessage && (
+            <p className={'error-text'}>{subcategoryMessage ?? message}</p>
           )}
         </>
       )}

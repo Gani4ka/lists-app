@@ -71,3 +71,6 @@ export interface SubCategoryManyItemsResponse {
   subcategoryItemsFailed?: SubCategoryItemType[];
   error: boolean;
 }
+export type GoToLoginPageProps = {
+  message: string;
+};

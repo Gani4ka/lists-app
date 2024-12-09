@@ -1,6 +1,7 @@
 'use server';
 
 import { CategoryParamProp } from '@app/app/categories/components/categoryCard/types';
+import { USER_TOKEN_ERROR } from '@app/app/constants';
 import type {
   CategoriesResponse,
   CategoryResponse,
@@ -23,12 +24,22 @@ export async function getCategories(): Promise<CategoriesResponse> {
         cache: 'no-store',
       });
 
-      const categoriesResponse = await res.json();
-      return {
-        message: categoriesResponse.message,
-        categories: categoriesResponse?.categories,
-        error: categoriesResponse.error,
-      };
+      if (res.ok) {
+        const categoriesResponse = await res.json();
+        return {
+          message: categoriesResponse.message,
+          categories: categoriesResponse?.categories ?? [],
+          error: categoriesResponse.error,
+        };
+      } else if (res.status === 401) {
+        return {
+          message: USER_TOKEN_ERROR,
+          categories: [],
+          error: true,
+        };
+      } else {
+        throw new Error('Error fetching categories');
+      }
     } else {
       throw new Error('Token is not found/valid. Try loging in again');
     }
@@ -57,12 +68,22 @@ export async function getCategoryById(
         cache: 'no-store',
       });
 
-      const categoryResponse = await res.json();
-      return {
-        message: categoryResponse.message,
-        category: categoryResponse?.category,
-        error: categoryResponse.error,
-      };
+      if (res.ok) {
+        const categoryResponse = await res.json();
+        return {
+          message: categoryResponse.message,
+          category: categoryResponse?.category,
+          error: categoryResponse.error,
+        };
+      } else if (res.status === 401) {
+        return {
+          message: USER_TOKEN_ERROR,
+          category: null,
+          error: true,
+        };
+      } else {
+        throw new Error('Error fetching category');
+      }
     } else {
       throw new Error('Token is not found/valid. Try loging in again');
     }
