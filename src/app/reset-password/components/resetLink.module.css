@@ -1,0 +1,9 @@
+.container {
+  margin-top: 2rem;
+}
+.resetLink {
+  text-decoration: underline;
+}
+.resetLink:hover {
+  cursor: pointer;
+}
