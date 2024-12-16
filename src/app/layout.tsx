@@ -6,7 +6,7 @@ import Head from 'next/head';
 
 import { Favicon } from '@app/components/favicon';
 import { Footer } from '@app/components/footer';
-import { SubCategoryContextProvider } from '@app/components/SubCategoryContext/SubCategoryContext';
+import { SubCategoryContextProvider } from '@app/contexts/SubCategoryContext';
 import type { LayoutProps } from '@app/types/layout.types';
 
 import '@radix-ui/themes/styles.css';

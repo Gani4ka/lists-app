@@ -10,6 +10,7 @@
   overflow-y: auto;
 }
 .dialogContent {
+  font-family: sans-serif;
   display: flex;
   flex-direction: column;
   min-width: 300px;
@@ -25,10 +26,35 @@
 }
 .cancelButton {
   width: 50%;
+  min-width: 120px;
   margin: 10px 0;
-  padding: 5px;
+  padding: 5px 10px;
   color: white;
   background-color: var(--color-primary-pink);
+  cursor: pointer;
+}
+.confirmButton {
+  width: 50%;
+  min-width: 120px;
+  margin: 10px 0;
+  padding: 5px 10px;
+  color: white;
+  background-color: var(--color-primary);
+  cursor: pointer;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.description {
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
 @media (min-width: 768px) {
@@ -37,10 +63,17 @@
     padding: 20px;
     font-size: 18px;
   }
-
+  .content {
+    margin-bottom: 20px;
+  }
   .cancelButton {
-    margin-top: 20px;
     font-size: 18px;
+  }
+  .confirmButton {
+    font-size: 18px;
+  }
+  .buttons {
+    flex-wrap: nowrap;
   }
 }
 

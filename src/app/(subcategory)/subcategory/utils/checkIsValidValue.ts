@@ -1,4 +1,4 @@
-import { MAX_FIELD_LENGTH, MIN_FIELD_LENGTH } from '../constants';
+import { MAX_FIELD_LENGTH, MIN_FIELD_LENGTH } from '../../constants';
 
 export function checkIsValidValue(value: string): {
   isMin: boolean;
