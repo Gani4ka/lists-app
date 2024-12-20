@@ -3,10 +3,10 @@ import { CheckIcon } from '@radix-ui/react-icons';
 import * as Select from '@radix-ui/react-select';
 
 import type { CategoryIconItem } from '@app/app/categories/types';
-import { categoryIcons } from '@app/app/constants';
+import { CATEGORY_ICONS } from '@app/app/constants';
 import type { CategoryType } from '@app/types/list.types';
 
-import classes from '../../styles.module.css';
+import classes from '../Select/styles.module.css';
 
 interface SelectItemProps {
   children: React.ReactNode;
@@ -16,7 +16,7 @@ interface SelectItemProps {
 
 export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
   function SelectItem(props, forwardedRef) {
-    const defaultIcon = categoryIcons[0];
+    const defaultIcon = CATEGORY_ICONS[0];
     const [categoryIcon, setCategoryIcon] =
       useState<CategoryIconItem>(defaultIcon);
     const { icon, color } = props.category;
@@ -24,7 +24,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
 
     useEffect(() => {
       if (icon) {
-        const selectedIcon = categoryIcons.find(
+        const selectedIcon = CATEGORY_ICONS.find(
           (iconItem) => iconItem.name === icon
         );
 

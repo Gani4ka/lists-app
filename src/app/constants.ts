@@ -24,7 +24,7 @@ import { TbPigMoney } from 'react-icons/tb';
 
 import { CategoryIcon } from '../components/icon-picker/types';
 
-export const categoryIcons: CategoryIcon[] = [
+export const CATEGORY_ICONS: CategoryIcon[] = [
   { id: 1, name: 'hobby', Icon: FaPersonDotsFromLine },
   { id: 2, name: 'goals', Icon: GoGoal },
   { id: 3, name: 'books', Icon: FaBook },

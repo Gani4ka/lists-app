@@ -6,15 +6,15 @@ import { Button, Flex, Text } from '@radix-ui/themes';
 import Link from 'next/link';
 
 import { deleteCategory } from '@app/api/category';
-import { categoryIcons } from '@app/app/constants';
+import { CATEGORY_ICONS } from '@app/app/constants';
 import { DeleteButton } from '@app/components/deleteButton';
-import { useSubCategoryContext } from '@app/components/SubCategoryContext/SubCategoryContext';
+import { useSubCategoryContext } from '@app/contexts/SubCategoryContext';
 
 import { CategoryIconItem } from '../../types';
 import classes from './styles.module.css';
 import type { CategoryCardProps } from './types';
 
-const defaultIcon = categoryIcons[0];
+const defaultIcon = CATEGORY_ICONS[0];
 
 export const CategoryCard = (props: CategoryCardProps) => {
   const { category } = props;
@@ -27,7 +27,7 @@ export const CategoryCard = (props: CategoryCardProps) => {
 
   useEffect(() => {
     if (icon) {
-      const selectedIcon = categoryIcons.find(
+      const selectedIcon = CATEGORY_ICONS.find(
         (iconItem) => iconItem.name === icon
       );
 

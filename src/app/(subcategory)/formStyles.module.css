@@ -1,0 +1,72 @@
+.wrapper {
+  min-width: 100%;
+}
+
+.form {
+  min-width: 300px;
+}
+
+.textfield {
+  border-bottom: 2px solid var(--color-primary);
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding: 0 4px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.validation-message {
+  position: absolute;
+  bottom: 45px;
+  left: 4px;
+}
+
+.button {
+  width: 100%;
+  cursor: pointer;
+}
+
+.category-icon {
+  margin-right: 5px;
+}
+
+.ai {
+  margin-top: 40px;
+}
+
+.list {
+  font-style: italic;
+}
+
+@media (min-width: 768px) {
+  .textfield {
+    padding: 0 8px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    min-width: 280px;
+  }
+
+  .select-trigger {
+    padding: 0 12px;
+    margin-bottom: 30px;
+    font-size: 18px;
+    height: 45px;
+  }
+
+  .select-item {
+    font-size: 16px;
+    height: 30px;
+  }
+
+  .button {
+    font-size: 18px;
+    height: 44px;
+  }
+
+  .ai {
+    margin-top: 50px;
+  }
+}
