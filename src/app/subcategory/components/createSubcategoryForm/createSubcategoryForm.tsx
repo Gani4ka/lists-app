@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 import { createSubcategory } from '@app/api/subcategory';
 import { GoToLoginPage } from '@app/app/auth/components/GoToLogin';
 import type { CategoryIconItem } from '@app/app/categories/types';
-import { categoryIcons, USER_TOKEN_ERROR } from '@app/app/constants';
+import { categoryIcons } from '@app/app/constants';
 import AddButton from '@app/components/addButton';
 import { useSubCategoryContext } from '@app/components/SubCategoryContext/SubCategoryContext';
 import type { CategoryType, SubcategoriesType } from '@app/types/list.types';
@@ -146,11 +146,7 @@ export const CreateSubcategoryForm = ({
                 maxLength={MAX_FIELD_LENGTH}
               />
             </Form.Control>
-            {errorMessage && errorMessage === USER_TOKEN_ERROR ? (
-              <GoToLoginPage message={errorMessage} />
-            ) : (
-              <p className="error-text">{errorMessage}</p>
-            )}
+            {errorMessage && <GoToLoginPage message={errorMessage} />}
           </Form.Field>
 
           <Form.Field name="categoryId">

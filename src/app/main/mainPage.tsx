@@ -8,7 +8,6 @@ import Loader from '@app/components/loader';
 import { PATHS } from '@app/constants/pages';
 
 import { GoToLoginPage } from '../auth/components/GoToLogin';
-import { USER_TOKEN_ERROR } from '../constants';
 import { AllSubCategoryItems } from './components/AllSubCategoryItems';
 import classes from './mainPage.module.css';
 
@@ -29,12 +28,7 @@ export default async function MainPage() {
     <main className={classes.main}>
       <Box p={'4'} className={classes['main-wrapper']}>
         <Suspense fallback={<Loader />}>
-          {error &&
-            (errorMessage === USER_TOKEN_ERROR ? (
-              <GoToLoginPage message={message} />
-            ) : (
-              <p className="error-text">{errorMessage}</p>
-            ))}
+          {error && <GoToLoginPage message={errorMessage} />}
           {!error && (
             <AllSubCategoryItems
               subcategories={subcategories}

@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { createCategory, updateCategory } from '@app/api/category';
 import { GoToLoginPage } from '@app/app/auth/components/GoToLogin';
 import { CategoryIconItem } from '@app/app/categories/types';
-import { categoryIcons, USER_TOKEN_ERROR } from '@app/app/constants';
+import { categoryIcons } from '@app/app/constants';
 import AddButton from '@app/components/addButton';
 import ColorPicker from '@app/components/color-picker/ColorPicker';
 import CustomDialog from '@app/components/custom-dialog/CustomDialog';
@@ -124,11 +124,9 @@ const AddEditCategory = ({ category }: AddEditProps) => {
           className={classes.input}
           multiple={true}
         />
-        {message && message === USER_TOKEN_ERROR ? (
-          <GoToLoginPage message={message} />
-        ) : (
-          <p className="error-text">{message}</p>
-        )}
+
+        <GoToLoginPage message={message} />
+
         <Flex className={classes.buttons}>
           <Button
             onClick={handleSave}
