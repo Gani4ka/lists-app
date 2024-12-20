@@ -25,7 +25,7 @@ import { useSetCategoryIcon } from '../../hooks/useSetCategoryIcon';
 import { useSetInitialCategory } from '../../hooks/useSetInitialCategory';
 import { createSubCategoryItems } from '../../utils/createSubCategoryItems';
 import { parseContentAsArray } from '../../utils/parseContentAsArray';
-import { ConfirmList } from './StyledList';
+import { ConfirmList } from './ConfirmList';
 import type { SubcategoryAIFormProps } from './types';
 
 export const SubcategoryAIForm = ({ categories }: SubcategoryAIFormProps) => {
