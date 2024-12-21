@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 import { createCategory, updateCategory } from '@app/api/category';
 import { CategoryIconItem } from '@app/app/categories/types';
-import { categoryIcons } from '@app/app/constants';
+import { CATEGORY_ICONS } from '@app/app/constants';
 import AddButton from '@app/components/addButton';
 import ColorPicker from '@app/components/color-picker/ColorPicker';
 import CustomDialog from '@app/components/custom-dialog/CustomDialog';
@@ -18,7 +18,7 @@ import { setRandomIconColor } from '@app/utils/setRandomIconColor';
 import classes from './styles.module.css';
 import { AddEditProps } from './types';
 
-const defaultIcon = categoryIcons[0];
+const defaultIcon = CATEGORY_ICONS[0];
 
 const AddEditCategory = ({ category }: AddEditProps) => {
   const [categoryTitle, setCategoryTitle] = useState<string>('');
@@ -38,11 +38,11 @@ const AddEditCategory = ({ category }: AddEditProps) => {
       setCategoryTitle(category.title);
       setCategoryColor(category.color ?? setRandomIconColor());
       if (category.icon) {
-        const userIcon = categoryIcons.find(
+        const userIcon = CATEGORY_ICONS.find(
           (icon) => icon.name === category.icon
         );
 
-        setCategoryIcon(userIcon ?? categoryIcons[0]);
+        setCategoryIcon(userIcon ?? CATEGORY_ICONS[0]);
       }
     }
   }, [category]);

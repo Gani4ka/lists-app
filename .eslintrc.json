@@ -27,6 +27,7 @@
           ["module.scss"]
         ]
       }
-    ]
+    ],
+    "react-hooks/exhaustive-deps": "off"
   }
 }
