@@ -21,6 +21,17 @@ const Menu = ({ isOpen, hasUser }: MenuProps) => {
                 <BaseLink href={PATHS.auth}>{PAGES_NAMES.auth}</BaseLink>
               </Link>
             </li>
+            <li>
+              <Link asChild highContrast>
+                <BaseLink href={PATHS.contact}>{PAGES_NAMES.contact}</BaseLink>
+              </Link>
+            </li>
+            <li>
+              <Link asChild highContrast>
+                <BaseLink href={PATHS.about}>{PAGES_NAMES.about}</BaseLink>
+              </Link>
+            </li>
+            <li></li>
           </ul>
         </nav>
       </div>
