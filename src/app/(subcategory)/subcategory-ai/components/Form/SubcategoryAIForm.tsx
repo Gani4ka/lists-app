@@ -36,8 +36,8 @@ export const SubcategoryAIForm = ({ categories }: SubcategoryAIFormProps) => {
   const [errors, setErrors] = useState({ isMin: false, isMax: false });
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [categoryIcon, setCategoryIcon] = useState<CategoryIconItem>();
-  const [itemsAmount, setItemsAmount] = useState<string>(ITEMS_AMOUNT[0]);
-  const [language, setLanguage] = useState<string>('English');
+  const [itemsAmount, setItemsAmount] = useState<string>('');
+  const [language, setLanguage] = useState<string>(LANGUAGES.English);
   const [list, setList] = useState<string[]>();
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -68,7 +68,7 @@ export const SubcategoryAIForm = ({ categories }: SubcategoryAIFormProps) => {
     };
     setTitle(titleValue);
 
-    const { isMin, isMax } = checkIsValidValue(title ? title.toString() : '');
+    const { isMin, isMax } = checkIsValidValue(titleValue);
     if (isMin || isMax) {
       setLoading(false);
       setErrors({ isMin, isMax });
@@ -231,7 +231,7 @@ export const SubcategoryAIForm = ({ categories }: SubcategoryAIFormProps) => {
                 onValueChange={(value: string) => {
                   setItemsAmount(value);
                 }}
-                defaultValue={''}
+                defaultValue={ITEMS_AMOUNT[0]}
                 options={ITEMS_AMOUNT}
                 placeholder="Select items amount"
               />
@@ -246,7 +246,7 @@ export const SubcategoryAIForm = ({ categories }: SubcategoryAIFormProps) => {
                   setLanguage(value);
                 }}
                 defaultValue={'English'}
-                options={LANGUAGES}
+                options={Object.values(LANGUAGES)}
               />
             </Form.Control>
           </Form.Field>

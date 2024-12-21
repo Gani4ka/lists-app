@@ -2,9 +2,12 @@ import { ChevronUpIcon } from '@radix-ui/react-icons';
 import * as SelectUI from '@radix-ui/react-select';
 import { ChevronDownIcon, Flex } from '@radix-ui/themes';
 
+import type { CategoryType } from '@app/types/list.types';
+
 import { SelectItem } from '../SelectItem';
 import classes from './styles.module.css';
 import type { SelectProps } from './types';
+import { isCategoryType } from './utils/isCategoryType';
 
 export function Select({
   value,
@@ -40,14 +43,13 @@ export function Select({
           <ChevronUpIcon />
         </SelectUI.ScrollUpButton>
         <SelectUI.Viewport className={classes['select-viewport']}>
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          {options?.map((option: any) => (
+          {options?.map((option: string | CategoryType) => (
             <SelectItem
-              value={option?._id || option}
-              key={option?._id || option}
-              category={option}
+              value={isCategoryType(option) ? option._id : option}
+              key={isCategoryType(option) ? option._id : option}
+              category={isCategoryType(option) ? option : undefined}
             >
-              {option.title || option}
+              {isCategoryType(option) ? option.title : option}
             </SelectItem>
           ))}
         </SelectUI.Viewport>

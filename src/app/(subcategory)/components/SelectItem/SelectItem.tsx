@@ -11,7 +11,7 @@ import classes from '../Select/styles.module.css';
 interface SelectItemProps {
   children: React.ReactNode;
   value: string;
-  category: CategoryType;
+  category?: CategoryType;
 }
 
 export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
@@ -19,7 +19,8 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
     const defaultIcon = CATEGORY_ICONS[0];
     const [categoryIcon, setCategoryIcon] =
       useState<CategoryIconItem>(defaultIcon);
-    const { icon, color } = props.category;
+    const icon = props.category?.icon;
+    const color = props.category?.color;
     let Icon = null;
 
     useEffect(() => {
