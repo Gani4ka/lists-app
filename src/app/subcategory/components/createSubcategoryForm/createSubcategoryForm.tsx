@@ -14,6 +14,7 @@ import { Button, ChevronDownIcon, Flex, Link } from '@radix-ui/themes';
 import { useRouter } from 'next/navigation';
 
 import { createSubcategory } from '@app/api/subcategory';
+import { GoToLoginPage } from '@app/app/auth/components/GoToLogin';
 import type { CategoryIconItem } from '@app/app/categories/types';
 import { categoryIcons } from '@app/app/constants';
 import AddButton from '@app/components/addButton';
@@ -145,7 +146,7 @@ export const CreateSubcategoryForm = ({
                 maxLength={MAX_FIELD_LENGTH}
               />
             </Form.Control>
-            {errorMessage && <p className="error-text">{errorMessage}</p>}
+            {errorMessage && <GoToLoginPage message={errorMessage} />}
           </Form.Field>
 
           <Form.Field name="categoryId">
@@ -161,7 +162,7 @@ export const CreateSubcategoryForm = ({
                   >
                     <p>
                       You don&apos;t have any categories yet. Please create some{' '}
-                      <Link href="/category">here</Link>
+                      <Link href="/categories/new">here</Link>
                     </p>
                   </div>
                 ) : (
