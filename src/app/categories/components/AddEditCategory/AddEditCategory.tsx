@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 
 import { createCategory, updateCategory } from '@app/api/category';
+import { GoToLoginPage } from '@app/app/auth/components/GoToLogin';
 import { CategoryIconItem } from '@app/app/categories/types';
 import { CATEGORY_ICONS } from '@app/app/constants';
 import AddButton from '@app/components/addButton';
@@ -123,7 +124,9 @@ const AddEditCategory = ({ category }: AddEditProps) => {
           className={classes.input}
           multiple={true}
         />
-        {message && <p className="error-text">{message}</p>}
+
+        <GoToLoginPage message={message} />
+
         <Flex className={classes.buttons}>
           <Button
             onClick={handleSave}

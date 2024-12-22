@@ -101,7 +101,7 @@ export function AllSubCategoryItems({
           filteredSubCategoryItems.map((subcategory: SubcategoriesType) => {
             let Icon = null;
 
-            const currentCategory = categories.find(
+            const currentCategory = categories?.find(
               (category: CategoryType) =>
                 category._id === subcategory.categoryId
             );

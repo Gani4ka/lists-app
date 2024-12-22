@@ -46,3 +46,4 @@ export const CATEGORY_ICONS: CategoryIcon[] = [
   { id: 19, name: 'travel', Icon: FaPlaneDeparture },
   { id: 20, name: 'custom', Icon: BiHappy },
 ];
+export const USER_TOKEN_ERROR = 'Token expired. Login again';

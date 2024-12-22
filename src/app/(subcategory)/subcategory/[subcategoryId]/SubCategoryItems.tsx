@@ -1,3 +1,5 @@
+import { GoToLoginPage } from '@app/app/auth/components/GoToLogin';
+
 import { ItemsForm } from '../components/itemsForm';
 import { ListTitle } from '../components/ListTitle';
 import type { ListProps } from '../types';
@@ -6,13 +8,13 @@ import classes from './styles.module.css';
 
 const List = async ({ params }: ListProps) => {
   const subcategoryId = params.subcategoryId;
-  const { subcategoryItems, error, message } = await getData(
+  const { subcategoryItems, message, error } = await getData(
     'subcategoryItems',
     subcategoryId
   );
   const {
     subcategory,
-    error: subcategoryError,
+
     message: subcategoryMessage,
   } = await getData('subcategory', subcategoryId);
 
@@ -25,10 +27,7 @@ const List = async ({ params }: ListProps) => {
             listOfItems={subcategoryItems}
             subcategoryId={subcategoryId}
           />
-          {error && <p className={'error-text'}>{message}</p>}
-          {subcategoryError && (
-            <p className={'error-text'}>{subcategoryMessage}</p>
-          )}
+          {error && <GoToLoginPage message={message || subcategoryMessage} />}
         </>
       )}
     </main>

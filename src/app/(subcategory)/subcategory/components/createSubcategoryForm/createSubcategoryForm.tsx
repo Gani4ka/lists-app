@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 
 import { createSubcategory } from '@app/api/subcategory';
 import { Select } from '@app/app/(subcategory)/components/Select';
+import { GoToLoginPage } from '@app/app/auth/components/GoToLogin';
 import type { CategoryIconItem } from '@app/app/categories/types';
 import { CATEGORY_ICONS } from '@app/app/constants';
 import AddButton from '@app/components/addButton';
@@ -168,7 +169,7 @@ export const CreateSubcategoryForm = ({
                 onChange={(e) => setTitle(e.target.value)}
               />
             </Form.Control>
-            {errorMessage && <p className="error-text">{errorMessage}</p>}
+            {errorMessage && <GoToLoginPage message={errorMessage} />}
           </Form.Field>
 
           <Form.Field name="categoryId">
