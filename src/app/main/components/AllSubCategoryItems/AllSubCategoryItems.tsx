@@ -5,7 +5,7 @@ import { Flex, Grid } from '@radix-ui/themes';
 import { CategoryIcon } from '@app/components/icon-picker/types';
 import { CategoryType, SubcategoriesType } from '@app/types/list.types';
 
-import { categoryIcons } from '../../../constants';
+import { CATEGORY_ICONS } from '../../../constants';
 import classes from '../../mainPage.module.css';
 import { AllSubCategoriesItemsType } from '../../type';
 import CustomSelect from '../custom-select';
@@ -101,14 +101,14 @@ export function AllSubCategoryItems({
           filteredSubCategoryItems.map((subcategory: SubcategoriesType) => {
             let Icon = null;
 
-            const currentCategory = categories.find(
+            const currentCategory = categories?.find(
               (category: CategoryType) =>
                 category._id === subcategory.categoryId
             );
             const userIcon =
-              categoryIcons.find(
+              CATEGORY_ICONS.find(
                 (icon: CategoryIcon) => icon.name === currentCategory?.icon
-              ) ?? categoryIcons[0];
+              ) ?? CATEGORY_ICONS[0];
             if (userIcon) {
               Icon = userIcon.Icon;
             }
