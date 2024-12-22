@@ -27,7 +27,7 @@ const CustomSelect = ({
           if (selected) onChange(selected);
         }}
       >
-        <Select.Trigger className={classes.selectTrigger}>
+        <Select.Trigger className={classes['select-trigger']}>
           <Select.Value placeholder={label} className={classes.label} />
           <Select.Icon className={classes.icon}>
             <ChevronDownIcon />
@@ -42,7 +42,7 @@ const CustomSelect = ({
                 <Select.Item
                   key={option.id}
                   value={option.name}
-                  className={classes.selectItem}
+                  className={classes['select-item']}
                 >
                   <Select.ItemText>{option.name}</Select.ItemText>
                 </Select.Item>

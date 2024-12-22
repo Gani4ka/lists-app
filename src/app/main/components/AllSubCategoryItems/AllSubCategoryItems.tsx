@@ -82,7 +82,7 @@ export function AllSubCategoryItems({
 
   return (
     <>
-      <Flex className={classes.filterSorting}>
+      <Flex className={classes['filter-sorting']}>
         <CustomSelect
           options={userCategories}
           value={selectedCategory}
