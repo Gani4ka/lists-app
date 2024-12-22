@@ -46,3 +46,14 @@
     right: 0;
   }
 }
+
+.list-link {
+  position: relative;
+
+  &::after {
+    content: '✨';
+    position: absolute;
+    right: -20px;
+    top: -10px;
+  }
+}

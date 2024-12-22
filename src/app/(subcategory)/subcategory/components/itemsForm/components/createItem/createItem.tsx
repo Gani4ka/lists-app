@@ -8,10 +8,13 @@ import {
 import * as Form from '@radix-ui/react-form';
 
 import { createSubCategoryItem } from '@app/api/item';
+import {
+  MAX_FIELD_LENGTH,
+  MIN_FIELD_LENGTH,
+} from '@app/app/(subcategory)/constants';
 import AddButton from '@app/components/addButton';
 import type { SubCategoryItemType } from '@app/types/list.types';
 
-import { MAX_FIELD_LENGTH, MIN_FIELD_LENGTH } from '../../../../constants';
 import { checkIsValidValue } from '../../../../utils/checkIsValidValue';
 import classes from './styles.module.css';
 import type { CreateItemProps } from './types';

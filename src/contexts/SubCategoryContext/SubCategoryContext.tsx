@@ -4,6 +4,8 @@ import { createContext, ReactNode, useContext, useState } from 'react';
 interface SubCategoryContext {
   categoryId: string;
   setCategoryId: (categoryId: string) => void;
+  subcategoryTitle: string;
+  setSubcategoryTitle: (subcategoryTitle: string) => void;
 }
 
 const SubCategoryContext = createContext<SubCategoryContext | undefined>(
@@ -16,9 +18,17 @@ export const SubCategoryContextProvider = ({
   children: ReactNode;
 }) => {
   const [categoryId, setCategoryId] = useState<string>('');
+  const [subcategoryTitle, setSubcategoryTitle] = useState<string>('');
 
   return (
-    <SubCategoryContext.Provider value={{ categoryId, setCategoryId }}>
+    <SubCategoryContext.Provider
+      value={{
+        categoryId,
+        setCategoryId,
+        subcategoryTitle,
+        setSubcategoryTitle,
+      }}
+    >
       {children}
     </SubCategoryContext.Provider>
   );
