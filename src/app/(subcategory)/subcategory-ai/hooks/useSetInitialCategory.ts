@@ -17,5 +17,5 @@ export function useSetInitialCategory(
         setCategory(selectedCategory);
       }
     }
-  }, []);
+  }, [categoryId, category, categories, setCategory]);
 }
