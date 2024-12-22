@@ -15,9 +15,7 @@ const AddButton = ({ clickHandler, linkTo, disabled }: AddButtonProps) => {
         className={clsx(styles.button, disabled && styles.disabled)}
         onClick={clickHandler}
         disabled={disabled ?? false}
-      >
-        <p className={styles.icon} />
-      </Button>
+      />
     );
   };
 
