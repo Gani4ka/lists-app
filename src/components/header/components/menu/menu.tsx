@@ -31,7 +31,6 @@ const Menu = ({ isOpen, hasUser }: MenuProps) => {
                 <BaseLink href={PATHS.about}>{PAGES_NAMES.about}</BaseLink>
               </Link>
             </li>
-            <li></li>
           </ul>
         </nav>
       </div>
