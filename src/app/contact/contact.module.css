@@ -1,9 +1,13 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 2rem;
-  margin: 2rem;
+  margin: 0 1rem;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  overflow: scroll;
+  max-height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 
 .form {
@@ -13,11 +17,36 @@
   width: 70%;
 }
 .input {
-  padding: 5px 0;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid var(--color-primary);
+  width: 100%;
+  padding: 0 5px;
+  height: 100%;
+  margin-top: 2rem;
+  font-size: 19px;
+  font-family: var(--allura-font);
 }
 .textarea {
   padding: 5px;
 }
 .button {
   width: auto;
+  margin: 10px 0;
+  box-sizing: content-box;
+}
+.error-text {
+  color: var(--color-primary-pink);
+  margin: 1rem 0;
+}
+
+.success-text {
+  color: var(--color-primary);
+  margin: 1rem 0;
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: var(--max-layout-width);
+    margin: 1rem auto;
+  }
 }

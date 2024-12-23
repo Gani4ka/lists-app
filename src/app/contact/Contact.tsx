@@ -3,6 +3,8 @@ import React, { type MouseEvent, useState } from 'react';
 import * as Label from '@radix-ui/react-label';
 import { Button, Flex, Heading } from '@radix-ui/themes';
 
+import { sendUserMessage } from '@app/api/user';
+
 import styles from './contact.module.css';
 
 const Contact = () => {
@@ -11,7 +13,7 @@ const Contact = () => {
     email: '',
     message: '',
   });
-
+  const [message, setMessage] = useState({ error: false, message: '' });
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -19,17 +21,31 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (
+  const handleSubmit = async (
     e: MouseEvent | React.KeyboardEvent | React.FormEvent
   ) => {
     e.preventDefault();
 
-    //send email
+    const name = formData.name;
+    const message = formData.message;
+    const email = formData.email;
+    const response = await sendUserMessage(name, message, email);
+    if (!response.error) {
+      setFormData({ name: '', email: '', message: '' });
+    }
+    setMessage({ error: response.error, message: response.message });
   };
 
   return (
     <Flex className={styles.container}>
       <Heading>Contact Us</Heading>
+      <p
+        className={
+          message.error ? styles['error-text'] : styles['success-text']
+        }
+      >
+        {message.message}
+      </p>
       <p>
         We are here to assist you with any questions or feedback about Listify.
       </p>

@@ -15,3 +15,9 @@
   font-weight: bold;
   gap: 1rem;
 }
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: var(--max-layout-width);
+  }
+}
