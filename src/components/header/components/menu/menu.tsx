@@ -62,7 +62,9 @@ const Menu = ({ isOpen, hasUser }: MenuProps) => {
           <li>
             <Link asChild highContrast>
               <BaseLink href={PATHS.subcategory}>
-                New {PAGES_NAMES.subcategory}
+                <span className={styles['list-link']}>
+                  New {PAGES_NAMES.subcategory}
+                </span>
               </BaseLink>
             </Link>
           </li>
