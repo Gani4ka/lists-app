@@ -3,7 +3,7 @@ import React from 'react';
 import { Flex, Grid, Text } from '@radix-ui/themes';
 
 import { CategoryIconItem } from '@app/app/categories/types';
-import { categoryIcons } from '@app/app/constants';
+import { CATEGORY_ICONS } from '@app/app/constants';
 
 import classes from './classes.module.css';
 import { IconPickerType } from './types';
@@ -21,7 +21,7 @@ const IconPicker = ({ selectedIcon, onSelectIcon }: IconPickerType) => {
         Choose category icon
       </Text>
       <Grid columns={'5'} rows={'4'} className={classes.grid}>
-        {categoryIcons.map((iconItem: CategoryIconItem) => {
+        {CATEGORY_ICONS.map((iconItem: CategoryIconItem) => {
           const { name, Icon: IconComponent } = iconItem;
           return (
             <Flex

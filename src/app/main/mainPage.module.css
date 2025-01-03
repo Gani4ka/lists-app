@@ -33,10 +33,10 @@
   height: 30px;
   margin-bottom: 5px;
 }
-.filterSorting {
+.filter-sorting {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  max-width: var(--max-layout-width);
 }
 
 @media (min-width: 768px) {
@@ -61,10 +61,8 @@
     height: 40px;
     margin-bottom: 10px;
   }
-  .filterSorting {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  .filter-sorting {
+    justify-content: flex-end;
   }
 }
 
@@ -89,9 +87,8 @@
     height: 50px;
     margin-bottom: 15px;
   }
-  .filterSorting {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+
+  .filter-sorting {
+    padding: 0 40px;
   }
 }
