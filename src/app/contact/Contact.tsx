@@ -38,51 +38,54 @@ const Contact = () => {
 
   return (
     <Flex className={styles.container}>
-      <Heading>Contact Us</Heading>
-      <p
-        className={
-          message.error ? styles['error-text'] : styles['success-text']
-        }
-      >
-        {message.message}
-      </p>
-      <p>
-        We are here to assist you with any questions or feedback about Listify.
-      </p>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <Label.Root className="LabelRoot">Name:</Label.Root>
-        <input
-          className={styles.input}
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <Label.Root className="LabelRoot">Email:</Label.Root>
-        <input
-          className={styles.input}
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+      <div className={styles.wrapper}>
+        <Heading>Contact Us</Heading>
+        <p
+          className={
+            message.error ? styles['error-text'] : styles['success-text']
+          }
+        >
+          {message.message}
+        </p>
+        <p>
+          We are here to assist you with any questions or feedback about
+          Listify.
+        </p>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <Label.Root className="LabelRoot">Name:</Label.Root>
+          <input
+            className={styles.input}
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+          <Label.Root className="LabelRoot">Email:</Label.Root>
+          <input
+            className={styles.input}
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
 
-        <Label.Root>Message:</Label.Root>
-        <textarea
-          className={styles.textarea}
-          rows={5}
-          cols={10}
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          required
-        ></textarea>
-        <Button type="submit" className={styles.button}>
-          Send Message
-        </Button>
-      </form>
+          <Label.Root>Message:</Label.Root>
+          <textarea
+            className={styles.textarea}
+            rows={5}
+            cols={10}
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+          ></textarea>
+          <Button type="submit" className={styles.button}>
+            Send Message
+          </Button>
+        </form>
+      </div>
     </Flex>
   );
 };
