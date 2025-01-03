@@ -1,7 +1,7 @@
 import { Box, Theme, ThemeProps } from '@radix-ui/themes';
 
 import type { Metadata } from 'next';
-import { Allura, Roboto_Mono } from 'next/font/google';
+import { Great_Vibes, Roboto_Mono } from 'next/font/google';
 
 import { Favicon } from '@app/components/favicon';
 import { Footer } from '@app/components/footer';
@@ -12,10 +12,10 @@ import type { LayoutProps } from '@app/types/layout.types';
 import '@radix-ui/themes/styles.css';
 import './globals.css';
 
-const allura = Allura({
+const greatVibes = Great_Vibes({
   weight: '400',
   subsets: ['latin'],
-  variable: '--font-allura',
+  variable: '--font-great-vibes',
   fallback: ['cursive'],
 });
 
@@ -45,7 +45,7 @@ function RootLayout({ children }: LayoutProps) {
         <SubCategoryContextProvider>
           <Theme {...themeConfig}>
             <Box
-              className={`${roboto_mono.variable} ${allura.variable}`}
+              className={`${roboto_mono.variable} ${greatVibes.variable}`}
               style={roboto_mono.style}
               minHeight="100vh"
               position="relative"

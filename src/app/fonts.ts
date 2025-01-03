@@ -1,9 +1,9 @@
-import { Allura, Roboto_Mono } from 'next/font/google';
+import { Great_Vibes, Roboto_Mono } from 'next/font/google';
 
-export const allura = Allura({
+export const greatVibes = Great_Vibes({
   weight: '400',
   subsets: ['latin'],
-  variable: '--font-allura',
+  variable: '--font-great-vibes',
   fallback: ['cursive'],
 });
 
