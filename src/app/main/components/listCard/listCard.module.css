@@ -11,6 +11,7 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   color: white;
+  word-break: break-all;
 }
 
 @media (min-width: 768px) {
