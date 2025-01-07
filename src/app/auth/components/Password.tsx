@@ -16,8 +16,9 @@ export default function Password() {
       <Label.Root className="LabelRoot" htmlFor="password">
         Password
       </Label.Root>
-      <div
-        style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
+      <Flex
+        display={'flex'}
+        style={{ position: 'relative', alignItems: 'center' }}
       >
         <input
           className={styles.input}
@@ -27,16 +28,11 @@ export default function Password() {
         />
         <span
           onClick={togglePasswordVisibility}
-          style={{
-            position: 'absolute',
-            right: '10px',
-            cursor: 'pointer',
-            color: '#888',
-          }}
+          className={styles.togglePassword}
         >
           {passwordVisible ? <FaEyeSlash /> : <FaEye />}
         </span>
-      </div>
+      </Flex>
     </Flex>
   );
 }
