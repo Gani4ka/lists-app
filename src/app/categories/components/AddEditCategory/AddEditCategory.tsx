@@ -80,9 +80,10 @@ const AddEditCategory = ({ category }: AddEditProps) => {
       }
       if (requestResult.error) {
         message = requestResult.message;
+        setMessage(message);
+      } else {
+        router.back();
       }
-      setMessage(message);
-      handleCancel();
     } catch (error) {
       setMessage('Error updating/creating category');
     }
