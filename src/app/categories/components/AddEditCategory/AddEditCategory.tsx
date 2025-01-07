@@ -14,6 +14,7 @@ import AddButton from '@app/components/addButton';
 import ColorPicker from '@app/components/color-picker/ColorPicker';
 import CustomDialog from '@app/components/custom-dialog/CustomDialog';
 import IconPicker from '@app/components/icon-picker/IconPicker';
+import { CategoryResponse } from '@app/types/list.types';
 import { setRandomIconColor } from '@app/utils/setRandomIconColor';
 
 import classes from './styles.module.css';
@@ -31,7 +32,8 @@ const AddEditCategory = ({ category }: AddEditProps) => {
 
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
+  const [categoryResponse, setCategoryResponse] =
+    useState<CategoryResponse | null>(null);
   let Icon = null;
 
   useEffect(() => {
@@ -60,7 +62,6 @@ const AddEditCategory = ({ category }: AddEditProps) => {
 
   const handleSave = async () => {
     try {
-      let message = '';
       let requestResult = null;
       if (category && categoryTitle) {
         requestResult = await updateCategory({
@@ -69,29 +70,38 @@ const AddEditCategory = ({ category }: AddEditProps) => {
           icon: categoryIcon?.name || defaultIcon.name,
           color: categoryColor || setRandomIconColor(),
         });
-        message = 'Category updated';
+        setCategoryResponse(requestResult);
       } else {
         requestResult = await createCategory({
           title: categoryTitle || '',
           icon: categoryIcon?.name || defaultIcon.name,
           color: categoryColor ?? setRandomIconColor(),
         });
-        message = 'Category created';
+        setCategoryResponse(requestResult);
       }
-      if (requestResult.error) {
-        message = requestResult.message;
-        setMessage(message);
-      } else {
-        router.back();
+
+      if (!requestResult.error) {
+        setTimeout(() => {
+          router.back();
+        }, 3000);
       }
     } catch (error) {
-      setMessage('Error updating/creating category');
+      setCategoryResponse({
+        error: true,
+        category: null,
+        message: 'Error updating/creating category',
+      });
     }
   };
 
   if (categoryIcon?.Icon) {
     Icon = categoryIcon.Icon;
   }
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && categoryTitle) {
+      handleSave();
+    }
+  };
 
   return (
     <Flex className={classes.category}>
@@ -124,9 +134,16 @@ const AddEditCategory = ({ category }: AddEditProps) => {
           onChange={(e) => setCategoryTitle(e.target.value)}
           className={classes.input}
           multiple={true}
+          onKeyDown={handleKeyPress}
         />
 
-        <GoToLoginPage message={message} />
+        {categoryResponse && categoryResponse?.error ? (
+          <GoToLoginPage message={categoryResponse?.message ?? ''} />
+        ) : (
+          <p style={{ marginTop: '10px', color: 'green' }}>
+            {categoryResponse?.message}
+          </p>
+        )}
 
         <Flex className={classes.buttons}>
           <Button

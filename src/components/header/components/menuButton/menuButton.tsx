@@ -18,7 +18,7 @@ const MenuButton = ({ hasUser }: Props) => {
       <Button className={classes['menu-button']} onClick={toggleMenu}>
         <HamburgerMenuIcon className={classes['menu-button-icon']} />
       </Button>
-      <Menu isOpen={isOpen} hasUser={hasUser} />
+      <Menu isOpen={isOpen} hasUser={hasUser} toggleMenu={toggleMenu} />
     </>
   );
 };
