@@ -20,7 +20,7 @@ const AuthHeader = ({ hasUser }: Props) => {
     <header>
       <Box className={styles['header-background']}>
         <Flex className={styles.header}>
-          <Heading as="h1" className={`${styles['text']} 'allura-font'`}>
+          <Heading as="h1" className={styles['text']}>
             <Link href="/">{getPageNameByPath(path)}</Link>
           </Heading>
           <Flex className={styles.menu}>

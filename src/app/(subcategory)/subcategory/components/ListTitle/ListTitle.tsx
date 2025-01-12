@@ -19,8 +19,8 @@ export const ListTitle = ({ list }: ListTitleProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  function handleDeleteList() {
-    deleteSubcategory(list._id);
+  async function handleDeleteList() {
+    await deleteSubcategory(list._id);
     router.push('/');
   }
 
