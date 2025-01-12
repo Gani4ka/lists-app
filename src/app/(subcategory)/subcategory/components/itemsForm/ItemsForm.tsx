@@ -12,7 +12,9 @@ import classes from './styles.module.css';
 import type { ItemsFormProps } from './types';
 
 export const ItemsForm = ({ listOfItems, subcategoryId }: ItemsFormProps) => {
-  const [items, setItems] = useState(listOfItems || []);
+  const [items, setItems] = useState(
+    listOfItems?.sort((a, b) => a.index - b.index) || []
+  );
   const [draggingIndex, setDraggingIndex] = useState<number>();
   const [error, setError] = useState<string>('');
 
@@ -54,6 +56,7 @@ export const ItemsForm = ({ listOfItems, subcategoryId }: ItemsFormProps) => {
     const [movedItem] = newItems.splice(draggingIndex, 1);
     newItems.splice(index, 0, movedItem);
     setDraggingIndex(index);
+    newItems.map((item, index) => (item.index = index));
     setItems(newItems);
   };
 
@@ -82,7 +85,11 @@ export const ItemsForm = ({ listOfItems, subcategoryId }: ItemsFormProps) => {
             ))}
         </Box>
       </Form.Root>
-      <CreateItem subcategoryId={subcategoryId} setItems={setItems} />
+      <CreateItem
+        subcategoryId={subcategoryId}
+        setItems={setItems}
+        index={items.length}
+      />
     </Flex>
   );
 };

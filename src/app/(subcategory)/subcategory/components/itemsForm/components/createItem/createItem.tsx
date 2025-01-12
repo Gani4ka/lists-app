@@ -19,7 +19,11 @@ import { checkIsValidValue } from '../../../../utils/checkIsValidValue';
 import classes from './styles.module.css';
 import type { CreateItemProps } from './types';
 
-export const CreateItem = ({ subcategoryId, setItems }: CreateItemProps) => {
+export const CreateItem = ({
+  subcategoryId,
+  setItems,
+  index,
+}: CreateItemProps) => {
   const [title, setTitle] = useState('');
   const [errors, setErrors] = useState({ isMin: false, isMax: false });
 
@@ -37,6 +41,7 @@ export const CreateItem = ({ subcategoryId, setItems }: CreateItemProps) => {
       subcategoryId,
       _id: '',
       isDone: false,
+      index,
     };
 
     const { subcategoryItem, error, message } = await createSubCategoryItem(
