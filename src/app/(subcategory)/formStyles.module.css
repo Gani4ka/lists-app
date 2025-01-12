@@ -69,4 +69,8 @@
   .ai {
     margin-top: 50px;
   }
+
+  .validation-message {
+    bottom: 60px;
+  }
 }

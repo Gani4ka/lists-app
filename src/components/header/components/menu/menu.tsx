@@ -10,15 +10,25 @@ import { PAGES_NAMES, PATHS } from '@app/constants/pages';
 import styles from './menu.module.css';
 import type { MenuProps } from './types';
 
-const Menu = ({ isOpen, hasUser }: MenuProps) => {
+const Menu = ({ isOpen, hasUser, toggleMenu }: MenuProps) => {
   if (!hasUser) {
     return (
       <div className={clsx(styles.menu, isOpen && styles.open)}>
         <nav>
           <ul>
             <li>
-              <Link asChild highContrast>
+              <Link asChild highContrast onClick={toggleMenu}>
                 <BaseLink href={PATHS.auth}>{PAGES_NAMES.auth}</BaseLink>
+              </Link>
+            </li>
+            <li>
+              <Link asChild highContrast>
+                <BaseLink href={PATHS.contact}>{PAGES_NAMES.contact}</BaseLink>
+              </Link>
+            </li>
+            <li>
+              <Link asChild highContrast>
+                <BaseLink href={PATHS.about}>{PAGES_NAMES.about}</BaseLink>
               </Link>
             </li>
           </ul>
@@ -31,26 +41,26 @@ const Menu = ({ isOpen, hasUser }: MenuProps) => {
       <nav>
         <ul>
           <li>
-            <Link asChild highContrast>
+            <Link asChild highContrast onClick={toggleMenu}>
               <BaseLink href={PATHS.home}>{PAGES_NAMES.home}</BaseLink>
             </Link>
           </li>
           <li>
-            <Link asChild highContrast>
+            <Link asChild highContrast onClick={toggleMenu}>
               <BaseLink href={PATHS.categories}>
                 {PAGES_NAMES.categories}
               </BaseLink>
             </Link>
           </li>
           <li>
-            <Link asChild highContrast>
+            <Link asChild highContrast onClick={toggleMenu}>
               <BaseLink href={PATHS.category}>
                 New {PAGES_NAMES.category}
               </BaseLink>
             </Link>
           </li>
           <li>
-            <Link asChild highContrast>
+            <Link asChild highContrast onClick={toggleMenu}>
               <BaseLink href={PATHS.subcategory}>
                 <span className={styles['list-link']}>
                   New {PAGES_NAMES.subcategory}
@@ -59,17 +69,23 @@ const Menu = ({ isOpen, hasUser }: MenuProps) => {
             </Link>
           </li>
           <li>
-            <Link asChild highContrast>
+            <Link asChild highContrast onClick={toggleMenu}>
               <BaseLink href={PATHS.contact}>{PAGES_NAMES.contact}</BaseLink>
             </Link>
           </li>
           <li>
-            <Link asChild highContrast>
+            <Link asChild highContrast onClick={toggleMenu}>
               <BaseLink href={PATHS.about}>{PAGES_NAMES.about}</BaseLink>
             </Link>
           </li>
           <li>
-            <Link style={{ color: 'white' }} onClick={() => logout()}>
+            <Link
+              style={{ color: 'white' }}
+              onClick={() => {
+                logout();
+                toggleMenu();
+              }}
+            >
               Logout
             </Link>
           </li>

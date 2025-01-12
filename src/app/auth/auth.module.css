@@ -13,8 +13,19 @@
   margin: 10px 0;
 }
 .input {
-  padding: 5px 0;
+  padding: 8px 40px 8px 8px;
+  font-size: 16px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 .inputDiv {
   margin: 20px 0;
+}
+
+.togglePassword {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #888;
 }
