@@ -16,6 +16,9 @@ export const Item = ({
   handleToggleDone,
   handleTitleChange,
   handleDelete,
+  handleDragStart,
+  handleDragOver,
+  handleDragEnd,
 }: ItemProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -36,7 +39,17 @@ export const Item = ({
   }, 300);
 
   return (
-    <Flex direction={'column'}>
+    <Flex
+      direction={'column'}
+      style={{ cursor: 'grab' }}
+      draggable
+      onDragStart={() => handleDragStart(index)}
+      onDragOver={(e) => {
+        e.preventDefault();
+        handleDragOver(index);
+      }}
+      onDragEnd={handleDragEnd}
+    >
       <Flex key={item._id} className={classes['item-wrapper']} ref={wrapperRef}>
         <Checkbox
           checked={item.isDone}

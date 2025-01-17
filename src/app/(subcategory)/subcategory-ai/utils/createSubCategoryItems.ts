@@ -10,11 +10,13 @@ export const createSubCategoryItems = async (
 ) => {
   try {
     await Promise.all(
-      list?.map((item) => {
+      list?.map((item, index) => {
         return createSubCategoryItem(subcategory._id, {
           title: item,
           subcategoryId: subcategory?._id,
           _id: '',
+          isDone: false,
+          index,
         });
       })
     );
