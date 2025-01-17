@@ -18,6 +18,7 @@ export interface SubCategoryItemType {
   _id: string;
   title: string;
   subcategoryId: string;
+  index: number;
   description?: string;
   isDone?: boolean;
 }

@@ -12,11 +12,10 @@ const List = async ({ params }: ListProps) => {
     'subcategoryItems',
     subcategoryId
   );
-  const {
-    subcategory,
-
-    message: subcategoryMessage,
-  } = await getData('subcategory', subcategoryId);
+  const { subcategory, message: subcategoryMessage } = await getData(
+    'subcategory',
+    subcategoryId
+  );
 
   return (
     <main className={classes.main}>
