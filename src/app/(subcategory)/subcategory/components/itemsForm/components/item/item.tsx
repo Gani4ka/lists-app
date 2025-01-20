@@ -19,6 +19,7 @@ export const Item = ({
   handleDragStart,
   handleDragOver,
   handleDragEnd,
+  archived,
 }: ItemProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -56,6 +57,7 @@ export const Item = ({
           onCheckedChange={onDoneChecked}
           id={`checkbox-${index}`}
           className={classes.checkbox}
+          disabled={archived}
         />
         <Form.Field
           name={`title-${index}`}
@@ -75,8 +77,9 @@ export const Item = ({
           cbSave={saveItem}
           formRef={wrapperRef}
           inputRef={inputRef}
+          archived={archived}
         />
-        <DeleteButton item={item} cb={handleDelete} />
+        <DeleteButton item={item} cb={handleDelete} archived={archived} />
       </Flex>
       {error && <p>{error}</p>}
     </Flex>

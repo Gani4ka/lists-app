@@ -16,7 +16,7 @@ export default async function MainPage() {
     subcategories,
     error: subcategoriesError,
     message,
-  } = await getAllSubcategories();
+  } = await getAllSubcategories(false);
   const {
     categories,
     error: categoriesError,

@@ -62,7 +62,7 @@ export const CategoryCard = (props: CategoryCardProps) => {
             <FaPencilAlt className={classes.icon} />
           </Link>
         </Button>
-        <DeleteButton item={category} cb={deleteCategory} />
+        <DeleteButton item={category} cb={deleteCategory} archived={false} />
       </Flex>
     </Flex>
   );

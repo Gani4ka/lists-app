@@ -13,15 +13,21 @@ import { getBackendUrl } from '@app/utils/getBackendUrl';
 import { getUserToken } from './user';
 const backendUrl = getBackendUrl();
 
-export async function getAllSubcategories(): Promise<SubCategoriesResponse> {
+export async function getAllSubcategories(
+  archived: boolean
+): Promise<SubCategoriesResponse> {
   try {
     const token = await getUserToken();
+    let url = `${backendUrl}all-subcategories`;
+    if (archived) {
+      url = `${backendUrl}all-subcategories?archived=1`;
+    }
 
     if (!token) {
       throw new Error('Token is not found/valid. Try loging in again');
     }
 
-    const res = await fetch(`${backendUrl}all-subcategories`, {
+    const res = await fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -224,6 +230,53 @@ export async function deleteSubcategory(
       };
     } else {
       throw new Error('Error deleting subcategory');
+    }
+  } catch (error) {
+    console.log('error', error);
+    const eString = JSON.stringify(error);
+    return {
+      error: true,
+      subcategory: null,
+      message: eString,
+    };
+  }
+}
+
+export async function archiveSubcategories(
+  subcategoriesIds: string[]
+): Promise<SubCategoryResponse> {
+  try {
+    const token = await getUserToken();
+
+    if (!token) {
+      throw new Error('Token is not found/valid. Try loging in again');
+    }
+
+    const res = await fetch(`${backendUrl}subcategories/archive`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ subcategoriesIds: subcategoriesIds }),
+    });
+    if (res.ok) {
+      const result = await res.json();
+      revalidateTag('subcategory');
+
+      return {
+        error: result.error,
+        subcategory: result.subcategory,
+        message: result.message,
+      };
+    } else if (res.status === 401) {
+      return {
+        message: USER_TOKEN_ERROR,
+        subcategory: null,
+        error: true,
+      };
+    } else {
+      throw new Error('Error archiving subcategory');
     }
   } catch (error) {
     console.log('error', error);
