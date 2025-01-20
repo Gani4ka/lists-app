@@ -83,7 +83,7 @@ export const ListTitle = ({ list, archived }: ListTitleProps) => {
             />
           </Form.Control>
         </Form.Field>
-        <DeleteButton item={list} cb={handleDeleteList} archived={archived} />
+        <DeleteButton item={list} cb={handleDeleteList} archived={false} />
         {!archived && (
           <Button
             className={styles.button}

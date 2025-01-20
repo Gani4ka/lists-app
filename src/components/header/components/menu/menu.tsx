@@ -31,6 +31,13 @@ const Menu = ({ isOpen, hasUser, toggleMenu }: MenuProps) => {
                 <BaseLink href={PATHS.about}>{PAGES_NAMES.about}</BaseLink>
               </Link>
             </li>
+            <li>
+              <Link asChild highContrast>
+                <BaseLink href={PATHS.archived}>
+                  {PAGES_NAMES.archived}
+                </BaseLink>
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
@@ -76,6 +83,11 @@ const Menu = ({ isOpen, hasUser, toggleMenu }: MenuProps) => {
           <li>
             <Link asChild highContrast onClick={toggleMenu}>
               <BaseLink href={PATHS.about}>{PAGES_NAMES.about}</BaseLink>
+            </Link>
+          </li>
+          <li>
+            <Link asChild highContrast>
+              <BaseLink href={PATHS.archived}>{PAGES_NAMES.archived}</BaseLink>
             </Link>
           </li>
           <li>
