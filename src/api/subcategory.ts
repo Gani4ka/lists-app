@@ -243,7 +243,8 @@ export async function deleteSubcategory(
 }
 
 export async function archiveSubcategories(
-  subcategoriesIds: string[]
+  subcategoriesIds: string[],
+  action: string
 ): Promise<SubCategoryResponse> {
   try {
     const token = await getUserToken();
@@ -258,7 +259,7 @@ export async function archiveSubcategories(
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ subcategoriesIds: subcategoriesIds }),
+      body: JSON.stringify({ subcategoriesIds: subcategoriesIds, action }),
     });
     if (res.ok) {
       const result = await res.json();

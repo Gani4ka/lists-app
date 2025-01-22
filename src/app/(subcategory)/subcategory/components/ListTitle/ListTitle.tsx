@@ -47,8 +47,9 @@ export const ListTitle = ({ list, archived }: ListTitleProps) => {
   async function handleArchiveList(subcategoryId: string) {
     const ids = [];
     ids.push(subcategoryId);
+    const action = archived ? 'unarchive' : 'archive';
 
-    const result = await archiveSubcategories(ids);
+    const result = await archiveSubcategories(ids, action);
     if (result && result.error) {
       setArchiveMessage(result.message);
     } else {
@@ -84,17 +85,17 @@ export const ListTitle = ({ list, archived }: ListTitleProps) => {
           </Form.Control>
         </Form.Field>
         <DeleteButton item={list} cb={handleDeleteList} archived={false} />
-        {!archived && (
-          <Button
-            className={styles.button}
-            onClick={(e) => {
-              e.preventDefault();
-              handleArchiveList(list._id);
-            }}
-          >
-            <FaFileArchive className={styles.icon} />
-          </Button>
-        )}
+
+        <Button
+          className={styles.button}
+          onClick={(e) => {
+            e.preventDefault();
+            handleArchiveList(list._id);
+          }}
+        >
+          <FaFileArchive className={styles.icon} />
+        </Button>
+
         {archiveMessage ?? ''}
       </Flex>
     </Form.Root>
