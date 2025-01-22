@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import classes from './styles.module.css';
 import type { DeleteButtonProps } from './types';
 
-export const DeleteButton = ({ item, cb }: DeleteButtonProps) => {
+export const DeleteButton = ({ item, cb, archived }: DeleteButtonProps) => {
   const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await cb(item?._id);
@@ -18,7 +18,7 @@ export const DeleteButton = ({ item, cb }: DeleteButtonProps) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <Button className={classes.button}>
+        <Button className={classes.button} disabled={archived}>
           <RiDeleteBinLine className={classes.icon} />
         </Button>
       </AlertDialog.Trigger>

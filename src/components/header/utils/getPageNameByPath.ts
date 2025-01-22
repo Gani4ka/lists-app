@@ -15,6 +15,8 @@ export function getPageNameByPath(path: string) {
       return PAGES_NAMES.contact;
     case PATHS.auth:
       return PAGES_NAMES.auth;
+    case PAGES_NAMES.archived:
+      return PAGES_NAMES.archived;
     default: {
       const categoryPageRegexp = /categories\//;
       const matchCategoryPage = path.match(categoryPageRegexp);

@@ -14,6 +14,7 @@ export const config = {
     '/category/:slug*',
     '/subcategory',
     '/subcategory/:slug*',
+    '/archived',
     '/',
   ],
 };

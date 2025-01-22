@@ -11,7 +11,11 @@ import { Item } from './components/item';
 import classes from './styles.module.css';
 import type { ItemsFormProps } from './types';
 
-export const ItemsForm = ({ listOfItems, subcategoryId }: ItemsFormProps) => {
+export const ItemsForm = ({
+  listOfItems,
+  subcategoryId,
+  archived,
+}: ItemsFormProps) => {
   const [items, setItems] = useState(
     listOfItems?.sort((a, b) => a.index - b.index) || []
   );
@@ -72,6 +76,7 @@ export const ItemsForm = ({ listOfItems, subcategoryId }: ItemsFormProps) => {
           {!!items?.length &&
             items.map((item, index) => (
               <Item
+                archived={archived}
                 key={item._id}
                 item={item}
                 index={index}
@@ -85,11 +90,13 @@ export const ItemsForm = ({ listOfItems, subcategoryId }: ItemsFormProps) => {
             ))}
         </Box>
       </Form.Root>
-      <CreateItem
-        subcategoryId={subcategoryId}
-        setItems={setItems}
-        index={items.length}
-      />
+      {!archived && (
+        <CreateItem
+          subcategoryId={subcategoryId}
+          setItems={setItems}
+          index={items.length}
+        />
+      )}
     </Flex>
   );
 };
