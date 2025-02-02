@@ -2,7 +2,8 @@ import { ChevronUpIcon } from '@radix-ui/react-icons';
 import * as SelectUI from '@radix-ui/react-select';
 import { ChevronDownIcon, Flex } from '@radix-ui/themes';
 
-import type { CategoryType } from '@app/types/list.types';
+import Loading from '@app/app/loading';
+import type { CategoryType, SubcategoriesType } from '@app/types/list.types';
 
 import { SelectItem } from '../SelectItem';
 import classes from './styles.module.css';
@@ -18,7 +19,11 @@ export function Select({
   children,
   options,
   placeholder,
+  loading,
 }: SelectProps) {
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <SelectUI.Root
       value={value}
@@ -43,11 +48,13 @@ export function Select({
           <ChevronUpIcon />
         </SelectUI.ScrollUpButton>
         <SelectUI.Viewport className={classes['select-viewport']}>
-          {options?.map((option: string | CategoryType) => (
+          {options?.map((option: string | CategoryType | SubcategoriesType) => (
             <SelectItem
               value={isCategoryType(option) ? option._id : option}
               key={isCategoryType(option) ? option._id : option}
-              category={isCategoryType(option) ? option : undefined}
+              category={
+                isCategoryType(option) && 'icon' in option ? option : undefined
+              }
             >
               {isCategoryType(option) ? option.title : option}
             </SelectItem>
