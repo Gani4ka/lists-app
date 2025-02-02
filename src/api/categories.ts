@@ -44,6 +44,8 @@ export async function getCategories(): Promise<CategoriesResponse> {
       throw new Error('Token is not found/valid. Try loging in again');
     }
   } catch (error) {
+    console.log('error', error);
+
     const eString = JSON.stringify(error);
 
     return {

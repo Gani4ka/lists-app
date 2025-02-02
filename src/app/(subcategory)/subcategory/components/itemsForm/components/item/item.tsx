@@ -3,10 +3,11 @@ import * as Form from '@radix-ui/react-form';
 import { Checkbox, Flex } from '@radix-ui/themes';
 
 import { updateItem } from '@app/api/item';
+import Loading from '@app/app/loading';
 import { DeleteButton } from '@app/components/deleteButton';
-import { EditAndSaveButton } from '@app/components/editAndSaveButton';
 import { debounce } from '@app/utils/debounce';
 
+import { MoveItemButton } from '../../MoveItemButton';
 import type { ItemProps } from './item.types';
 import classes from './styles.module.css';
 
@@ -23,6 +24,7 @@ export const Item = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState(false);
 
   async function saveItem() {
     const response = await updateItem(item._id, item);
@@ -37,6 +39,10 @@ export const Item = ({
     handleToggleDone(item._id!, !item.isDone);
     saveItem();
   }, 300);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Flex
@@ -71,10 +77,10 @@ export const Item = ({
             />
           </Form.Control>
         </Form.Field>
-        <EditAndSaveButton
-          cbSave={saveItem}
-          formRef={wrapperRef}
-          inputRef={inputRef}
+        <MoveItemButton
+          item={item}
+          handleDelete={handleDelete}
+          setLoading={setLoading}
         />
         <DeleteButton item={item} cb={handleDelete} />
       </Flex>

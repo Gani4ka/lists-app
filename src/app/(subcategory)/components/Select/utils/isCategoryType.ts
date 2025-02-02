@@ -1,7 +1,7 @@
-import type { CategoryType } from '@app/types/list.types';
+import type { CategoryType, SubcategoriesType } from '@app/types/list.types';
 
 export function isCategoryType(
-  opt: string | CategoryType
-): opt is CategoryType {
+  opt: string | CategoryType | SubcategoriesType
+): opt is CategoryType | SubcategoriesType {
   return typeof opt !== 'string';
 }
