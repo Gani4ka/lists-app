@@ -7,6 +7,7 @@ export enum PAGES_NAMES {
   contact = 'Contact',
   auth = 'Login',
   logout = 'Logout',
+  archived = 'Archive',
 }
 
 export enum PATHS {
@@ -18,4 +19,5 @@ export enum PATHS {
   'contact' = '/contact',
   'auth' = '/auth/login',
   'logout' = 'logout',
+  'archived' = '/archived',
 }

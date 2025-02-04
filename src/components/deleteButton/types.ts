@@ -7,4 +7,5 @@ import type {
 export interface DeleteButtonProps {
   item: CategoryType | SubCategoryItemType | SubcategoriesType;
   cb: (id: string) => void;
+  archived: boolean;
 }

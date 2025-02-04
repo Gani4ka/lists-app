@@ -9,4 +9,5 @@ export interface ItemProps {
   handleDragStart: (index: number) => void;
   handleDragOver: (index: number) => void;
   handleDragEnd: () => void;
+  archived: boolean;
 }

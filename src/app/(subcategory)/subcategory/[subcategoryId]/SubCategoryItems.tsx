@@ -19,10 +19,16 @@ const List = async ({ params }: ListProps) => {
 
   return (
     <main className={classes.main}>
-      {subcategory && <ListTitle list={subcategory} />}
+      {subcategory && (
+        <ListTitle
+          list={subcategory}
+          archived={subcategory?.archived ?? false}
+        />
+      )}
       {subcategoryId && (
         <>
           <ItemsForm
+            archived={subcategory?.archived ?? false}
             listOfItems={subcategoryItems}
             subcategoryId={subcategoryId}
           />

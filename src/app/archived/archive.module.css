@@ -1,0 +1,18 @@
+.heading {
+  width: 100%;
+  padding: 15px;
+  text-align: center;
+  font-family: var(--allura-font);
+}
+
+@media (min-width: 768px) {
+  .heading {
+    font-size: 20;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading {
+    font-size: 24px;
+  }
+}

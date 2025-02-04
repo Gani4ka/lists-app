@@ -15,6 +15,7 @@ export const EditAndSaveButton = ({
   cbSave,
   formRef,
   inputRef,
+  archived,
 }: ButtonProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -47,11 +48,19 @@ export const EditAndSaveButton = ({
   return (
     <>
       {isEditing ? (
-        <Button className={classes.button} onClick={handleSave}>
+        <Button
+          className={classes.button}
+          onClick={handleSave}
+          disabled={archived}
+        >
           <RiCheckLine className={classes.icon} />
         </Button>
       ) : (
-        <Button className={classes.button} onClick={handleEdit}>
+        <Button
+          className={classes.button}
+          onClick={handleEdit}
+          disabled={archived}
+        >
           <RiEdit2Line className={classes.icon} />
         </Button>
       )}
